@@ -1,0 +1,75 @@
+{
+  "name": "@uni-component/core",
+  "version": "0.0.1",
+  "description": "Unified Component",
+  "main": "index.js",
+  "module": "dist/uni-component.mjs",
+  "unpkg": "dist/uni-component.iife.prod.js",
+  "jsdelivr": "dist/uni-component.iife.prod.js",
+  "types": "dist/uni-component.d.ts",
+  "exports": {
+    ".": {
+      "browser": "./dist/uni-component.esm-browser.js",
+      "node": {
+        "import": {
+          "production": "./dist/uni-component.prod.cjs",
+          "development": "./dist/uni-component.mjs",
+          "default": "./dist/uni-component.mjs"
+        },
+        "require": {
+          "production": "./dist/uni-component.prod.cjs",
+          "development": "./dist/uni-component.cjs",
+          "default": "./index.js"
+        }
+      },
+      "import": "./dist/uni-component.mjs"
+    },
+    "./package.json": "./package.json",
+    "./dist/*": "./dist/*"
+  },
+  "sideEffects": false,
+  "buildOptions": {
+    "filename": "uni-component",
+    "name": "UniComponent"
+  },
+  "keywords": [
+    "@uni-component/core",
+    "component",
+    "unicomponent",
+    "uni-component",
+    "un",
+    "uni"
+  ],
+  "author": "dolymood@gmail.com",
+  "files": [
+    "dist/*.js",
+    "dist/*.mjs",
+    "dist/*.cjs",
+    "dist/uni-component.d.ts",
+    "index.js",
+    "example",
+    "LICENSE",
+    "README.md"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@uni-store/core": "^0.3.3",
+    "@vue/runtime-core": "^3.2.24",
+    "@vue/shared": "^3.2.24"
+  },
+  "peerDependencies": {
+    "@uni-store/core": ">=0.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolymood/uni-component.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/dolymood/uni-component/issues"
+  },
+  "homepage": "https://github.com/dolymood/uni-component#readme",
+  "dependencies": {
+    "classnames": "^2.3.1"
+  }
+}

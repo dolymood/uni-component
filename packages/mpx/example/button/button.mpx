@@ -1,0 +1,46 @@
+<template>
+  <button class="{{rootClass}}" type="{{type}}" bind:tap="{{clickAction}}">
+    <text wx:if="{{text}}">
+      {{text}}
+    </text>
+    <text wx:else><slot /></text>
+  </button>
+</template>
+<script lang="ts">
+// import { uni2Vue, UniNode, FCComponent } from 'uni-component'
+// import { CubeButton } from '../../button/use'
+
+// import { createComponent } from '@mpxjs/core'
+
+
+// function uni2Mpx<Props, S>(
+//   UniComponent: FCComponent<Props, S>
+// ) {
+//   const component = UniComponent
+//   const rawSetup = component.setup
+//   component.setup = function (props, context) {
+//     const result = rawSetup!(props, context)
+//     // todo async cases
+//     return (result as any).render
+//   }
+//   return createComponent({
+//     properties: 
+//   })
+// }
+
+
+
+// createComponent({
+//   props,
+//   setup(props) {
+//     const {
+//       rootClass,
+//       clickAction
+//     } = useButton(props)
+//     return {
+//       rootClass,
+//       clickAction
+//     }
+//   }
+// })
+</script>

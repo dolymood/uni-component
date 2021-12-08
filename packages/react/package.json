@@ -1,0 +1,82 @@
+{
+  "name": "@uni-component/react",
+  "version": "0.0.1",
+  "description": "Unified component for React",
+  "main": "index.js",
+  "module": "dist/uni-component-react.mjs",
+  "unpkg": "dist/uni-component-react.iife.prod.js",
+  "jsdelivr": "dist/uni-component-react.iife.prod.js",
+  "types": "dist/uni-component-react.d.ts",
+  "exports": {
+    ".": {
+      "browser": "./dist/uni-component-react.esm-browser.js",
+      "node": {
+        "import": {
+          "production": "./dist/uni-component-react.prod.cjs",
+          "development": "./dist/uni-component-react.mjs",
+          "default": "./dist/uni-component-react.mjs"
+        },
+        "require": {
+          "production": "./dist/uni-component-react.prod.cjs",
+          "development": "./dist/uni-component-react.cjs",
+          "default": "./index.js"
+        }
+      },
+      "import": "./dist/uni-component-react.mjs"
+    },
+    "./package.json": "./package.json",
+    "./example/*": "./example/*",
+    "./dist/*": "./dist/*"
+  },
+  "sideEffects": false,
+  "buildOptions": {
+    "filename": "uni-component-react",
+    "name": "UniComponentReact"
+  },
+  "keywords": [
+    "@uni-component/react",
+    "component",
+    "unicomponent",
+    "uni-component",
+    "un",
+    "uni"
+  ],
+  "author": "dolymood@gmail.com",
+  "files": [
+    "dist/*.js",
+    "dist/*.mjs",
+    "dist/*.cjs",
+    "dist/uni-component-react.d.ts",
+    "index.js",
+    "example",
+    "LICENSE",
+    "README.md"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@testing-library/react": "^12.1.2",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@uni-component/core": "*",
+    "@uni-component/example": "*",
+    "@uni-store/core": "^0.3.3",
+    "@uni-store/react": "^0.3.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "peerDependencies": {
+    "@uni-component/core": "0.0.1",
+    "@uni-store/core": ">=0.3.3",
+    "@uni-store/react": ">=0.3.3",
+    "react": "^17"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolymood/uni-component.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/dolymood/uni-component/issues"
+  },
+  "homepage": "https://github.com/dolymood/uni-component#readme"
+}
