@@ -92,7 +92,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       Object.defineProperty(setupState, 'render', {
         enumerable: false,
         configurable: false,
-        writable: false,
         get () {
           return () => {
             return FC.render(props, state, ...args)
