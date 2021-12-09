@@ -17,7 +17,7 @@ module.exports = {
     '<rootDir>/packages/**/__tests__/**/*spec.[jt]s?(x)'
   ],
   transform: {
-    '^.+\\.tsx?$': '@sucrase/jest-plugin',
+    '^.+\\.tsx?$': './jest-ts-transform',
   },
   rootDir: __dirname,
   testEnvironment: 'jsdom',
