@@ -13,7 +13,7 @@ export interface FCComponent<
   S extends {},
   RawProps extends RawPropTypes = undefined,
   Defaults = ExtractDefaultPropTypes<RawProps>,
-  FCProps = {} | Partial<Defaults> & Omit<Props, keyof Defaults>,
+  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults>,
   State = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string },
   Node extends UniNode = UniNode,
   Args = any
@@ -73,19 +73,20 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       let setupState = {} as {
         rootClass: any
       }
+      let _state = {} as Record<string, any>
       if (setup) {
-        setupState = setup(name, props)
+        _state = setup(name, props)
       }
 
       const rootClass = computed(() => {
-        const otherRootClass = setupState.rootClass
+        const otherRootClass = _state.rootClass
         if (!otherRootClass) {
           return name
         }
         return classNames(name, unref(otherRootClass))
       })
 
-      Object.assign(setupState, {
+      Object.assign(setupState, _state, {
         rootClass
       })
 
@@ -110,6 +111,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
   const FC = helper[normalizedName]
 
+  // istanbul ignore next
   FC.render = (props: object, state: object) => {
     throw new Error('must be override `render()`')
   }

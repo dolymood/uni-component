@@ -34,6 +34,7 @@ export function getDefaultProps<
       if (!defaultProps) {
         defaultProps = {}
       }
+      // todo defaultValue as function ?
       (defaultProps as any)[key] = defaultValue
     }
   })
