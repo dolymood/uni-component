@@ -1,3 +1,4 @@
+import React from 'react'
 import { uni2React } from '../../src'
 import { CubeButtons as UniButtons } from '@uni-component/example'
 

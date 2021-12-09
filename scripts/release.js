@@ -182,7 +182,7 @@ async function publishPackage(pkgName, version, runIfNotDry) {
   const pkgRoot = getPkgRoot(pkgName)
   const pkgPath = path.resolve(pkgRoot, 'package.json')
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
-  if (pkg.private) {
+  if (pkg.private || !pkg.module) {
     return
   }
 

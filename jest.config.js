@@ -2,6 +2,9 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'lcov', 'text'],
+  moduleNameMapper: {
+    "@uni-component/(.*)": ["<rootDir>/packages/$1/src"]
+  },
   collectCoverageFrom: [
     'packages/*/src/*.ts'
   ],

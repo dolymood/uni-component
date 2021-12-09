@@ -1,6 +1,7 @@
 import { h } from '@uni-component/core'
 import {
-  computed
+  computed,
+  ref
 } from '@uni-store/core'
 import {
   PropType,
@@ -31,6 +32,8 @@ export const CubeButton = uniComponent('cube-button', {
   primary: Boolean,
   onClick: Function as PropType<(e?: MouseEvent) => any>
 }, (name, props) => {
+  const n = ref(0)
+
   const rootClass = computed(() => {
     return {
       [`${name}-primary`]: props.primary
@@ -38,11 +41,13 @@ export const CubeButton = uniComponent('cube-button', {
   })
 
   const clickAction = (e?: MouseEvent) => {
+    n.value += 1
     // do others
     props.onClick && props.onClick(e)
   }
 
   return {
+    n,
     rootClass,
     clickAction
   }
