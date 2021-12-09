@@ -13,7 +13,7 @@ export interface FCComponent<
   S extends {},
   RawProps extends RawPropTypes = undefined,
   Defaults = ExtractDefaultPropTypes<RawProps>,
-  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults>,
+  FCProps = {} | Partial<Defaults> & Omit<Props, keyof Defaults>,
   State = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string },
   Node extends UniNode = UniNode,
   Args = any
