@@ -22,7 +22,7 @@ export function getDefaultProps<
     if (propValue === Boolean || propValue.type === Boolean) {
       // boolean
       if (!propValue.required) {
-        defaultValue = false
+        defaultValue = 'default' in propValue ? propValue.default : false
       }
     } else {
       // default cases
