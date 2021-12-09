@@ -1,6 +1,8 @@
 import { defineComponent as vueDefine, DefineComponent } from '@vue/runtime-core'
 import type { FCComponent } from '@uni-component/core'
 
+export * from './types'
+
 export type DefineComponentFn = typeof vueDefine
 
 const defineComponent: DefineComponentFn = (options: any) => {

@@ -262,3 +262,5 @@ declare module 'vue' {
     }
   }
 }
+
+export {}

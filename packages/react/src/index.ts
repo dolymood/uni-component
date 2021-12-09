@@ -3,6 +3,7 @@ import type { UnwrapNestedRefs } from '@uni-store/core'
 import { reactiveReact, useSetup } from '@uni-store/react'
 import type { FCComponent, RawPropTypes } from '@uni-component/core'
 
+export * from './types'
 
 export function uni2React<
   Props extends {},
