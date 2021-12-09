@@ -54,10 +54,14 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@uni-component/core": "*"
+    "@mpxjs/core": "^2.6.110",
+    "@uni-component/core": "*",
+    "@uni-store/core": "^0.3.3"
   },
   "peerDependencies": {
-    "@uni-component/core": "0.0.1"
+    "@mpxjs/core": "^2.6.110",
+    "@uni-component/core": "0.0.1",
+    "@uni-store/core": ">=0.3.3"
   },
   "repository": {
     "type": "git",

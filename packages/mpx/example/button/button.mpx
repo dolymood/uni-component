@@ -1,46 +1,52 @@
 <template>
-  <button class="{{rootClass}}" type="{{type}}" bind:tap="{{clickAction}}">
-    <text wx:if="{{text}}">
-      {{text}}
+  <button class="{{state.rootClass}}" type="{{props.type}}" bind:tap="{{state.clickAction}}">
+    <text wx:if="{{props.text}}">
+      {{props.text}}
     </text>
     <text wx:else><slot /></text>
   </button>
 </template>
 <script lang="ts">
-// import { uni2Vue, UniNode, FCComponent } from 'uni-component'
-// import { CubeButton } from '../../button/use'
+// todo
+// this is just a hack implementation
+// need mpx runtime use vue/reactivity next big version
+import { reactive } from '@uni-store/core'
+import { UniNode, FCComponent, RawPropTypes } from '@uni-component/core'
+import { CubeButton } from '@uni-component/example'
 
-// import { createComponent } from '@mpxjs/core'
+import { createComponent } from '@mpxjs/core'
 
-
-// function uni2Mpx<Props, S>(
-//   UniComponent: FCComponent<Props, S>
-// ) {
-//   const component = UniComponent
-//   const rawSetup = component.setup
-//   component.setup = function (props, context) {
-//     const result = rawSetup!(props, context)
-//     // todo async cases
-//     return (result as any).render
-//   }
-//   return createComponent({
-//     properties: 
-//   })
-// }
-
-
-
-// createComponent({
-//   props,
-//   setup(props) {
-//     const {
-//       rootClass,
-//       clickAction
-//     } = useButton(props)
-//     return {
-//       rootClass,
-//       clickAction
-//     }
-//   }
-// })
+function uni2Mpx<Props, S, RawProps extends RawPropTypes>(
+  UniComponent: FCComponent<Props, S, RawProps>
+) {
+  const properties = UniComponent.rawProps
+  if (properties) {
+    return createComponent({
+      properties: {
+        // todo
+        props: Object
+      },
+      data: {
+        state: {} as ReturnType<typeof UniComponent>
+      },
+      lifetimes: {
+        created() {
+          this.state = UniComponent(reactive(this.props))
+        }
+      }
+    })
+  } else {
+    return createComponent({
+      data: {
+        state: {} as ReturnType<typeof UniComponent>
+      },
+      lifetimes: {
+        created() {
+          this.state = UniComponent({})
+        }
+      }
+    })
+  }
+}
+uni2Mpx(CubeButton)
 </script>
