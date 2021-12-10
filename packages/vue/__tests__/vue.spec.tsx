@@ -1,4 +1,4 @@
-import { h, defineComponent, ref } from 'vue'
+import Vue, { defineComponent, ref } from 'vue'
 import { proxyh } from '../example/proxy-h'
 import { nextTick } from '@uni-store/core'
 import {

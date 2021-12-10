@@ -88,6 +88,8 @@ function createConfig(buildName, output, plugins = []) {
 
   const shouldEmitDeclarations = !hasTSChecked
 
+  // use pnpm install --shamefully-hoist fornow
+  // check will be error, but need rts2 fixed it, see https://github.com/ezolenko/rollup-plugin-typescript2/issues/234
   const tsPlugin = ts({
     check: !hasTSChecked,
     tsconfig: path.resolve(__dirname, './tsconfig.json'),

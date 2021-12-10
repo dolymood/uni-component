@@ -1,3 +1,4 @@
+// todo uni-component standard jsx declare
 declare namespace LocalJSX {
   export interface Element {}
   export interface IntrinsicElements {}

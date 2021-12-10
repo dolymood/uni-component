@@ -73,6 +73,7 @@
   },
   "include": [
     "packages/*/src",
+    "packages/*/types",
     "packages/*/example",
     "packages/*/__tests__"
   ],

@@ -8,6 +8,11 @@ import type { JSX } from './types'
 
 export type UniNode = JSX.Element
 
+/**
+ * Notes:
+ * `Node` is just only for ts
+ * The real result: `State & { readonly render: () => Node }`
+*/
 export interface FCComponent<
   Props extends {},
   S extends {},
@@ -18,12 +23,6 @@ export interface FCComponent<
   Node extends UniNode = UniNode,
   Args = any
 > {
-  /**
-    Node is just only for ts
-    The real result: State & {
-      readonly render: () => Node
-    }
-   */
   (props: FCProps, ...args: Args[]): State & {
     render: () => Node
   } & Node
@@ -54,7 +53,6 @@ export function uniComponent<
   S,
   Props = Readonly<ExtractPropTypes<P>>
 > (name: string, props: P, setup: (name: string, props: Props) => S): FCComponent<Props, S, P>
-
 export function uniComponent (name: string, rawProps?: RawPropTypes | Function, setup?: Function) {
   // class
   // style

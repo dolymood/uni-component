@@ -51,7 +51,7 @@ import {
   VideoHTMLAttributes,
   WebViewHTMLAttributes,
   SVGAttributes
-} from 'vue'
+} from '@vue/runtime-dom'
 import * as RuntimeCore from '@vue/runtime-core'
 
 interface IntrinsicElementAttributes {
@@ -249,17 +249,15 @@ type NativeElements = {
 }
 
 declare module 'vue' {
-  export namespace h {
-    export namespace JSX {
-      interface Element extends VNode { }
-      interface ElementAttributesProperty {
-        $props: {}
-      }
-      interface IntrinsicElements extends NativeElements {
-        [name: string]: any
-      }
-      interface IntrinsicAttributes extends ReservedProps { }
+  export namespace JSX {
+    interface Element extends VNode { }
+    interface ElementAttributesProperty {
+      $props: {}
     }
+    interface IntrinsicElements extends NativeElements {
+      [name: string]: any
+    }
+    interface IntrinsicAttributes extends ReservedProps { }
   }
 }
 

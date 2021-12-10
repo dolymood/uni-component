@@ -60,6 +60,7 @@
     "@uni-store/core": "^0.3.3",
     "@vue/compiler-sfc": "3",
     "@vue/runtime-core": "^3.2.24",
+    "@vue/runtime-dom": "^3.2.24",
     "vue": "^3.2.24"
   },
   "peerDependencies": {

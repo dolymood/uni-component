@@ -25,7 +25,7 @@ jobs:
           node-version: 16
           cache: 'pnpm'
 
-      - run: pnpm install
+      - run: pnpm bootstrap
 
       - name: Run unit tests
         run: pnpm run test

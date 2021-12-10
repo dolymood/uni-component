@@ -15,8 +15,8 @@ function getTransforms(filename) {
 }
 
 const jsxPragmaMap = {
-  core: 'h',
-  vue: 'proxyh'
+  core: "h",
+  vue: "proxyh"
 };
 
 function process(src, filename) {

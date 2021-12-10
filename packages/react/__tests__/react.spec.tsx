@@ -1,5 +1,5 @@
-import { nextTick } from '@uni-store/core'
 import React, { useState } from 'react'
+import { nextTick } from '@uni-store/core'
 import {
   act,
   cleanup,
