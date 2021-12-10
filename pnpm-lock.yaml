@@ -61,7 +61,7 @@ importers:
 
   packages/example:
     specifiers:
-      '@uni-component/core': '*'
+      '@uni-component/core': 0.0.1
       '@uni-store/core': '*'
     dependencies:
       '@uni-component/core': link:../core

@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "dependencies": {
     "@uni-store/core": "*",
-    "@uni-component/core": "*"
+    "@uni-component/core": "0.0.1"
   }
 }
