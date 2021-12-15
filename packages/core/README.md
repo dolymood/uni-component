@@ -2,10 +2,5 @@
 
 TODO:
 
-- lifecycle
-  - onMounted
-  - onUpdated
-  - onUnmounted
 - ref
-- provide/inject - React/useContext
 - jsx runtime support
