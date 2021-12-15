@@ -1,12 +1,23 @@
 import classNames from 'classnames'
-import { computed, reactive, unref } from '@uni-store/core'
+import { computed, reactive, unref, toRaw } from '@uni-store/core'
 import type { UnwrapNestedRefs } from '@uni-store/core'
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ExtractDefaultPropTypes } from './props'
-import { normalized } from './util'
-import type { JSX } from './types'
+import { normalized, equal } from './util'
+import { UniNode } from './node'
+import { Instance, setCurrentInstance, newInstance } from './instance'
+import { onMounted, onUnmounted } from './lifecycle'
 
-export type UniNode = JSX.Element
+interface Context {
+  slots: Record<string, any>
+  uniParent?: Instance<any, any>
+  [key: string]: any
+}
+
+const rootInstance: any = {
+  children: []
+}
+let currentIns = rootInstance
 
 /**
  * Notes:
@@ -20,15 +31,12 @@ export interface FCComponent<
   Defaults = ExtractDefaultPropTypes<RawProps>,
   FCProps = Partial<Defaults> & Omit<Props, keyof Defaults>,
   State = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string },
-  Node extends UniNode = UniNode,
-  Args = any
+  Node extends UniNode = UniNode
 > {
-  (props: FCProps, ...args: Args[]): State & {
-    render: () => Node
-  } & Node
+  (props: FCProps, context?: Context): Instance<Props, State, Node> & Node
   rawProps?: RawProps
   defaultProps?: Partial<FCProps>
-  render: (props: Props, state: State, ...args: Args[]) => Node
+  render: (props: Props, state: State, context: Context) => Node
 }
 
 /**
@@ -67,10 +75,60 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
   const helper = {
     // like vue setup function
-    [normalizedName]: (props, ...args) => {
+    [normalizedName]: (props, context: Context = { slots: {} }) => {
       let setupState = {} as {
         rootClass: any
       }
+
+      const state = reactive(setupState)
+
+      if ('uniParent' in context) {
+        // vue case
+        currentIns = context.uniParent || rootInstance
+      } else {
+        // react case
+        // todo react update cases
+        const rawProps = toRaw(props)
+
+        const hasChild = (children: UniNode | UniNode[]) => {
+          const _children = Array.isArray(children) ? children : [children]
+          const result = _children.find((child: any) => {
+            return equal(child.props, rawProps)
+          })
+          return !!result
+        }
+        while (currentIns.parent) {
+          if (!currentIns.props.children || !hasChild(currentIns.props.children)) {
+            currentIns = currentIns.parent
+          } else {
+            break
+          }
+        }
+      }
+
+      const instance = newInstance(props, state, () => {
+        return FC.render(props, state, context)
+      }, currentIns)
+
+      let lastIns = currentIns
+      currentIns.children.push(instance)
+      currentIns = instance
+
+      const preInstance = setCurrentInstance(instance)
+
+      onMounted(() => {
+        currentIns = lastIns
+      })
+
+      onUnmounted(() => {
+        context.uniParent = undefined
+        instance.children.length = 0
+        const children = lastIns.children
+        const i = children.indexOf(instance)
+        children.splice(i, 1)
+        instance.parent = undefined
+      })
+
       let _state = {} as Record<string, any>
       if (setup) {
         _state = setup(name, props)
@@ -88,22 +146,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         rootClass
       })
 
-      Object.defineProperty(setupState, 'render', {
-        enumerable: false,
-        configurable: false,
-        get () {
-          return () => {
-            return FC.render(props, state, ...args)
-          }
-        }
-      })
+      setCurrentInstance(preInstance)
 
-      const state = reactive(setupState)
-
-      // vue tsx just return render()
-      // .vue, should return state
-      // react, should return state
-      return state
+      return instance
     }
   } as Record<string, FCComponent<object, object, typeof rawProps>>
 

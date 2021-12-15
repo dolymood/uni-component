@@ -1,4 +1,7 @@
 export * from './util'
 export * from './props'
+export * from './instance'
 export * from './component'
+export * from './lifecycle'
+export * from './inject'
 export * from './types'

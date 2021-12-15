@@ -8,6 +8,7 @@
     "release": "node scripts/release.js",
     "test": "pnpm test:unit",
     "test:unit": "jest --coverage",
+    "test:debug": "jest --runInBand",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
   },
   "devDependencies": {

@@ -24,11 +24,12 @@ describe('Test Core', () => {
       }
     }
     const r = C({})
-    expect(r.name).toEqual('a')
-    expect(typeof r.clickAction).toBe('function')
+    const s = r.state
+    expect(s.name).toEqual('a')
+    expect(typeof s.clickAction).toBe('function')
     expect(typeof r.render).toBe('function')
     expect(r.render).not.toEqual(C.render)
-    expect(r.rootClass).toEqual('a')
+    expect(s.rootClass).toEqual('a')
     expect((r.render() as any).type).toEqual('vnode')
   })
   it('should work correctly - with array props', () => {
@@ -59,11 +60,12 @@ describe('Test Core', () => {
       a: 'a',
       b: 1
     })
-    expect(r.name).toEqual('a-b')
-    expect(typeof r.clickAction).toBe('function')
+    const s = r.state
+    expect(s.name).toEqual('a-b')
+    expect(typeof s.clickAction).toBe('function')
     expect(typeof r.render).toBe('function')
     expect(r.render).not.toEqual(C.render)
-    expect(r.rootClass).toEqual('a-b')
+    expect(s.rootClass).toEqual('a-b')
     expect(r.props.a).toEqual('a')
     expect(r.props.b).toEqual(1)
     expect((r.render() as any).type).toEqual('vnode')
@@ -120,11 +122,12 @@ describe('Test Core', () => {
       c: 'cc',
       d: 'd'
     })
-    expect(r.name).toEqual('a-b')
-    expect(typeof r.clickAction).toBe('function')
+    const s = r.state
+    expect(s.name).toEqual('a-b')
+    expect(typeof s.clickAction).toBe('function')
     expect(typeof r.render).toBe('function')
     expect(r.render).not.toEqual(C.render)
-    expect(r.rootClass).toEqual('a-b a-b_c')
+    expect(s.rootClass).toEqual('a-b a-b_c')
     // todo
     // props defaultProps is implementation by top lib
     expect(r.props.a).toEqual(undefined)

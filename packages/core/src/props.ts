@@ -27,6 +27,7 @@ export function getDefaultProps<
     } else {
       // default cases
       if ('default' in propValue) {
+        // todo default is function
         defaultValue = propValue.default
       }
     }

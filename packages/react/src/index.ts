@@ -1,6 +1,8 @@
-import type { FunctionComponent, ReactNode } from 'react'
+import { useEffect, useLayoutEffect } from 'react'
+import type { FunctionComponent, ReactElement, ReactNode } from 'react'
 import type { UnwrapNestedRefs } from '@uni-store/core'
 import { reactiveReact, useSetup } from '@uni-store/react'
+import { invokeMounted, invokeUpdated, invokeUnmounted, getCurrentInstance } from '@uni-component/core'
 import type { FCComponent, RawPropTypes } from '@uni-component/core'
 
 export function uni2React<
@@ -15,13 +17,37 @@ export function uni2React<
 ) {
   UniComponent.render = render
   const FC: FunctionComponent<FCProps> = (props: FCProps & { children?: ReactNode }) => {
-    const state = useSetup((props: UnwrapNestedRefs<FCProps>) => {
-      return UniComponent(props as FCProps & { children?: ReactNode })
+
+    const instance = useSetup((props: UnwrapNestedRefs<FCProps> & { children?: ReactNode }) => {
+      const context = {
+        slots: {} as Record<string, Function>
+      }
+      if (props.children) {
+        context.slots.default = () => props.children
+      }
+      return UniComponent(props as FCProps & { children?: ReactNode }, context)
     }, props)
-    return (state as any).render()
+
+    // updated
+    useLayoutEffect(() => {
+      if (instance.isMounted) {
+        invokeUpdated(instance)
+      }
+    })
+    // mounted
+    useLayoutEffect(() => {
+      invokeMounted(instance)
+    }, [instance])
+    // unmounted
+    useEffect(() => () => {
+      invokeUnmounted(instance)
+    }, [instance])
+    return instance.render() as ReactElement<any, any>
   }
   if (UniComponent.defaultProps) {
     FC.defaultProps = UniComponent.defaultProps
   }
-  return reactiveReact(FC)
+  FC.displayName = UniComponent.name
+  const RC = reactiveReact(FC)
+  return RC
 }

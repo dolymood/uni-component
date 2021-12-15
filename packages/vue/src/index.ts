@@ -1,5 +1,15 @@
-import { defineComponent as vueDefine, DefineComponent } from '@vue/runtime-core'
-import type { FCComponent } from '@uni-component/core'
+import {
+  defineComponent as vueDefine,
+  getCurrentInstance,
+  onMounted,
+  onUpdated,
+  onUnmounted
+} from '@vue/runtime-core'
+import type {
+  DefineComponent
+} from '@vue/runtime-core'
+import { invokeMounted, invokeUpdated, invokeUnmounted } from '@uni-component/core'
+import type { FCComponent, Instance } from '@uni-component/core'
 
 export type DefineComponentFn = typeof vueDefine
 
@@ -41,9 +51,36 @@ export function uni2Vue(
   }
   const rawSetup = component.setup
   component.setup = function (props, context) {
-    const result = rawSetup!(props, context)
+    const vueInstance = getCurrentInstance()
+    let uniParent: Instance<any, any> | null = null
+    let p = vueInstance?.parent as any
+    while (p) {
+      if (p.__UNI_INSTANCE__) {
+        uniParent = p.__UNI_INSTANCE__
+        break
+      } else {
+        p = p.parent
+      }
+    }
+    context = Object.assign({}, context)
+    ;(context as any).uniParent = uniParent
+    const instance = rawSetup!(props, context) as Instance<any, any>
+    ;(vueInstance as any).__UNI_INSTANCE__ = instance
+
+    const invoke = (hook: Function) => {
+      return () => {
+        hook(instance)
+      }
+    }
+    onMounted(invoke(invokeMounted))
+    onUpdated(invoke(invokeUpdated))
+    onUnmounted(() => {
+      invoke(invokeUnmounted)
+      delete (vueInstance as any).__UNI_INSTANCE__
+    })
+
     // todo async cases
-    return (result as any).render
+    return (instance as Instance<any, any>).render
   }
   return component
 }

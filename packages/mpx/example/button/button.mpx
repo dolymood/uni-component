@@ -11,7 +11,7 @@
 // this is just a hack implementation
 // need mpx runtime use vue/reactivity next big version
 import { reactive } from '@uni-store/core'
-import { UniNode, FCComponent, RawPropTypes } from '@uni-component/core'
+import { UniNode, FCComponent, RawPropTypes, Instance } from '@uni-component/core'
 import { CubeButton } from '@uni-component/example'
 
 import { createComponent } from '@mpxjs/core'
@@ -27,22 +27,22 @@ function uni2Mpx<Props, S, RawProps extends RawPropTypes>(
         props: Object
       },
       data: {
-        state: {} as ReturnType<typeof UniComponent>
+        instance: {} as ReturnType<typeof UniComponent>
       },
       lifetimes: {
         created() {
-          this.state = UniComponent(reactive(this.props))
+          this.instance = UniComponent(reactive(this.props))
         }
       }
     })
   } else {
     return createComponent({
       data: {
-        state: {} as ReturnType<typeof UniComponent>
+        instance: {} as ReturnType<typeof UniComponent>
       },
       lifetimes: {
         created() {
-          this.state = UniComponent({})
+          this.instance = UniComponent({} as any)
         }
       }
     })
