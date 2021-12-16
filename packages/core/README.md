@@ -4,3 +4,4 @@ TODO:
 
 - ref
 - jsx runtime support
+- support `setPlatform` - run core components
