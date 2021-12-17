@@ -17,7 +17,7 @@ module.exports = {
   ],
   testMatch: [
     '<rootDir>/packages/**/__tests__/**/*spec.[jt]s?(x)'
-    // '<rootDir>/packages/vue/__tests__/**/*spec.[jt]s?(x)'
+    // '<rootDir>/packages/core/__tests__/**/*spec.[jt]s?(x)'
   ],
   transform: {
     '^.+\\.tsx?$': './jest-ts-transform',

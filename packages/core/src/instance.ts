@@ -1,4 +1,5 @@
 import { markRaw } from '@uni-store/core'
+import { FCComponent } from './component'
 import { UniNode } from './node'
 
 type Provides = Record<symbol | string, any>
@@ -19,9 +20,11 @@ export function newInstance <
   Props extends {},
   S extends {},
   P extends Instance<any, any>,
+  C extends FCComponent<any, any, any>,
   Node extends UniNode = UniNode
->(props: Props, state: S, render: () => Node, parent?: P): Instance<Props, S, Node> {
+>(props: Props, state: S, render: () => Node, C: C, parent?: P): Instance<Props, S, Node> {
   const instance = markRaw({
+    type: C,
     props,
     state,
     render,

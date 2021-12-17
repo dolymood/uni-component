@@ -1,4 +1,3 @@
-import { h } from '@uni-component/core'
 import { uniComponent } from '@uni-component/core'
 import { CubeButton } from './button'
 

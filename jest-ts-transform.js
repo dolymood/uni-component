@@ -27,10 +27,12 @@ function process(src, filename) {
       sourceMapOptions: {compiledFilename: filename},
       filePath: filename,
     }
-    const relativePath = path.relative(__dirname, filename);
-    const match = relativePath.match(/packages\/([^/]+)\//);
-    if (match && jsxPragmaMap[match[1]]) {
-      options.jsxPragma = jsxPragmaMap[match[1]]
+    if (transforms.includes('jsx')) {
+      const relativePath = path.relative(__dirname, filename);
+      const match = relativePath.match(/packages\/([^/]+)\//);
+      if (match && jsxPragmaMap[match[1]]) {
+        options.jsxPragma = jsxPragmaMap[match[1]]
+      }
     }
     const {code, sourceMap} = _sucrase.transform.call(void 0, src, options);
     const mapBase64 = Buffer.from(JSON.stringify(sourceMap)).toString("base64");

@@ -15,6 +15,8 @@ interface Context {
 }
 
 const rootInstance: any = {
+  props: {},
+  provides: {},
   children: []
 }
 let currentIns = rootInstance
@@ -36,6 +38,7 @@ export interface FCComponent<
   (props: FCProps, context?: Context): Instance<Props, State, Node> & Node
   rawProps?: RawProps
   defaultProps?: Partial<FCProps>
+  ___UNI___: true
   render: (props: Props, state: State, context: Context) => Node
 }
 
@@ -82,36 +85,65 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const state = reactive(setupState)
 
+      let lastIns = currentIns
+
       if ('uniParent' in context) {
         // vue case
-        currentIns = context.uniParent || rootInstance
+        lastIns = context.uniParent || rootInstance
       } else {
         // react case
         // todo react update cases
         const rawProps = toRaw(props)
 
+        // normal case
+        // find parent
+        // <A><B><C></C></B></A>
+
         const hasChild = (children: UniNode | UniNode[]) => {
           const _children = Array.isArray(children) ? children : [children]
+          // todo for performance, do not check children.children fornow
+          // for plain components cases
+          // <UniA><ReactX><UniB></UniB></ReactX></UniA>
+          // can not get correct relations
           const result = _children.find((child: any) => {
-            return equal(child.props, rawProps)
+            return equal(child.props, rawProps) && child.type === FC
           })
           return !!result
         }
-        while (currentIns.parent) {
-          if (!currentIns.props.children || !hasChild(currentIns.props.children)) {
-            currentIns = currentIns.parent
+        const isFull = (ins: Instance<any, any>) => {
+          const children = ins.children
+          let propsChildren = ins.props.children
+          if (!Array.isArray(propsChildren)) {
+            propsChildren = [propsChildren]
+          }
+          propsChildren = propsChildren.filter((child: any) => {
+            return child.type.___UNI___
+          })
+          return children.length >= propsChildren.length
+        }
+        while (lastIns) {
+          // todo can not have plain components
+          if (!lastIns.props.children || !hasChild(lastIns.props.children) || isFull(lastIns)) {
+            lastIns = lastIns.parent
           } else {
             break
           }
         }
       }
 
+      if (lastIns === undefined) {
+        // fallback
+        // B = <div></div>
+        // A = <B></B>
+        // <A></A>
+        lastIns = currentIns
+      }
+
       const instance = newInstance(props, state, () => {
         return FC.render(props, state, context)
-      }, currentIns)
+      }, FC, lastIns)
 
-      let lastIns = currentIns
-      currentIns.children.push(instance)
+      lastIns.children.push(instance)
       currentIns = instance
 
       const preInstance = setCurrentInstance(instance)
@@ -123,6 +155,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       onUnmounted(() => {
         context.uniParent = undefined
         instance.children.length = 0
+        instance.provides = {}
         const children = lastIns.children
         const i = children.indexOf(instance)
         children.splice(i, 1)
@@ -158,6 +191,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
   FC.render = (props: object, state: object) => {
     throw new Error('must be override `render()`')
   }
+
+  FC.___UNI___ = true
 
   FC.rawProps = rawProps
   const defaultProps = getDefaultProps(rawProps)

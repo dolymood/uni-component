@@ -1,4 +1,3 @@
-import { h } from '@uni-component/core'
 import {
   computed,
   ref

@@ -1,47 +1,21 @@
-// todo uni-component standard jsx declare
-declare namespace LocalJSX {
-  export interface Element {}
-  export interface IntrinsicElements {}
-  export interface IntrinsicAttributes {}
-}
+// from https://github.com/ionic-team/stencil/blob/main/src/declarations/stencil-public-runtime.ts
+import { FCComponent } from '../src'
 
-// declare namespace LocalJSX {
-//   export interface Element extends JSX.Element {}
-//   export interface IntrinsicElements extends JSX.IntrinsicElements {}
-//   export interface IntrinsicAttributes extends JSX.IntrinsicAttributes {}
-// }
+export as namespace UniComponent
 
-/**
- * The "h" namespace is used to import JSX types for elements and attributes.
- * It is imported in order to avoid conflicting global JSX issues.
- */
-export declare namespace h {
-  // export function h(sel: any): VNode;
-  // export function h(sel: Node, data: VNodeData | null): VNode;
-  // export function h(sel: any, data: VNodeData | null): VNode;
-  // export function h(sel: any, text: string): VNode;
-  // export function h(sel: any, children: Array<VNode | undefined | null>): VNode;
-  // export function h(sel: any, data: VNodeData | null, text: string): VNode;
-  // export function h(sel: any, data: VNodeData | null, children: Array<VNode | undefined | null>): VNode;
-  // export function h(sel: any, data: VNodeData | null, children: VNode): VNode;
-
+export function h(sel: any, data: VNodeData | null, children?: VNode | VNode[]): VNode
+export namespace h {
   export namespace JSX {
-    interface IntrinsicElements extends LocalJSX.IntrinsicElements, JSXBase.IntrinsicElements {
+    interface IntrinsicElements extends JSXBase.IntrinsicElements {
       [tagName: string]: any;
     }
   }
 }
 
-// export declare function h(sel: any): VNode;
-// export declare function h(sel: Node, data: VNodeData | null): VNode;
-// export declare function h(sel: any, data: VNodeData | null): VNode;
-// export declare function h(sel: any, text: string): VNode;
-// export declare function h(sel: any, children: Array<VNode | undefined | null>): VNode;
-// export declare function h(sel: any, data: VNodeData | null, text: string): VNode;
-// export declare function h(sel: any, data: VNodeData | null, children: Array<VNode | undefined | null>): VNode;
-// export declare function h(sel: any, data: VNodeData | null, children: VNode): VNode;
-
 export interface VNode {
+  type: string | FCComponent<any, any>
+  props?: VNodeData | null
+  children?: VNode | VNode[]
   [key: string]: any
 }
 
@@ -51,7 +25,7 @@ export interface VNodeData {
   [attrName: string]: any;
 }
 
-export { LocalJSX as JSX }
+export { JSXBase as JSX }
 
 export namespace JSXBase {
   export interface IntrinsicElements {
