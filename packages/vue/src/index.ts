@@ -34,8 +34,8 @@ export function uni2Vue<Props, S, RawProps extends object>(
 ): DefineComponent<RawProps>
 
 export function uni2Vue(
-  UniComponent: FCComponent<any, any>,
-  render: FCComponent<any, any>['render']
+  UniComponent: FCComponent<any, any, any>,
+  render: FCComponent<any, any, any>['render']
 ) {
   UniComponent.render = render
   let component: DefineComponent

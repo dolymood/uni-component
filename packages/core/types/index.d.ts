@@ -13,15 +13,10 @@ export namespace h {
 }
 
 export interface VNode {
-  type: string | FCComponent<any, any>
-  props?: VNodeData | null
-  children?: VNode | VNode[]
   [key: string]: any
 }
 
 export interface VNodeData {
-  class?: { [className: string]: boolean };
-  style?: any;
   [attrName: string]: any;
 }
 
