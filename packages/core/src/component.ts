@@ -21,6 +21,8 @@ const rootInstance: any = {
 }
 let currentIns = rootInstance
 
+export type GetState<S extends {}> = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string }
+
 /**
  * Notes:
  * `Node` is just only for ts
@@ -32,7 +34,7 @@ export interface FCComponent<
   RawProps extends RawPropTypes = undefined,
   Defaults = ExtractDefaultPropTypes<RawProps>,
   FCProps = Partial<Defaults> & Omit<Props, keyof Defaults>,
-  State = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string },
+  State = GetState<S>,
   Node extends UniNode = UniNode
 > {
   (props: FCProps, context?: Context): Instance<Props, State, Node> & Node
@@ -156,6 +158,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         context.uniParent = undefined
         instance.children.length = 0
         instance.provides = {}
+        instance.props = {}
         const children = lastIns.children
         const i = children.indexOf(instance)
         children.splice(i, 1)
