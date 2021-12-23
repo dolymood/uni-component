@@ -1,2 +1,2 @@
-import './react/main'
+// import './react/main'
 // import './vue/main'
