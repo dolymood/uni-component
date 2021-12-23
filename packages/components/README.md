@@ -2,6 +2,10 @@
 
 Unified component components.
 
+TODO:
+- weui 2 style
+- unit tests
+
 About LICENSE: All components are cloned from [taro-components](https://github.com/NervJS/taro/tree/next/packages/taro-components) and refactor to uni-component style.
 
 ## Installation
