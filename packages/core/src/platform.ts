@@ -16,7 +16,6 @@ export interface Platform {
     FCProps
   >(UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>, render?: FCComponent<Props & { children?: PlatformVNode }, S, RawProps>['render']) => PlatformComponent<FCProps>
   createVNode: (type: any, props?: any, children?: any) => UniNode
-  createRef?: <Type>(setRef: (el?: Type) => void) => (elm?: Type) => void
 }
 
 let platform: Platform

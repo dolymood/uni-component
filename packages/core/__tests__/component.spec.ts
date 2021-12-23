@@ -1,6 +1,34 @@
 import { computed } from '@uni-store/core'
 import { isArray, isFunction } from '@vue/shared'
-import { h, uniComponent, provide, inject, UniNode } from '../src'
+import { h, uniComponent, provide, inject, UniNode, RawPropTypes, FCComponent, setPlatform } from '../src'
+
+function createComponent <
+  Props extends {},
+  S,
+  RawProps extends RawPropTypes,
+  Defaults,
+  FCProps
+>(
+  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
+  render?: FCComponent<Props, S, RawProps>['render']
+) {
+  if (render) {
+    UniComponent.render = render
+  }
+  return UniComponent
+}
+
+setPlatform({
+  createComponent,
+  createVNode (type: any, props: any, children: any) {
+    const node = {
+      type,
+      props,
+      children: children
+    }
+    return node as UniNode
+  }
+})
 
 describe('Test Core', () => {
   it('should work correctly - without props', () => {
@@ -368,7 +396,7 @@ function renderNodeChildren (vnode: UniNode) {
     if (!isArray(children)) {
       children = [children]
     }
-    children.forEach((child) => renderNode(child, vnode))
+    children.forEach((child: UniNode) => renderNode(child, vnode))
   }
 }
 function renderNode (vnode: UniNode, parentVNode?: UniNode) {
