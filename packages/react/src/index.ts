@@ -1,53 +1,48 @@
-import { useEffect, useLayoutEffect } from 'react'
-import type { FunctionComponent, ReactElement, ReactNode } from 'react'
-import type { UnwrapNestedRefs } from '@uni-store/core'
-import { reactiveReact, useSetup } from '@uni-store/react'
-import { invokeMounted, invokeUpdated, invokeUnmounted } from '@uni-component/core'
-import type { FCComponent, RawPropTypes } from '@uni-component/core'
+import { createElement, useCallback } from 'react'
+import { setPlatform } from '@uni-component/core'
+import { uni2React } from './react'
 
-export function uni2React<
-  Props extends {},
-  S,
-  RawProps extends RawPropTypes,
-  Defaults,
-  FCProps
->(
-  UniComponent: FCComponent<Props & { children?: ReactNode }, S, RawProps, Defaults, FCProps & { children?: ReactNode }>,
-  render: FCComponent<Props & { children?: ReactNode }, S, RawProps>['render']
-) {
-  UniComponent.render = render
-  const FC: FunctionComponent<FCProps> = (props: FCProps & { children?: ReactNode }) => {
+export * from './react'
 
-    const instance = useSetup((props: UnwrapNestedRefs<FCProps> & { children?: ReactNode }) => {
-      const context = {
-        slots: {} as Record<string, Function>
-      }
-      if (props.children) {
-        context.slots.default = () => props.children
-      }
-      return UniComponent(props as FCProps & { children?: ReactNode }, context)
-    }, props)
+let isRenderingSlot = false
+const transformPropsMap: Record<string, string> = {
+  class: 'className',
+  autoplay: 'autoPlay',
+  maxlength:'maxLength',
+  autofocus: 'autoFocus'
+}
+const transformProps = Object.keys(transformPropsMap)
 
-    // updated
-    useLayoutEffect(() => {
-      if (instance.isMounted) {
-        invokeUpdated(instance)
+setPlatform({
+  createComponent: uni2React,
+  createVNode: function (type, props, children) {
+    transformProps.forEach((key) => {
+      if (props.hasOwnProperty(key)) {
+        props[transformPropsMap[key]] = props[key]
+        delete props[key]
       }
     })
-    // mounted
-    useLayoutEffect(() => {
-      invokeMounted(instance)
-    }, [instance])
-    // unmounted
-    useEffect(() => () => {
-      invokeUnmounted(instance)
-    }, [instance])
-    return instance.render() as ReactElement<any, any>
+    if (children && children.length) {
+      let i = children.length - 1
+      while (i >= 0) {
+        const child = children[i]
+        if (child && child.props && child.props.slot) {
+          if (!isRenderingSlot) {
+            if (!props.slots) {
+              props.slots = {}
+            }
+            props.slots[child.props.slot] = () => {
+              isRenderingSlot = true
+              return child
+            }
+            children.splice(i, 1)
+          } else {
+            isRenderingSlot = false
+          }
+        }
+        i--
+      }
+    }
+    return createElement(type, props, ...children)
   }
-  if (UniComponent.defaultProps) {
-    FC.defaultProps = UniComponent.defaultProps
-  }
-  FC.displayName = UniComponent.name
-  const RC = reactiveReact(FC)
-  return RC
-}
+})

@@ -1,6 +1,5 @@
 import { markRaw } from '@uni-store/core'
-import { FCComponent } from './component'
-import { UniNode } from './node'
+import { UniNode, FCComponent } from './node'
 
 type Provides = Record<symbol | string, any>
 

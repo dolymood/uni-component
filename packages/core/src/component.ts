@@ -1,18 +1,13 @@
 import classNames from 'classnames'
 import { computed, reactive, unref, toRaw } from '@uni-store/core'
-import type { UnwrapNestedRefs } from '@uni-store/core'
 import { getDefaultProps } from './props'
-import type { RawPropTypes, ExtractPropTypes, ExtractDefaultPropTypes } from './props'
+import type { RawPropTypes, ExtractPropTypes } from './props'
+import type { FCComponent, Context } from './node'
 import { normalized, equal } from './util'
 import { UniNode } from './node'
 import { Instance, setCurrentInstance, newInstance } from './instance'
 import { onMounted, onUnmounted } from './lifecycle'
-
-interface Context {
-  slots: Record<string, any>
-  uniParent?: Instance<any, any>
-  [key: string]: any
-}
+import { getPlatform } from './platform'
 
 const rootInstance: any = {
   props: {},
@@ -20,29 +15,6 @@ const rootInstance: any = {
   children: []
 }
 let currentIns = rootInstance
-
-export type GetState<S extends {}> = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string }
-
-/**
- * Notes:
- * `Node` is just only for ts
- * The real result: `State & { readonly render: () => Node }`
-*/
-export interface FCComponent<
-  Props extends {},
-  S extends {},
-  RawProps extends RawPropTypes = undefined,
-  Defaults = ExtractDefaultPropTypes<RawProps>,
-  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults>,
-  State = GetState<S>,
-  Node extends UniNode = UniNode
-> {
-  (props: FCProps, context?: Context): Instance<Props, State, Node> & Node
-  rawProps?: RawProps
-  defaultProps?: Partial<FCProps>
-  ___UNI___: true
-  render: (props: Props, state: State, context: Context) => Node
-}
 
 /**
  * Define a uniComponent
@@ -125,7 +97,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         }
         while (lastIns) {
           // todo can not have plain components
-          if (!lastIns.props.children || !hasChild(lastIns.props.children) || isFull(lastIns)) {
+          if (!lastIns.props || !lastIns.props.children || !hasChild(lastIns.props.children) || isFull(lastIns)) {
             lastIns = lastIns.parent
           } else {
             break
@@ -175,7 +147,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         if (!otherRootClass) {
           return name
         }
-        return classNames(name, unref(otherRootClass))
+        return classNames(name, unref(otherRootClass), (props as any).className || props.class)
       })
 
       Object.assign(setupState, _state, {
@@ -204,4 +176,15 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
   }
 
   return FC
+}
+
+export function uni2Platform <
+  Props extends {},
+  S,
+  RawProps extends RawPropTypes,
+  Defaults,
+  FCProps
+>(UniComponnet: FCComponent<Props, S, RawProps, Defaults, FCProps>) {
+  const platform = getPlatform()
+  return platform.createComponent<Props, S, RawProps, Defaults, FCProps>(UniComponnet)
 }

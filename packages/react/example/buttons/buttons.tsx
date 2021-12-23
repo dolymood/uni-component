@@ -13,10 +13,10 @@ export const CubeButtons = uni2React(UniButtons, (props, state, { slots }) => {
 })
 
 // just for test
-// const Appp = () => {
-//   return (
-//     <CubeButtons>
-//       <CubeButton></CubeButton>
-//     </CubeButtons>
-//   )
-// }
+const Appp = () => {
+  return (
+    <CubeButtons>
+      <CubeButton></CubeButton>
+    </CubeButtons>
+  )
+}

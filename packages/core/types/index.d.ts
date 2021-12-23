@@ -24,9 +24,6 @@ export { JSXBase as JSX }
 
 export namespace JSXBase {
   export interface IntrinsicElements {
-    // Stencil elements
-    slot: JSXBase.SlotAttributes;
-
     // HTML
     a: JSXBase.AnchorHTMLAttributes<HTMLAnchorElement>;
     abbr: JSXBase.HTMLAttributes;
@@ -198,12 +195,6 @@ export namespace JSXBase {
     tspan: JSXBase.SVGAttributes;
     use: JSXBase.SVGAttributes;
     view: JSXBase.SVGAttributes;
-  }
-
-  export interface SlotAttributes {
-    name?: string;
-    slot?: string;
-    onSlotchange?: (event: Event) => void;
   }
 
   export interface AnchorHTMLAttributes<T> extends HTMLAttributes<T> {
@@ -697,7 +688,7 @@ export namespace JSXBase {
 
     // Standard HTML Attributes
     accessKey?: string;
-    class?: string | { [className: string]: boolean };
+    class?: string;
     contentEditable?: boolean | string;
     contenteditable?: boolean | string;
     contextMenu?: string;
@@ -761,7 +752,7 @@ export namespace JSXBase {
   export interface SVGAttributes<T = SVGElement> extends DOMAttributes<T> {
     // Attributes which also defined in HTMLAttributes
     // See comment in SVGDOMPropertyConfig.js
-    class?: string | { [className: string]: boolean };
+    class?: string;
     color?: string;
     height?: number | string;
     id?: string;

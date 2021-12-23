@@ -17,6 +17,6 @@ export const CubeButton = uni2React(UniButton, (props, state, { slots }) => {
 })
 
 // just for test
-// const Appp = () => {
-//   return <CubeButton primary={false}>xxx</CubeButton>
-// }
+const Appp = () => {
+  return <CubeButton primary={false}>xxx</CubeButton>
+}
