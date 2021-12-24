@@ -1,4 +1,5 @@
-import { uniComponent, PropType, h, uni2Platform } from '@uni-component/core'
+import { uniComponent, PropType, h, uni2Platform, useRef, onMounted } from '@uni-component/core'
+import { ref } from '@uni-store/core'
 
 interface Attributes {
   [propName: string]: string | {
@@ -25,13 +26,26 @@ export type Nodes = ElementType[] | StringType
 
 const UniRichText = uniComponent('uni-rich-text', {
   nodes: [Array, String] as PropType<Nodes>
-}, () => {
-  return {}
+}, (_, props) => {
+  const ele = ref<HTMLDivElement>()
+  const setEleRef = useRef(ele)
+
+  onMounted(() => {
+    const el = ele.value!
+    const nodes = props.nodes
+    if (!Array.isArray(nodes)) {
+      el.innerHTML = props.nodes as StringType
+    }
+  })
+
+  return {
+    setEleRef
+  }
 })
 
 UniRichText.render = function (props, state) {
   const { nodes } = props
-  const { rootClass } = state
+  const { rootClass, setEleRef } = state
 
   const renderNode = (node: ElementType) => {
     if ('type' in node && node.type === 'text') {
@@ -94,14 +108,13 @@ UniRichText.render = function (props, state) {
 
   if (Array.isArray(nodes)) {
     return (
-      <div class={rootClass}>
+      <div ref={setEleRef} class={rootClass}>
         {nodes.map(node => renderNode(node))}
       </div>
     )
   } else {
-    // todo innerHTML
     return (
-      <div class={rootClass} innerHTML={nodes}></div>
+      <div ref={setEleRef} class={rootClass}></div>
     )
   }
 }

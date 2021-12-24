@@ -32,8 +32,7 @@ import PageMetaDemo from './pages/page-meta'
 import ProgressDemo from './pages/progress'
 // import PullToRefreshDemo from './pages/pull-to-refresh'
 import RadioDemo from './pages/radio'
-// // todo innerHTML support
-// import RichTextDemo from './pages/rich-text'
+import RichTextDemo from './pages/rich-text'
 // import ScrollViewDemo from './pages/scroll-view'
 import ShareElementDemo from './pages/share-element'
 import SliderDemo from './pages/slider'
@@ -169,10 +168,10 @@ function App () {
       name: 'Radio',
       Demo: RadioDemo
     },
-    // {
-    //   name: 'RichText',
-    //   Demo: RichTextDemo
-    // },
+    {
+      name: 'RichText',
+      Demo: RichTextDemo
+    },
     {
       name: 'ShareElement',
       Demo: ShareElementDemo
