@@ -19,6 +19,7 @@ function createComponent <
 }
 
 setPlatform({
+  // @ts-ignore
   createComponent,
   createVNode (type: any, props: any, children: any) {
     const node = {
