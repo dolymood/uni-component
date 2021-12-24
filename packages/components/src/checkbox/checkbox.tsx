@@ -41,14 +41,7 @@ const UniCheckbox = uniComponent('uni-checkbox', {
       value
     })
     if (checkboxGroup) {
-      const val = value || ''
-      const groupValue = checkboxGroup.value.value
-      if (isChecked) {
-        !groupValue.includes(val) && groupValue.push(val)
-      } else {
-        const index = groupValue.indexOf(val)
-        groupValue.splice(index, 1)
-      }
+      checkboxGroup.onCheckboxChange(value || '', isChecked)
     }
   }
 

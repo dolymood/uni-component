@@ -5,7 +5,7 @@ export const checkboxGroupProvide = 'uni-checkbox-group'
 
 export interface CheckboxGroupProvide {
   name: ComputedRef<string>
-  value: Ref<string[]>
+  onCheckboxChange: (val: string, isChecked: boolean) => void
 }
 
 const UniCheckboxGroup = uniComponent('uni-checkbox-group', {
@@ -18,9 +18,19 @@ const UniCheckboxGroup = uniComponent('uni-checkbox-group', {
     return props.name || uniqueName
   })
 
+  const onCheckboxChange = (val: string, isChecked: boolean) => {
+    const groupValue = value.value
+    if (isChecked) {
+      !groupValue.includes(val) && groupValue.push(val)
+    } else {
+      const index = groupValue.indexOf(val)
+      groupValue.splice(index, 1)
+    }
+  }
+
   provide(checkboxGroupProvide, {
     name,
-    value
+    onCheckboxChange
   })
 
   watch(() => value.value, (value) => {
