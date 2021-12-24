@@ -55,12 +55,17 @@ importers:
       '@better-scroll/slide': ^2.4.2
       '@better-scroll/wheel': ^2.4.2
       '@better-scroll/zoom': ^2.4.2
+      '@testing-library/react': ^12.1.2
+      '@types/react': ^17.0.37
+      '@types/react-dom': ^17.0.11
       '@uni-component/core': '*'
       '@uni-component/react': '*'
       '@uni-component/vue': '*'
       '@uni-store/core': ^0.3.3
       '@vitejs/plugin-react': ^1.1.3
       '@vitejs/plugin-vue-jsx': ^1.3.3
+      react: ^17.0.2
+      react-dom: ^17.0.2
       sass: ^1.45.1
       vite: ^2.7.4
       weui: ^2.5.4
@@ -74,12 +79,17 @@ importers:
       '@better-scroll/zoom': 2.4.2
       weui: 2.5.4
     devDependencies:
+      '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
+      '@types/react': 17.0.37
+      '@types/react-dom': 17.0.11
       '@uni-component/core': link:../core
       '@uni-component/react': link:../react
       '@uni-component/vue': link:../vue
       '@uni-store/core': 0.3.3
       '@vitejs/plugin-react': 1.1.3
       '@vitejs/plugin-vue-jsx': 1.3.3
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
       sass: 1.45.1
       vite: 2.7.4_sass@1.45.1
 
