@@ -1,4 +1,5 @@
-import 'weui'
+import 'weui/dist/style/weui.css'
+
 export * from './ad'
 export * from './ad-custom'
 export * from './audio'
