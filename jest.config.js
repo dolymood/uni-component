@@ -17,8 +17,8 @@ module.exports = {
     '\\.d\\.ts$'
   ],
   testMatch: [
-    // '<rootDir>/packages/**/__tests__/*spec.[jt]s?(x)'
-    '<rootDir>/packages/components/__tests__/block.spec.[jt]s?(x)'
+    '<rootDir>/packages/**/__tests__/*spec.[jt]s?(x)'
+    // '<rootDir>/packages/components/__tests__/block.spec.[jt]s?(x)'
   ],
   transform: {
     '^.+\\.tsx?$': './jest-ts-transform',
