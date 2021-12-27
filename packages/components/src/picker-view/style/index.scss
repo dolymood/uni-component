@@ -1,0 +1,96 @@
+.uni-picker-view {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  text-align: center;
+  font-size: 14px;
+  position: relative;
+  &-column {
+    flex: 1;
+  }
+  &-bt1 {
+    position: relative;
+    &::before {
+      content: "";
+      pointer-events: none;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform-origin: 0 0;
+      border-top: 1px solid #ebebeb;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      @media (min-device-pixel-ratio: 2) {
+        width: 200%;
+        height: 200%;
+        transform: scale(.5) translateZ(0);
+      }
+      @media (min-device-pixel-ratio: 3) {
+        width: 300%;
+        height: 300%;
+        transform: scale(1 / 3) translateZ(0);
+      }
+    }
+  }
+  &-bb1 {
+    position: relative;
+    &::after {
+      content: "";
+      pointer-events: none;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform-origin: 0 0;
+      border-bottom: 1px solid #ebebeb;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+      @media (min-device-pixel-ratio: 2) {
+        width: 200%;
+        height: 200%;
+        transform: scale(.5) translateZ(0);
+      }
+      @media (min-device-pixel-ratio: 3) {
+        width: 300%;
+        height: 300%;
+        transform: scale(1 / 3) translateZ(0);
+      }
+    }
+  }
+  &-panel {
+    width: 100%
+  }
+  &-content {
+    overflow: hidden;
+    .mask-top, .mask-bottom {
+      z-index: 10;
+      width: 100%;
+      pointer-events: none;
+      transform: translateZ(0);
+    }
+    .mask-top {
+      position: absolute;
+      top: 0;
+      background: linear-gradient(to top, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8));
+    }
+    .mask-bottom {
+      position: absolute;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.8));
+    }
+    .indicator-mask {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+    }
+  }
+  &-container {
+    display: flex;
+    padding: 0 16px;
+  }
+}

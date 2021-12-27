@@ -28,7 +28,7 @@ import OpenDataDemo from './pages/open-data'
 import PageContainerDemo from './pages/page-container'
 import PageMetaDemo from './pages/page-meta'
 import PickerDemo from './pages/picker'
-// import PickerViewDemo from './pages/picker-view'
+import PickerViewDemo from './pages/picker-view'
 import ProgressDemo from './pages/progress'
 // import PullToRefreshDemo from './pages/pull-to-refresh'
 import RadioDemo from './pages/radio'
@@ -163,6 +163,10 @@ function App () {
     {
       name: 'Picker',
       Demo: PickerDemo
+    },
+    {
+      name: 'PickerView',
+      Demo: PickerViewDemo
     },
     {
       name: 'Progress',
