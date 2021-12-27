@@ -1,5 +1,6 @@
 import { Radio } from './radio'
 import { RadioGroup } from './radio-group'
+import './style'
 
 (Radio as any).Group = RadioGroup
 

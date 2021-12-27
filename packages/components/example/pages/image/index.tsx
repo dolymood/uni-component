@@ -3,6 +3,6 @@ import { Image } from '@uni-component/components'
 
 export default function ImageDemo () {
   return (
-    <Image src=''></Image>
+    <Image src='https://v3.cn.vuejs.org/images/slot.png'></Image>
   )
 }

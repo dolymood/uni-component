@@ -14,7 +14,7 @@ const UniRadio = uniComponent('uni-radio', {
 }, (name, props) => {
   const radioGroup = inject<RadioGroupProvide>(radioGroupProvide)
 
-  const rootClass = 'weui-cells_radio'
+  const rootClass = 'weui-cells_checkbox'
 
   const eleName = computed(() => {
     return radioGroup ? radioGroup.name.value : props.name
