@@ -1,8 +1,6 @@
 import { h, uniComponent, uni2Platform, useRef } from '@uni-component/core'
 import { ref } from '@uni-store/core'
 
-// todo dependon ele ref to get width height
-
 const UniCoverImage = uniComponent('uni-cover-image', {
   src: String,
   nativeProps: Object,
