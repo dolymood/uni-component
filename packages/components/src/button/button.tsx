@@ -38,21 +38,18 @@ const UniButton = uniComponent('uni-button', {
       props.onReset && props.onReset()
     }
   })
-  const weui = 'weui-btn'
   const rootClass = computed(() => {
-    // todo
     return [
-      weui,
       {
-        [`${weui}_${props.size}`]: true,
-        [`${weui}_${props.type}`]: true,
-        [`${weui}_loading`]: props.loading,
-        [`${name}-plain`]: props.plain
+        [`${name}-type_${props.type}`]: true,
+        [`${name}-plain`]: props.plain,
+        [`${name}-loading`]: props.loading,
+        [`${name}-size_${props.size}`]: true
       },
       hoverClass.value
     ]
   })
-  
+
   return {
     rootClass,
     onTouchStart,
