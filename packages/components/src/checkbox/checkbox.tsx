@@ -15,6 +15,7 @@ const UniCheckbox = uniComponent('uni-checkbox', {
   const checkboxGroup = inject<CheckboxGroupProvide>(checkboxGroupProvide)
 
   const rootClass = 'weui-cells_checkbox'
+  const checkedClass = `${name}_checked`
 
   const eleName = computed(() => {
     return checkboxGroup ? checkboxGroup.name.value : props.name
@@ -45,6 +46,7 @@ const UniCheckbox = uniComponent('uni-checkbox', {
 
   return {
     rootClass,
+    checkedClass,
     eleName,
     checked,
     onChange
@@ -53,7 +55,7 @@ const UniCheckbox = uniComponent('uni-checkbox', {
 
 UniCheckbox.render = function (props, state, { slots }) {
   const { value, color, disabled, nativeProps } = props
-  const { rootClass, eleName, checked, onChange } = state
+  const { rootClass, checkedClass, eleName, checked, onChange } = state
 
   return (
     <div class={rootClass}>
@@ -61,14 +63,13 @@ UniCheckbox.render = function (props, state, { slots }) {
         type='checkbox'
         value={value}
         name={eleName}
-        class='weui-check'
+        class={checkedClass}
         style={{ color }}
         checked={checked}
         disabled={disabled}
         onChange={onChange}
         {...nativeProps}
       />
-      <i class='weui-icon-checked'></i>
       { slots.default && slots.default() }
     </div>
   )
