@@ -27,7 +27,7 @@ import OfficialAccountDemo from './pages/official-account'
 import OpenDataDemo from './pages/open-data'
 import PageContainerDemo from './pages/page-container'
 import PageMetaDemo from './pages/page-meta'
-// import PickerDemo from './pages/picker'
+import PickerDemo from './pages/picker'
 // import PickerViewDemo from './pages/picker-view'
 import ProgressDemo from './pages/progress'
 // import PullToRefreshDemo from './pages/pull-to-refresh'
@@ -159,6 +159,10 @@ function App () {
     {
       name: 'PageMeta',
       Demo: PageMetaDemo
+    },
+    {
+      name: 'Picker',
+      Demo: PickerDemo
     },
     {
       name: 'Progress',
