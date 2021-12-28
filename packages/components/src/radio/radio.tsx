@@ -29,6 +29,10 @@ const UniRadio = uniComponent('uni-radio', {
   watch(() => checked.value, (isChecked) => {
     setFormValue(isChecked ? props.value : undefined)
   })
+  watch(() => radioGroup?.value.value, (newVal) => {
+    const val = props.value || ''
+    checked.value = newVal === val
+  })
 
   const onClick = () => {
     if (props.disabled) return
@@ -48,6 +52,8 @@ const UniRadio = uniComponent('uni-radio', {
 
   const onChange = (e: Event) => {
     e.stopPropagation()
+    const target = e.target as HTMLInputElement
+    checked.value = target.checked
   }
 
   return {

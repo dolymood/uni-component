@@ -1,4 +1,6 @@
 import { h } from '@uni-component/core'
+import { FunctionComponent, useState } from 'react'
+import { Page } from './components/Page'
 import AdDemo from './pages/ad'
 import AdCustomDemo from './pages/ad-custom'
 import AudioDemo from './pages/audio'
@@ -39,198 +41,216 @@ import SwiperDemo from './pages/swiper'
 import SwitchDemo from './pages/switch'
 import TextDemo from './pages/text'
 import TextareaDemo from './pages/textarea'
-// import VideoDemo from './pages/video'
+import VideoDemo from './pages/video'
 import ViewDemo from './pages/view'
 import VoipRoomDemo from './pages/voip-room'
 import WebViewDemo from './pages/web-view'
+import './App.scss'
+
+interface Item {
+  name: string,
+  Demo: FunctionComponent<any>
+}
+
+const list: Item[] = [
+  {
+    name: 'Ad',
+    Demo: AdDemo
+  },
+  {
+    name: 'AdCustom',
+    Demo: AdCustomDemo
+  },
+  {
+    name: 'Audio',
+    Demo: AudioDemo
+  },
+  {
+    name: 'Block',
+    Demo: BlockDemo
+  },
+  {
+    name: 'Button',
+    Demo: ButtonDemo
+  },
+  {
+    name: 'Camera',
+    Demo: CameraDemo
+  },
+  {
+    name: 'Canvas',
+    Demo: CanvasDemo
+  },
+  {
+    name: 'Checkbox',
+    Demo: CheckboxDemo
+  },
+  {
+    name: 'CoverImage',
+    Demo: CoverImageDemo
+  },
+  {
+    name: 'Editor',
+    Demo: EditorDemo
+  },
+  {
+    name: 'Form',
+    Demo: FormDemo
+  },
+  {
+    name: 'FunctionalPageNavigator',
+    Demo: FunctionalPageNavigatorDemo
+  },
+  {
+    name: 'Icon',
+    Demo: IconDemo
+  },
+  {
+    name: 'Image',
+    Demo: ImageDemo
+  },
+  {
+    name: 'Input',
+    Demo: InputDemo
+  },
+  {
+    name: 'KeyboardAccessory',
+    Demo: KeyboardAccessoryDemo
+  },
+  {
+    name: 'Label',
+    Demo: LabelDemo
+  },
+  {
+    name: 'LivePlayer',
+    Demo: LivePlayerDemo
+  },
+  {
+    name: 'LivePusher',
+    Demo: LivePusherDemo
+  },
+  {
+    name: 'Map',
+    Demo: MapDemo
+  },
+  {
+    name: 'MatchDedia',
+    Demo: MatchDediaDemo
+  },
+  {
+    name: 'MovableArea',
+    Demo: MovableAreaDemo
+  },
+  {
+    name: 'NavigationBar',
+    Demo: NavigationBarDemo
+  },
+  {
+    name: 'Navigator',
+    Demo: NavigatorDemo
+  },
+  {
+    name: 'OfficialAccount',
+    Demo: OfficialAccountDemo
+  },
+  {
+    name: 'OpenData',
+    Demo: OpenDataDemo
+  },
+  {
+    name: 'PageContainer',
+    Demo: PageContainerDemo
+  },
+  {
+    name: 'PageMeta',
+    Demo: PageMetaDemo
+  },
+  {
+    name: 'Picker',
+    Demo: PickerDemo
+  },
+  {
+    name: 'PickerView',
+    Demo: PickerViewDemo
+  },
+  {
+    name: 'Progress',
+    Demo: ProgressDemo
+  },
+  {
+    name: 'Radio',
+    Demo: RadioDemo
+  },
+  {
+    name: 'RichText',
+    Demo: RichTextDemo
+  },
+  {
+    name: 'ScrollView',
+    Demo: ScrollViewDemo
+  },
+  {
+    name: 'ShareElement',
+    Demo: ShareElementDemo
+  },
+  {
+    name: 'Slider',
+    Demo: SliderDemo
+  },
+  {
+    name: 'Swiper',
+    Demo: SwiperDemo
+  },
+  {
+    name: 'Switch',
+    Demo: SwitchDemo
+  },
+  {
+    name: 'Text',
+    Demo: TextDemo
+  },
+  {
+    name: 'Textarea',
+    Demo: TextareaDemo
+  },
+  {
+    name: 'Video',
+    Demo: VideoDemo
+  },
+  {
+    name: 'View',
+    Demo: ViewDemo
+  },
+  {
+    name: 'VoipRoom',
+    Demo: VoipRoomDemo
+  },
+  {
+    name: 'WebView',
+    Demo: WebViewDemo
+  }
+]
 
 function App () {
-  const list = [
-    {
-      name: 'Ad',
-      Demo: AdDemo
-    },
-    {
-      name: 'AdCustom',
-      Demo: AdCustomDemo
-    },
-    {
-      name: 'Audio',
-      Demo: AudioDemo
-    },
-    {
-      name: 'Block',
-      Demo: BlockDemo
-    },
-    {
-      name: 'Button',
-      Demo: ButtonDemo
-    },
-    {
-      name: 'Camera',
-      Demo: CameraDemo
-    },
-    {
-      name: 'Canvas',
-      Demo: CanvasDemo
-    },
-    {
-      name: 'Checkbox',
-      Demo: CheckboxDemo
-    },
-    {
-      name: 'CoverImage',
-      Demo: CoverImageDemo
-    },
-    {
-      name: 'Editor',
-      Demo: EditorDemo
-    },
-    {
-      name: 'Form',
-      Demo: FormDemo
-    },
-    {
-      name: 'FunctionalPageNavigator',
-      Demo: FunctionalPageNavigatorDemo
-    },
-    {
-      name: 'Icon',
-      Demo: IconDemo
-    },
-    {
-      name: 'Image',
-      Demo: ImageDemo
-    },
-    {
-      name: 'Input',
-      Demo: InputDemo
-    },
-    {
-      name: 'KeyboardAccessory',
-      Demo: KeyboardAccessoryDemo
-    },
-    {
-      name: 'Label',
-      Demo: LabelDemo
-    },
-    {
-      name: 'LivePlayer',
-      Demo: LivePlayerDemo
-    },
-    {
-      name: 'LivePusher',
-      Demo: LivePusherDemo
-    },
-    {
-      name: 'Map',
-      Demo: MapDemo
-    },
-    {
-      name: 'MatchDedia',
-      Demo: MatchDediaDemo
-    },
-    {
-      name: 'MovableArea',
-      Demo: MovableAreaDemo
-    },
-    {
-      name: 'NavigationBar',
-      Demo: NavigationBarDemo
-    },
-    {
-      name: 'Navigator',
-      Demo: NavigatorDemo
-    },
-    {
-      name: 'OfficialAccount',
-      Demo: OfficialAccountDemo
-    },
-    {
-      name: 'OpenData',
-      Demo: OpenDataDemo
-    },
-    {
-      name: 'PageContainer',
-      Demo: PageContainerDemo
-    },
-    {
-      name: 'PageMeta',
-      Demo: PageMetaDemo
-    },
-    {
-      name: 'Picker',
-      Demo: PickerDemo
-    },
-    {
-      name: 'PickerView',
-      Demo: PickerViewDemo
-    },
-    {
-      name: 'Progress',
-      Demo: ProgressDemo
-    },
-    {
-      name: 'Radio',
-      Demo: RadioDemo
-    },
-    {
-      name: 'RichText',
-      Demo: RichTextDemo
-    },
-    {
-      name: 'ScrollView',
-      Demo: ScrollViewDemo
-    },
-    {
-      name: 'ShareElement',
-      Demo: ShareElementDemo
-    },
-    {
-      name: 'Slider',
-      Demo: SliderDemo
-    },
-    {
-      name: 'Swiper',
-      Demo: SwiperDemo
-    },
-    {
-      name: 'Switch',
-      Demo: SwitchDemo
-    },
-    {
-      name: 'Text',
-      Demo: TextDemo
-    },
-    {
-      name: 'Textarea',
-      Demo: TextareaDemo
-    },
-    {
-      name: 'View',
-      Demo: ViewDemo
-    },
-    {
-      name: 'VoipRoom',
-      Demo: VoipRoomDemo
-    },
-    // {
-    //   name: 'WebView',
-    //   Demo: WebViewDemo
-    // }
-  ]
+  const [target, setTarget] = useState<Item>()
+  const gotoTarget = (item?: Item) => {
+    setTarget(item)
+  }
   return (
-    <div class='weui-cells'>
-      {list.map(item => {
-        return (
-          <div class='weui-cell weui-cell_access' key={item.name}>
-            <div class='weui-cell__bd'>
-              <item.Demo />
+    <div class='app'>
+      <div class='weui-cells'>
+        {list.map(item => {
+          return (
+            <div class='weui-cell weui-cell_access' key={item.name} onClick={() => gotoTarget(item)}>
+              <div class='weui-cell__bd'>
+                {item.name}
+              </div>
+              <div class='weui-cell__ft'>{item.name}</div>
             </div>
-            <div class='weui-cell__ft'>{item.name}</div>
-          </div>
-        )
-      })}
+          )
+        })}
+      </div>
+      { target ? <Page target={target} onClose={() => gotoTarget()}></Page> : undefined}
     </div>
   )
 }
