@@ -10,6 +10,7 @@ import CameraDemo from './pages/camera'
 import CanvasDemo from './pages/canvas'
 import CheckboxDemo from './pages/checkbox'
 import CoverImageDemo from './pages/cover-image'
+import CoverViewDemo from './pages/cover-view'
 import EditorDemo from './pages/editor'
 import FormDemo from './pages/form'
 import FunctionalPageNavigatorDemo from './pages/functional-page-navigator'
@@ -49,10 +50,135 @@ import './App.scss'
 
 interface Item {
   name: string,
-  Demo: FunctionComponent<any>
+  Demo?: FunctionComponent<any>
 }
 
 const list: Item[] = [
+  {
+    name: '视图容器：'
+  },
+  {
+    name: 'CoverImage',
+    Demo: CoverImageDemo
+  },
+  {
+    name: 'CoverView',
+    Demo: CoverViewDemo
+  },
+  {
+    name: 'MovableArea',
+    Demo: MovableAreaDemo
+  },
+  {
+    name: 'ScrollView',
+    Demo: ScrollViewDemo
+  },
+  {
+    name: 'Swiper',
+    Demo: SwiperDemo
+  },
+  {
+    name: 'View',
+    Demo: ViewDemo
+  },
+  {
+    name: '基础内容：'
+  },
+  {
+    name: 'Block',
+    Demo: BlockDemo
+  },
+  {
+    name: 'Icon',
+    Demo: IconDemo
+  },
+  {
+    name: 'Progress',
+    Demo: ProgressDemo
+  },
+  {
+    name: 'RichText',
+    Demo: RichTextDemo
+  },
+  {
+    name: 'Text',
+    Demo: TextDemo
+  },
+  {
+    name: '表单内容：'
+  },
+  {
+    name: 'Button',
+    Demo: ButtonDemo
+  },
+  {
+    name: 'Checkbox',
+    Demo: CheckboxDemo
+  },
+  {
+    name: 'Form',
+    Demo: FormDemo
+  },
+  {
+    name: 'Input',
+    Demo: InputDemo
+  },
+  {
+    name: 'Label',
+    Demo: LabelDemo
+  },
+  {
+    name: 'Picker',
+    Demo: PickerDemo
+  },
+  {
+    name: 'PickerView',
+    Demo: PickerViewDemo
+  },
+  {
+    name: 'Radio',
+    Demo: RadioDemo
+  },
+  {
+    name: 'Slider',
+    Demo: SliderDemo
+  },
+  {
+    name: 'Switch',
+    Demo: SwitchDemo
+  },
+  {
+    name: 'Textarea',
+    Demo: TextareaDemo
+  },
+  {
+    name: '媒体组件：'
+  },
+  {
+    name: 'Audio',
+    Demo: AudioDemo
+  },
+  {
+    name: 'Image',
+    Demo: ImageDemo
+  },
+  {
+    name: '画布：',
+  },
+  {
+    name: 'Canvas',
+    Demo: CanvasDemo
+  },
+  {
+    name: '开放能力：'
+  },
+  {
+    name: 'WebView',
+    Demo: WebViewDemo
+  },
+  {
+    name: '不支持的：'
+  },
   {
     name: 'Ad',
     Demo: AdDemo
@@ -62,64 +188,20 @@ const list: Item[] = [
     Demo: AdCustomDemo
   },
   {
-    name: 'Audio',
-    Demo: AudioDemo
-  },
-  {
-    name: 'Block',
-    Demo: BlockDemo
-  },
-  {
-    name: 'Button',
-    Demo: ButtonDemo
-  },
-  {
     name: 'Camera',
     Demo: CameraDemo
-  },
-  {
-    name: 'Canvas',
-    Demo: CanvasDemo
-  },
-  {
-    name: 'Checkbox',
-    Demo: CheckboxDemo
-  },
-  {
-    name: 'CoverImage',
-    Demo: CoverImageDemo
   },
   {
     name: 'Editor',
     Demo: EditorDemo
   },
   {
-    name: 'Form',
-    Demo: FormDemo
-  },
-  {
     name: 'FunctionalPageNavigator',
     Demo: FunctionalPageNavigatorDemo
   },
   {
-    name: 'Icon',
-    Demo: IconDemo
-  },
-  {
-    name: 'Image',
-    Demo: ImageDemo
-  },
-  {
-    name: 'Input',
-    Demo: InputDemo
-  },
-  {
     name: 'KeyboardAccessory',
     Demo: KeyboardAccessoryDemo
-  },
-  {
-    name: 'Label',
-    Demo: LabelDemo
   },
   {
     name: 'LivePlayer',
@@ -136,10 +218,6 @@ const list: Item[] = [
   {
     name: 'MatchDedia',
     Demo: MatchDediaDemo
-  },
-  {
-    name: 'MovableArea',
-    Demo: MovableAreaDemo
   },
   {
     name: 'NavigationBar',
@@ -166,86 +244,36 @@ const list: Item[] = [
     Demo: PageMetaDemo
   },
   {
-    name: 'Picker',
-    Demo: PickerDemo
-  },
-  {
-    name: 'PickerView',
-    Demo: PickerViewDemo
-  },
-  {
-    name: 'Progress',
-    Demo: ProgressDemo
-  },
-  {
-    name: 'Radio',
-    Demo: RadioDemo
-  },
-  {
-    name: 'RichText',
-    Demo: RichTextDemo
-  },
-  {
-    name: 'ScrollView',
-    Demo: ScrollViewDemo
-  },
-  {
     name: 'ShareElement',
     Demo: ShareElementDemo
-  },
-  {
-    name: 'Slider',
-    Demo: SliderDemo
-  },
-  {
-    name: 'Swiper',
-    Demo: SwiperDemo
-  },
-  {
-    name: 'Switch',
-    Demo: SwitchDemo
-  },
-  {
-    name: 'Text',
-    Demo: TextDemo
-  },
-  {
-    name: 'Textarea',
-    Demo: TextareaDemo
   },
   {
     name: 'Video',
     Demo: VideoDemo
   },
   {
-    name: 'View',
-    Demo: ViewDemo
-  },
-  {
     name: 'VoipRoom',
     Demo: VoipRoomDemo
-  },
-  {
-    name: 'WebView',
-    Demo: WebViewDemo
   }
 ]
 
 function App () {
-  const [target, setTarget] = useState<Item>()
-  const gotoTarget = (item?: Item) => {
+  type FItem = Item & {Demo: FunctionComponent}
+  const [target, setTarget] = useState<FItem>()
+  const gotoTarget = (item?: FItem) => {
     setTarget(item)
   }
   return (
     <div class='app'>
       <div class='weui-cells'>
         {list.map(item => {
+          const cls = `weui-cell${item.Demo ? ' weui-cell_access' : ''}`
           return (
-            <div class='weui-cell weui-cell_access' key={item.name} onClick={() => gotoTarget(item)}>
+            <div class={cls} key={item.name} onClick={() => item.Demo && gotoTarget(item as FItem)}>
               <div class='weui-cell__bd'>
                 {item.name}
               </div>
-              <div class='weui-cell__ft'>{item.name}</div>
+              {item.Demo ? <div class='weui-cell__ft'>{item.name}</div> : undefined}
             </div>
           )
         })}
