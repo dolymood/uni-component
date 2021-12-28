@@ -12,8 +12,9 @@ module.exports = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/example/',
-    // ignore mpx fornow
+    // ignore mpx and components fornow
     '/packages\/mpx/',
+    '/packages\/components/',
     '\\.d\\.ts$'
   ],
   testMatch: [
