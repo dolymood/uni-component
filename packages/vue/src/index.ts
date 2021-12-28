@@ -8,5 +8,5 @@ export * from './vue'
 
 setPlatform({
   createComponent: uni2Vue,
-  createVNode: createVNode
+  createVNode
 })
