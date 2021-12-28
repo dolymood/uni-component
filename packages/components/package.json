@@ -1,0 +1,98 @@
+{
+  "name": "@uni-component/components",
+  "version": "0.0.1",
+  "description": "Unified component components",
+  "main": "index.js",
+  "module": "dist/uni-component-components.mjs",
+  "unpkg": "dist/uni-component-components.iife.prod.js",
+  "jsdelivr": "dist/uni-component-components.iife.prod.js",
+  "types": "dist/uni-component-components.d.ts",
+  "exports": {
+    ".": {
+      "browser": "./dist/uni-component-components.esm-browser.js",
+      "node": {
+        "import": {
+          "production": "./dist/uni-component-components.prod.cjs",
+          "development": "./dist/uni-component-components.mjs",
+          "default": "./dist/uni-component-components.mjs"
+        },
+        "require": {
+          "production": "./dist/uni-component-components.prod.cjs",
+          "development": "./dist/uni-component-components.cjs",
+          "default": "./index.js"
+        }
+      },
+      "import": "./dist/uni-component-components.mjs"
+    },
+    "./package.json": "./package.json",
+    "./dist/*": "./dist/*"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vite --host"
+  },
+  "buildOptions": {
+    "filename": "uni-component-components",
+    "name": "UniComponentComponents"
+  },
+  "keywords": [
+    "@uni-component/components",
+    "components",
+    "component",
+    "unicomponent",
+    "uni-component",
+    "un",
+    "uni"
+  ],
+  "author": "dolymood@gmail.com",
+  "files": [
+    "dist/*.js",
+    "dist/*.mjs",
+    "dist/*.cjs",
+    "dist/uni-component-react.d.ts",
+    "index.js",
+    "example",
+    "LICENSE",
+    "README.md"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@better-scroll/core": "^2.4.2",
+    "@better-scroll/movable": "^2.4.2",
+    "@better-scroll/observe-dom": "^2.4.2",
+    "@better-scroll/pull-down": "^2.4.2",
+    "@better-scroll/slide": "^2.4.2",
+    "@better-scroll/wheel": "^2.4.2",
+    "@better-scroll/zoom": "^2.4.2",
+    "weui": "1"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^12.1.2",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@uni-component/core": "*",
+    "@uni-component/react": "*",
+    "@uni-component/vue": "*",
+    "@uni-store/core": "^0.3.3",
+    "@vitejs/plugin-react": "^1.1.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "sass": "^1.45.1",
+    "vite": "^2.7.4",
+    "vue": "^3.2.26"
+  },
+  "peerDependencies": {
+    "@uni-component/core": "0.0.1",
+    "@uni-store/core": ">=0.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dolymood/uni-component.git",
+    "directory": "packages/components"
+  },
+  "bugs": {
+    "url": "https://github.com/dolymood/uni-component/issues"
+  },
+  "homepage": "https://github.com/dolymood/uni-component#readme"
+}

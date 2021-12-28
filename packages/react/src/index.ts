@@ -16,7 +16,8 @@ const transformProps = Object.keys(transformPropsMap)
 setPlatform({
   createComponent: uni2React,
   createVNode: function (type, props, children) {
-    transformProps.forEach((key) => {
+    const isPlainNode = typeof type === 'string'
+    isPlainNode && transformProps.forEach((key) => {
       if (props.hasOwnProperty(key)) {
         props[transformPropsMap[key]] = props[key]
         delete props[key]

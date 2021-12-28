@@ -1,0 +1,9 @@
+.uni-text {
+  display: inline;
+  user-select: none;
+  white-space: pre-wrap;
+}
+
+.uni-text__selectable {
+  user-select: text;
+}

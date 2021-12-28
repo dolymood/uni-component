@@ -1,0 +1,6 @@
+import '@uni-component/vue'
+import './env'
+import { createApp } from 'vue'
+import App from '../App'
+
+createApp(App).mount('#root')

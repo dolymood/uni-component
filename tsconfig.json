@@ -79,6 +79,8 @@
   ],
   "exclude": [
     "node_modules",
-    "packages/*/node_modules"
+    "packages/*/node_modules",
+    "packages/components/example/vue",
+    "packages/components/example/react"
   ]
 }

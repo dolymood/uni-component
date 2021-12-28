@@ -699,7 +699,7 @@ export namespace JSXBase {
     id?: string;
     lang?: string;
     spellcheck?: 'true' | 'false' | any;
-    style?: { [key: string]: string | undefined };
+    style?: string | { [key: string]: string | undefined };
     tabIndex?: number;
     tabindex?: number | string;
     title?: string;

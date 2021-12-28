@@ -1,0 +1,14 @@
+.uni-movable-area {
+  position: absolute;
+  &-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+  }
+}
+.uni-movable-view {
+  position: absolute;
+}

@@ -1,0 +1,41 @@
+.app-page {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  &-header {
+    position: absolute;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .4);
+    i {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      padding: 10px;
+      font-size: 24px;
+      color: #1AAD19;
+      &:active {
+        color: #179B16;
+      }
+    }
+  }
+  &-main {
+    position: absolute;
+    top: 44px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    &-content {
+      margin: 10px;
+    }
+  }
+}
