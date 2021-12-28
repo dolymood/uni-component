@@ -144,9 +144,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const rootClass = computed(() => {
         const otherRootClass = _state.rootClass
-        if (!otherRootClass) {
-          return name
-        }
         return classNames(name, unref(otherRootClass), (props as any).className || props.class)
       })
 

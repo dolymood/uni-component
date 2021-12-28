@@ -30,10 +30,9 @@ import PageMetaDemo from './pages/page-meta'
 import PickerDemo from './pages/picker'
 import PickerViewDemo from './pages/picker-view'
 import ProgressDemo from './pages/progress'
-// import PullToRefreshDemo from './pages/pull-to-refresh'
 import RadioDemo from './pages/radio'
 import RichTextDemo from './pages/rich-text'
-// import ScrollViewDemo from './pages/scroll-view'
+import ScrollViewDemo from './pages/scroll-view'
 import ShareElementDemo from './pages/share-element'
 import SliderDemo from './pages/slider'
 // import SwiperDemo from './pages/swiper'
@@ -179,6 +178,10 @@ function App () {
     {
       name: 'RichText',
       Demo: RichTextDemo
+    },
+    {
+      name: 'ScrollView',
+      Demo: ScrollViewDemo
     },
     {
       name: 'ShareElement',

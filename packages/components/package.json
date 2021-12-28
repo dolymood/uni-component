@@ -29,7 +29,7 @@
   },
   "sideEffects": false,
   "scripts": {
-    "dev": "vite"
+    "dev": "vite --host"
   },
   "buildOptions": {
     "filename": "uni-component-components",
