@@ -261,8 +261,12 @@ type FItem = Item & {Demo: Function}
 
 const UniApp = uniComponent('uni-app', () => {
   const target = ref<FItem>()
-  const gotoTarget = (item?: FItem) => {
-    target.value = item
+  const gotoTarget = (item?: Item) => {
+    if (item && item.Demo) {
+      target.value = item as FItem
+    } else {
+      target.value = undefined
+    }
   }
   return {
     target,
@@ -278,7 +282,7 @@ UniApp.render = function (_, state) {
         {list.map(item => {
           const cls = `weui-cell${item.Demo ? ' weui-cell_access' : ''}`
           return (
-            <div class={cls} key={item.name} onClick={() => item.Demo && gotoTarget(item as FItem)}>
+            <div class={cls} key={item.name} onClick={() => gotoTarget(item)}>
               <div class='weui-cell__bd'>
                 {item.name}
               </div>
@@ -287,7 +291,7 @@ UniApp.render = function (_, state) {
           )
         })}
       </div>
-      { target ? <Page target={target} onClose={() => gotoTarget()}></Page> : undefined}
+      { target ? <Page target={target} onClose={gotoTarget}></Page> : undefined}
     </div>
   )
 }
