@@ -20,6 +20,10 @@ const defineComponent: DefineComponentFn = (options: any) => {
   } : options
 }
 
+interface FunctionVue<P> {
+  (props: P): any
+}
+
 export function uni2Vue<
   Props,
   S,
@@ -29,7 +33,7 @@ export function uni2Vue<
 >(
   UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
   render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
-): DefineComponent<RawProps>
+): DefineComponent<RawProps> & FunctionVue<FCProps>
 export function uni2Vue<
   Props,
   S,
@@ -39,7 +43,7 @@ export function uni2Vue<
 >(
   UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
   render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
-): DefineComponent<RawProps>
+): DefineComponent<RawProps> & FunctionVue<FCProps>
 export function uni2Vue<
   Props,
   S,
@@ -49,7 +53,7 @@ export function uni2Vue<
 >(
   UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
   render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
-): DefineComponent<RawProps>
+): DefineComponent<RawProps> & FunctionVue<FCProps>
 
 export function uni2Vue(
   UniComponent: FCComponent<any, any, any>,
