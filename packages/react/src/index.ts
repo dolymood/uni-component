@@ -1,4 +1,4 @@
-import { createElement, useCallback } from 'react'
+import { createElement } from 'react'
 import { setPlatform } from '@uni-component/core'
 import { uni2React } from './react'
 

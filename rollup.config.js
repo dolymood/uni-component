@@ -70,6 +70,8 @@ function createConfig(buildName, output, plugins = []) {
   output.banner = banner
   output.externalLiveBindings = false
   output.globals = {
+    'react': 'React',
+    'vue': 'Vue',
     '@uni-store/core': 'UniStore',
     '@vue/reactivity': 'UniStore',
     '@vue/runtime-core': 'UniStore',
