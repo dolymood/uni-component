@@ -22,7 +22,7 @@ export interface FCComponent<
   S extends {},
   RawProps extends RawPropTypes = undefined,
   Defaults = ExtractDefaultPropTypes<RawProps>,
-  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults> & { class?: string },
+  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults> & { class?: string, key?: string },
   State = GetState<S>,
   Node extends UniNode = UniNode
 > {

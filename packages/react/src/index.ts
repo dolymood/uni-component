@@ -7,9 +7,9 @@ export * from './react'
 let isRenderingSlot = false
 const transformPropsMap: Record<string, string> = {
   class: 'className',
-  autoplay: 'autoPlay',
-  maxlength:'maxLength',
-  autofocus: 'autoFocus'
+  // autoplay: 'autoPlay',
+  // maxlength:'maxLength',
+  // autofocus: 'autoFocus'
 }
 const transformProps = Object.keys(transformPropsMap)
 

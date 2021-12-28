@@ -35,9 +35,8 @@ import RichTextDemo from './pages/rich-text'
 import ScrollViewDemo from './pages/scroll-view'
 import ShareElementDemo from './pages/share-element'
 import SliderDemo from './pages/slider'
-// import SwiperDemo from './pages/swiper'
+import SwiperDemo from './pages/swiper'
 import SwitchDemo from './pages/switch'
-// import TabbarDemo from './pages/tabbar'
 import TextDemo from './pages/text'
 import TextareaDemo from './pages/textarea'
 // import VideoDemo from './pages/video'
@@ -190,6 +189,10 @@ function App () {
     {
       name: 'Slider',
       Demo: SliderDemo
+    },
+    {
+      name: 'Swiper',
+      Demo: SwiperDemo
     },
     {
       name: 'Switch',
