@@ -1,5 +1,5 @@
-import { h } from '@uni-component/core'
-import { FunctionComponent, useState } from 'react'
+import { h, uniComponent, uni2Platform } from '@uni-component/core'
+import { ref } from '@uni-store/core'
 import { Page } from './components/Page'
 import AdDemo from './pages/ad'
 import AdCustomDemo from './pages/ad-custom'
@@ -50,7 +50,7 @@ import './App.scss'
 
 interface Item {
   name: string,
-  Demo?: FunctionComponent<any>
+  Demo?: Function
 }
 
 const list: Item[] = [
@@ -257,12 +257,21 @@ const list: Item[] = [
   }
 ]
 
-function App () {
-  type FItem = Item & {Demo: FunctionComponent}
-  const [target, setTarget] = useState<FItem>()
+type FItem = Item & {Demo: Function}
+
+const UniApp = uniComponent('uni-app', () => {
+  const target = ref<FItem>()
   const gotoTarget = (item?: FItem) => {
-    setTarget(item)
+    target.value = item
   }
+  return {
+    target,
+    gotoTarget
+  }
+})
+
+UniApp.render = function (_, state) {
+  const { target, gotoTarget } = state
   return (
     <div class='app'>
       <div class='weui-cells'>
@@ -282,5 +291,7 @@ function App () {
     </div>
   )
 }
+
+const App = uni2Platform(UniApp)
 
 export default App
