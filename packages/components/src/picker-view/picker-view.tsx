@@ -10,6 +10,7 @@ import {
   inlineStyle2Obj
 } from '@uni-component/core'
 import { ref, computed, watch, ComputedRef, Ref } from '@uni-store/core'
+import { useField, FieldType } from '../_/form/field'
 
 export interface PickerViewColumnInstance {
   selectedIndex: Ref<number>,
@@ -27,6 +28,7 @@ export interface PickerViewProvide {
 export const pickerViewProvide = 'pickerViewProvide'
 
 export const UniPickerView = uniComponent('uni-picker-view', {
+  name: String,
   value: Array as PropType<number[]>,
   indicatorStyle: String,
   indicatorClass: String,
@@ -71,6 +73,11 @@ export const UniPickerView = uniComponent('uni-picker-view', {
       value.value![index] = child.selectedIndex.value
     })
   }
+
+  const { setFormValue } = useField(props.name || '', FieldType.picker)
+  watch(() => value.value, (value) => {
+    setFormValue(value)
+  })
 
   const onChange = () => {
     computedValue()

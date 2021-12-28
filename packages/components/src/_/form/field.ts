@@ -7,7 +7,8 @@ export enum FieldType {
   input = 'input',
   textarea = 'textarea',
   switch = 'switch',
-  slider = 'slider'
+  slider = 'slider',
+  picker = 'picker'
 }
 
 export const useField = (name: string, type: FieldType = FieldType.input) => {

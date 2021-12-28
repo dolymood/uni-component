@@ -12,6 +12,7 @@ import { ref, computed, watch, nextTick } from '@uni-store/core'
 import BScroll from '@better-scroll/core'
 import Wheel from '@better-scroll/wheel'
 import { useTransition } from '../_/transition'
+import { useField, FieldType } from '../_/form/field'
 
 export type Mode = 'selector' | 'multiSelector' | 'time' | 'date'
 export type Fields = 'day' | 'month' | 'year'
@@ -74,6 +75,7 @@ function getDatePickerData (fields: Fields) {
 }
 
 export const UniPicker = uniComponent('uni-picker', {
+  name: String,
   mode: {
     type: String as PropType<Mode>,
     default: 'selector'
@@ -146,6 +148,8 @@ export const UniPicker = uniComponent('uni-picker', {
   let needRefresh = false
   let refreshing = false
 
+  const { setFormValue } = useField(props.name || '', FieldType.picker)
+
   const isMoving = () => {
     return wheels.some((wheel) => {
       return wheel.pending
@@ -190,6 +194,7 @@ export const UniPicker = uniComponent('uni-picker', {
       default:
         value = selectedIndex[0]
     }
+    setFormValue(value)
     props.onChange && props.onChange({
       value
     })
