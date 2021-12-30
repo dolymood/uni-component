@@ -6,7 +6,7 @@ import type { FCComponent, Context } from './node'
 import { normalized, equal } from './util'
 import { UniNode } from './node'
 import { Instance, setCurrentInstance, newInstance } from './instance'
-import { onMounted, onUnmounted } from './lifecycle'
+import { onMounted, onUpdated, onUnmounted } from './lifecycle'
 import { getPlatform } from './platform'
 
 const rootInstance: any = {
@@ -114,7 +114,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       }
 
       const instance = newInstance(props, state, () => {
-        return FC.render(props, state, context)
+        currentIns = instance
+        const nodes = FC.render(props, state, context)
+        return nodes
       }, FC, lastIns)
 
       lastIns.children.push(instance)
@@ -123,6 +125,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       const preInstance = setCurrentInstance(instance)
 
       onMounted(() => {
+        currentIns = lastIns
+      })
+      onUpdated(() => {
         currentIns = lastIns
       })
 
