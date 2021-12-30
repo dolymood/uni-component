@@ -1,11 +1,10 @@
-// clone from https://github.com/posva/pinia
-// modified by dolymood
 // @ts-check
 import path from 'path'
 import ts from 'rollup-plugin-typescript2'
 import replace from '@rollup/plugin-replace'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import styles from 'rollup-plugin-styles'
 
 if (!process.env.TARGET) {
   throw new Error('TARGET package must be specified via --environment flag.')
@@ -94,7 +93,7 @@ function createConfig(buildName, output, plugins = []) {
   // check will be error, but need rts2 fixed it, see https://github.com/ezolenko/rollup-plugin-typescript2/issues/234
   const tsPlugin = ts({
     check: !hasTSChecked,
-    tsconfig: path.resolve(__dirname, './tsconfig.json'),
+    tsconfig: resolve('tsconfig.json'),
     cacheRoot: path.resolve(__dirname, './node_modules/.rts2_cache'),
     tsconfigOverride: {
       compilerOptions: {
@@ -102,7 +101,13 @@ function createConfig(buildName, output, plugins = []) {
         declaration: shouldEmitDeclarations,
         declarationMap: shouldEmitDeclarations,
       },
-      exclude: ['**/__tests__', 'test-dts']
+      exclude: [
+        '**/__tests__',
+        'test-dts',
+        'platform.d.ts',
+        'example/vue',
+        'example/react'
+      ]
     },
   })
   // we only need to check TS and generate declarations once for each build.
@@ -125,6 +130,13 @@ function createConfig(buildName, output, plugins = []) {
   }
 
   const nodePlugins = [nodeResolve(), commonjs()]
+
+  if (process.env.TARGET === 'components') {
+    nodePlugins.push(styles({
+      mode: ['extract', 'style.css']
+    }))
+    output.assetFileNames = '[name][extname]'
+  }
 
   return {
     input: resolve('src/index.ts'),
