@@ -2,5 +2,6 @@
 
 TODO:
 
+- root style
 - ref
 - jsx runtime support

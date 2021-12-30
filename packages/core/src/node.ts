@@ -1,6 +1,7 @@
 import type { UnwrapNestedRefs } from '@uni-store/core'
 import type { RawPropTypes, ExtractDefaultPropTypes } from './props'
 import { Instance } from './instance'
+import { VNode } from './types'
 
 export interface Context {
   slots: Record<string, any>
@@ -8,7 +9,7 @@ export interface Context {
   [key: string]: any
 }
 
-export type UniNode = UniComponent.VNode
+export type UniNode = VNode
 
 export type GetState<S extends {}> = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string }
 

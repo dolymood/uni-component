@@ -1,5 +1,7 @@
 import classNames from 'classnames'
+
 export { classNames }
+
 export * from './component'
 export * from './h'
 export * from './inject'
@@ -10,3 +12,4 @@ export * from './platform'
 export * from './props'
 export * from './ref'
 export * from './util'
+export * from './types'

@@ -3,6 +3,7 @@ import {
   ref
 } from '@uni-store/core'
 import {
+  h,
   PropType,
   uniComponent
 } from '@uni-component/core'

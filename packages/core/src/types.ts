@@ -1,17 +1,3 @@
-// from https://github.com/ionic-team/stencil/blob/main/src/declarations/stencil-public-runtime.ts
-import { FCComponent } from '../src'
-
-export as namespace UniComponent
-
-export function h(sel: any, data: VNodeData | null, children?: VNode | VNode[]): VNode
-export namespace h {
-  export namespace JSX {
-    interface IntrinsicElements extends JSXBase.IntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-}
-
 export interface VNode {
   [key: string]: any
 }

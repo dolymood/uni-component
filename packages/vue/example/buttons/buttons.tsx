@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import { proxyh } from '../proxy-h'
+import { h } from 'vue'
 import { CubeButtons as UniButtons } from '@uni-component/example'
 import { uni2Vue } from '../../src'
 

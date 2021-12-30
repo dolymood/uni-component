@@ -2,7 +2,7 @@ import { UniNode, FCComponent } from './node'
 import { RawPropTypes } from './props'
 
 export interface PlatformComponent<P> {
-  (props: P, ...args: any[]): any
+  (props: P): any
   [key: string]: any
 }
 

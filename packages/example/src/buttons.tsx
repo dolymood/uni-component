@@ -1,4 +1,4 @@
-import { uniComponent } from '@uni-component/core'
+import { h, uniComponent } from '@uni-component/core'
 import { CubeButton } from './button'
 
 export const CubeButtons = uniComponent('cube-buttons', (name) => {

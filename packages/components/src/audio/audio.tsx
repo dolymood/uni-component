@@ -1,4 +1,4 @@
-import { h, uniComponent, uni2Platform, onMounted } from '@uni-component/core'
+import { h, uniComponent, uni2Platform } from '@uni-component/core'
 
 const UniAudio = uniComponent('uni-audio', {
   src: String,
@@ -15,11 +15,11 @@ const UniAudio = uniComponent('uni-audio', {
   onPause: Function,
   onTimeUpdate: Function,
   onEnded: Function
-}, (name, props) => {
+}, (_, props) => {
 
-  onMounted(() => {
-    console.log('mounted')
-  })
+  // onMounted(() => {
+  //   console.log('mounted')
+  // })
 
   // todo should bind events when mounted
   const onTimeUpdate = (e: Event) => {
@@ -47,6 +47,7 @@ const UniAudio = uniComponent('uni-audio', {
     const target = (e.srcElement || e.currentTarget) as HTMLMediaElement
     props.onError && props.onError(target.error?.code)
   }
+
   return {
     onTimeUpdate,
     onEnded,

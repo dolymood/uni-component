@@ -249,15 +249,17 @@ type NativeElements = {
 }
 
 declare module 'vue' {
-  export namespace JSX {
-    interface Element extends VNode { }
-    interface ElementAttributesProperty {
-      $props: {}
+  export namespace h {
+    export namespace JSX {
+      interface Element extends VNode { }
+      interface ElementAttributesProperty {
+        $props: {}
+      }
+      interface IntrinsicElements extends NativeElements {
+        [name: string]: any
+      }
+      interface IntrinsicAttributes extends ReservedProps { }
     }
-    interface IntrinsicElements extends NativeElements {
-      [name: string]: any
-    }
-    interface IntrinsicAttributes extends ReservedProps { }
   }
 }
 
