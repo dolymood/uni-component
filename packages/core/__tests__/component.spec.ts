@@ -1,35 +1,6 @@
 import { computed } from '@uni-store/core'
 import { isArray, isFunction } from '@vue/shared'
-import { h, uniComponent, provide, inject, UniNode, RawPropTypes, FCComponent, setPlatform } from '../src'
-
-function createComponent <
-  Props extends {},
-  S,
-  RawProps extends RawPropTypes,
-  Defaults,
-  FCProps
->(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
-  render?: FCComponent<Props, S, RawProps>['render']
-) {
-  if (render) {
-    UniComponent.render = render
-  }
-  return UniComponent
-}
-
-setPlatform({
-  // @ts-ignore
-  createComponent,
-  createVNode (type: any, props: any, children: any) {
-    const node = {
-      type,
-      props,
-      children: children
-    }
-    return node as UniNode
-  }
-})
+import { h, uniComponent, provide, inject, UniNode } from '../src'
 
 describe('Test Core', () => {
   it('should work correctly - without props', () => {
