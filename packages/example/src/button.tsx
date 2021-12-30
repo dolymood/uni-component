@@ -22,7 +22,6 @@ const CCC = uniComponent('cube-cc', ['a', 'b'], (name, props) => {
 })
 
 export const CubeButton = uniComponent('cube-button', {
-  xxx: Object,
   type: {
     type: String as PropType<'button' | 'submit' | 'reset'>,
     default: 'button'
