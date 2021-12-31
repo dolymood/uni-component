@@ -5,7 +5,7 @@ import { Audio } from '../src'
 
 describe('Audio', () => {
   it('props', async () => {
-    const src = 'http://storage.jd.com/cjj-pub-images/horse.ogv'
+    const src = 'https://www.w3school.com.cn/i/horse.ogg'
     const controls = true
     const loop = true
 
