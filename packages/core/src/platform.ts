@@ -19,6 +19,7 @@ export interface Platform {
   createVNode: (type: any, props?: any, children?: any) => UniNode
 }
 
+// istanbul ignore next
 function createComponent <
   Props extends {},
   S,

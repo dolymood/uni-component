@@ -11,7 +11,7 @@ export const inlineStyle2Obj = (str?: string) => {
   str && str.split(';').forEach((item) => {
     if (item) {
       const [k, v] = item.split(':')
-      obj[k] = v
+      obj[k.trim()] = v.trim()
     }
   })
   return obj
