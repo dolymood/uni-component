@@ -1,6 +1,6 @@
-import { h } from '@uni-component/core'
+import { h, uniComponent, uni2Platform, onMounted } from '@uni-component/core'
+import { ref } from '@uni-store/core'
 import { ScrollView } from '@uni-component/components'
-import { useState, useCallback, useEffect } from 'react'
 import './index.scss'
 
 // todo use View replace div
@@ -10,35 +10,50 @@ const order = ['demo1', 'demo2', 'demo3']
 const arr: number[] = []
 for (let i = 0; i < 20; i++) arr.push(i)
 
-const PullRefreshDemo = () => {
-  const [triggered, setTriggered] = useState(false)
-  useEffect(() => {
+const UniPullRefreshDemo = uniComponent('uni-pull-refresh-demo', () => {
+  const triggered = ref(false)
+  onMounted(() => {
     setTimeout(() => {
-      setTriggered(true)
+      triggered.value = true
     }, 1000)
-  }, [arr])
-  const onPulling = useCallback((e) => {
+  })
+  const onPulling = (e: any) => {
     console.log('onPulling:', e)
-  }, [])
+  }
 
-  const onRefresh = useCallback(() => {
+  const onRefresh = () => {
     console.log('onRefresh:')
-    if (triggered) return
     // set triggered true
-    setTriggered(true)
+    triggered.value = true
     setTimeout(() => {
-      setTriggered(false)
+      triggered.value = false
     }, 3000)
-  }, [])
+  }
 
-  const onRestore = useCallback((e) => {
+  const onRestore = (e: any) => {
     console.log('onRestore:', e)
-  }, [])
+  }
 
-  const onAbort = useCallback((e) => {
+  const onAbort = (e: any) => {
     console.log('onAbort', e)
-  }, [])
+  }
 
+  return {
+    triggered,
+    onPulling,
+    onRefresh,
+    onRestore,
+    onAbort
+  }
+})
+
+const PullRefreshDemo = uni2Platform(UniPullRefreshDemo, (_, {
+  triggered,
+  onPulling,
+  onRefresh,
+  onRestore,
+  onAbort
+}) => {
   return (
     <div class='page-section'>
       <h4 class='page-section-title'>
@@ -75,37 +90,55 @@ const PullRefreshDemo = () => {
       </div>
     </div>
   )
-}
+})
 
-export default function ScrollViewDemo () {
-  const [toView, setToView] = useState('demo2')
-  const [scrollTop, setScrollTop] = useState(0)
-  const upper = useCallback((e) => {
+const UniScrollViewDemo = uniComponent('uni-scroll-view-demo', () => {
+  const toView = ref('demo2')
+  const scrollTop = ref(0)
+  const upper = () => {
     // console.log(e)
-  }, [])
-  const lower = useCallback((e) => {
+  }
+  const lower = () => {
     // console.log(e)
-  }, [])
-  const scroll = useCallback((e) => {
+  }
+  const scroll = () => {
     // console.log(e)
-  }, [])
-  const scrollToTop = useCallback(() => {
-    setScrollTop(0)
-  }, [])
-
-  const tap = useCallback(() => {
+  }
+  const scrollToTop = () => {
+    scrollTop.value = 0
+  }
+  const tap = () => {
     for (let i = 0; i < order.length; ++i) {
-      if (order[i] === toView) {
-        setToView(order[i + 1])
-        setScrollTop((i + 1) * 200)
+      if (order[i] === toView.value) {
+        toView.value = order[i + 1]
+        scrollTop.value = (i + 1) * 200
         break
       }
     }
-  }, [])
-  const tapMove = useCallback(() => {
-    setScrollTop(scrollTop + 10)
-  }, [])
+  }
+  const tapMove = () => {
+    scrollTop.value = scrollTop.value + 10
+  }
 
+  return {
+    toView,
+    scrollTop,
+    upper,
+    lower,
+    scroll,
+    scrollToTop,
+    tap,
+    tapMove
+  }
+})
+
+export default uni2Platform(UniScrollViewDemo, (_, {
+  toView,
+  scrollTop,
+  upper,
+  lower,
+  scroll
+}) => {
   return (
     <div class='scroll-view-demo'>
       <div class='page-section'>
@@ -145,4 +178,4 @@ export default function ScrollViewDemo () {
       <PullRefreshDemo></PullRefreshDemo>
     </div>
   )
-}
+})

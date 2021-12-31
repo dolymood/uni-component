@@ -2,8 +2,7 @@ import {
   ExtractPropTypes,
   useRef,
   onMounted,
-  onUnmounted,
-  hyphenate
+  onUnmounted
 } from '@uni-component/core'
 import { ref } from '@uni-store/core'
 
@@ -31,7 +30,7 @@ export const props = {
 }
 
 const eventsMap = Object.keys(props).reduce((map, evt) => {
-  map[evt]= hyphenate(evt.slice(2))
+  map[evt]= evt.slice(2).toLowerCase()
   return map
 }, {} as Record<string, string>)
 

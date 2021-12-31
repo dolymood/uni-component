@@ -1,6 +1,6 @@
-import { h } from '@uni-component/core'
+import { h, uniComponent, uni2Platform } from '@uni-component/core'
+import { ref } from '@uni-store/core'
 import { PickerView, PickerViewColumn, View, Text } from '@uni-component/components'
-import { useState, useCallback } from 'react'
 import './index.scss'
 
 const date = new Date()
@@ -22,20 +22,36 @@ for (let i = 1; i <= 31; i++) {
 
 const value = [9999, 1, 1]
 
-export default function PickerViewDemo () {
-  const [year, setYear] = useState(date.getFullYear())
-  const [month, setMonth] = useState(2)
-  const [day, setDay] = useState(2)
-  const [isDaytime, setIsDaytime] = useState(true)
+const UniPickerViewDemo = uniComponent('uni-picker-view-demo', () => {
+  const year = ref(date.getFullYear())
+  const month = ref(2)
+  const day = ref(2)
+  const isDaytime = ref(true)
 
-  const bindChange = useCallback((e) => {
+  const bindChange = (e: any) => {
     const val = e.value
-    setYear(years[val[0]])
-    setMonth(months[val[1]])
-    setDay(days[val[2]])
-    setIsDaytime(!val[3])
-  }, [])
+    year.value = years[val[0]]
+    month.value = months[val[1]]
+    day.value = days[val[2]]
+    isDaytime.value = !val[3]
+  }
 
+  return {
+    year,
+    month,
+    day,
+    isDaytime,
+    bindChange
+  }
+})
+
+UniPickerViewDemo.render = function (_, {
+  year,
+  month,
+  day,
+  isDaytime,
+  bindChange
+}) {
   return (
     <View>
       <View class='selected-date'>{year}年{month}月{day}日{isDaytime ? '白天' : '夜晚'}</View>
@@ -79,3 +95,5 @@ export default function PickerViewDemo () {
     </View>
   )
 }
+
+export default uni2Platform(UniPickerViewDemo)

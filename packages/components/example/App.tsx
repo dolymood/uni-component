@@ -1,5 +1,5 @@
 import { h, uniComponent, uni2Platform } from '@uni-component/core'
-import { ref, watch } from '@uni-store/core'
+import { ref, watch, markRaw } from '@uni-store/core'
 import { View } from '@uni-component/components'
 import { Page } from './components/Page'
 import AdDemo from './pages/ad'
@@ -264,14 +264,14 @@ const UniApp = uniComponent('uni-app', () => {
   const target = ref<FItem>()
   const gotoTarget = (item?: Item) => {
     if (item && item.Demo) {
-      target.value = item as FItem
+      target.value = markRaw(item) as FItem
     } else {
       target.value = undefined
     }
   }
 
   watch(() => target.value, (val) => {
-    document.documentElement.style.overflow = val ? 'hidden' : 'auto'
+    document.documentElement.style.overflow = val ? 'hidden' : ''
   })
 
   return {

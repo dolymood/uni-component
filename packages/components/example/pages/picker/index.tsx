@@ -1,18 +1,32 @@
-import { h } from '@uni-component/core'
+import { h, uniComponent, uni2Platform } from '@uni-component/core'
+import { ref } from '@uni-store/core'
 import { Picker, View, Text } from '@uni-component/components'
-import { useState, useCallback } from 'react'
 
-export default function PickerDemo () {
-  const array = ['美国', '中国', '巴西', '日本']
-  const [index, setIndex] = useState(0)
-  const bindPickerChange = useCallback((e) => {
-    setIndex(e.value)
-  }, [])
+const array = ['美国', '中国', '巴西', '日本']
 
-  const [date, setDate] = useState('2016-09-01')
-  const bindDateChange = useCallback((e) => {
-    setDate(e.value)
-  }, [])
+const UniPickerDemo = uniComponent('uni-picker-demo', () => {
+  const index = ref(0)
+  const bindPickerChange = (e: any) => {
+    index.value = e.value
+  }
+  const date = ref('2016-09-01')
+  const bindDateChange = (e: any) => {
+    date.value = e.value
+  }
+  return {
+    index,
+    date,
+    bindPickerChange,
+    bindDateChange
+  }
+})
+
+UniPickerDemo.render = function (_, {
+  index,
+  date,
+  bindPickerChange,
+  bindDateChange
+}) {
   return (
     <View>
       <Picker onChange={bindPickerChange} value={index} range={array}>
@@ -22,7 +36,7 @@ export default function PickerDemo () {
         mode='date'
         value={date}
         start='2015-09-01'
-        end='2017-09-01'
+        end='2022-09-01'
         onChange={bindDateChange}
       >
         <View>
@@ -32,3 +46,5 @@ export default function PickerDemo () {
     </View>
   )
 }
+
+export default uni2Platform(UniPickerDemo)

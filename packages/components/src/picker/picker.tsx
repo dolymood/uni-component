@@ -207,7 +207,7 @@ export const UniPicker = uniComponent('uni-picker', {
     isShow.value = true
     if (needRefresh) {
       needRefresh = false
-      refresh()
+      nextTick(refresh)
     }
   }
   const hide = () => {
