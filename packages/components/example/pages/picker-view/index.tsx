@@ -1,5 +1,5 @@
 import { h } from '@uni-component/core'
-import { PickerView, PickerViewColumn } from '@uni-component/components'
+import { PickerView, PickerViewColumn, View, Text } from '@uni-component/components'
 import { useState, useCallback } from 'react'
 import './index.scss'
 
@@ -37,14 +37,14 @@ export default function PickerViewDemo () {
   }, [])
 
   return (
-    <div>
-      <p class='selected-date'>{year}年{month}月{day}日{isDaytime ? '白天' : '夜晚'}</p>
+    <View>
+      <View class='selected-date'>{year}年{month}月{day}日{isDaytime ? '白天' : '夜晚'}</View>
       <PickerView class='picker-view-demo' indicatorStyle='height: 50px;' value={value} onChange={bindChange}>
         <PickerViewColumn>
           {
             years.map((year) => {
               return (
-                <p key={year}>{year}年</p>
+                <View key={String(year)}>{year}年</View>
               )
             })
           }
@@ -53,7 +53,7 @@ export default function PickerViewDemo () {
           {
             months.map((month) => {
               return (
-                <p key={month}>{month}月</p>
+                <View key={String(month)}>{month}月</View>
               )
             })
           }
@@ -62,16 +62,18 @@ export default function PickerViewDemo () {
           {
             days.map((da) => {
               return (
-                <p key={da}>{da}日</p>
+                <View key={String(da)}>{da}日</View>
               )
             })
           }
         </PickerViewColumn>
         <PickerViewColumn>
-          <p>☀</p>
-          <p>🌑</p>
+          <View>
+            <Text>☀</Text>
+            <Text>🌑</Text>
+          </View>
         </PickerViewColumn>
       </PickerView>
-    </div>
+    </View>
   )
 }

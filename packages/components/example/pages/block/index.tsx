@@ -1,11 +1,13 @@
 import { h } from '@uni-component/core'
-import { Block } from '@uni-component/components'
+import { Block, View, Text } from '@uni-component/components'
 
 export default function BlockDemo () {
   return (
     <Block>
-      <div>block content</div>
-      <div>block content 2</div>
+      <View>
+        <Text>block content</Text>
+      </View>
+      <Text>block content2</Text>
     </Block>
   )
 }

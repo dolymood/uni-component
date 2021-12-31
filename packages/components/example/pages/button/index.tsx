@@ -1,9 +1,9 @@
 import { h } from '@uni-component/core'
-import { Button } from '@uni-component/components'
+import { Button, View } from '@uni-component/components'
 
 export default function ButtonDemo () {
   return (
-    <div>
+    <View>
       <Button type="primary">页面主操作 Normal</Button>
       <Button type="primary" loading>页面主操作 Loading</Button>
       <Button type="primary" disabled>页面主操作 Disabled</Button>
@@ -24,6 +24,6 @@ export default function ButtonDemo () {
       <Button class="mini-btn" type="primary" size="mini">按钮</Button>
       <Button class="mini-btn" type="default" size="mini">按钮</Button>
       <Button class="mini-btn" type="warn" size="mini">按钮</Button>
-    </div>
+    </View>
   )
 }

@@ -11,6 +11,7 @@ export default function MovableAreaDemo () {
     background: '#1AAD19',
     color: '#fff'
   }
+  // todo replace div with view when style is supported
   const Text = <div style={style}>text</div>
   return (
     <div style={{position: 'relative', width: '200px', height: '200px', background: '#999'}}>

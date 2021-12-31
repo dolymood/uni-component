@@ -1,5 +1,5 @@
 import { h } from '@uni-component/core'
-import { Swiper, SwiperItem } from '@uni-component/components'
+import { Swiper, SwiperItem, View } from '@uni-component/components'
 import './index.scss'
 
 export default function SwiperDemo () {
@@ -21,7 +21,7 @@ export default function SwiperDemo () {
           const cls = `swiper-demo-item ${item}`
           return (
             <SwiperItem key={item}>
-              <div class={cls}></div>
+              <View class={cls}></View>
             </SwiperItem>
           )
         })

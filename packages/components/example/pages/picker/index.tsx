@@ -1,5 +1,5 @@
 import { h } from '@uni-component/core'
-import { Picker } from '@uni-component/components'
+import { Picker, View, Text } from '@uni-component/components'
 import { useState, useCallback } from 'react'
 
 export default function PickerDemo () {
@@ -14,9 +14,9 @@ export default function PickerDemo () {
     setDate(e.value)
   }, [])
   return (
-    <div>
+    <View>
       <Picker onChange={bindPickerChange} value={index} range={array}>
-        <p>当前选择 {array[index]}</p>
+        <View>当前选择 {array[index]}</View>
       </Picker>
       <Picker
         mode='date'
@@ -25,8 +25,10 @@ export default function PickerDemo () {
         end='2017-09-01'
         onChange={bindDateChange}
       >
-        <p>当前选择 {date}</p>
+        <View>
+          <Text>当前选择 {date}</Text>
+        </View>
       </Picker>
-    </div>
+    </View>
   )
 }

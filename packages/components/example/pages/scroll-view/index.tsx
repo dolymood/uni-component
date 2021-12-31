@@ -3,6 +3,8 @@ import { ScrollView } from '@uni-component/components'
 import { useState, useCallback, useEffect } from 'react'
 import './index.scss'
 
+// todo use View replace div
+
 const order = ['demo1', 'demo2', 'demo3']
 
 const arr: number[] = []

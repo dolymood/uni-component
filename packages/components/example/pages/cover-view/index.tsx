@@ -1,16 +1,18 @@
 import { h } from '@uni-component/core'
-import { CoverView } from '@uni-component/components'
+import { CoverView, View, Text } from '@uni-component/components'
 
 export default function CoverViewDemo () {
   return (
     <CoverView disabled={false} class="cover-view-demo">
-      <p>
-        <span>content</span>
-        <strong>1</strong>
-      </p>
+      <View>
+        <View>
+          <Text>content</Text>
+        </View>
+        <Text>1</Text>
+      </View>
       <CoverView class="cover-view-demo2">
-        <p>content 2</p>
-        <p>content 2 2</p>
+        <Text>content 2</Text>
+        <Text>content 2 2</Text>
       </CoverView>
     </CoverView>
   )

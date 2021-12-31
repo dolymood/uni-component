@@ -4,11 +4,6 @@ Unified Component. WIP.
 
 Depend on [@uni-store](https://github.com/dolymood/uni-store).
 
-## TODO
-
-- support ref
-- standard components, Like wechat miniprogram elements
-
 ## Installation
 
 ```bash
