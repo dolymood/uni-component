@@ -14,8 +14,8 @@ export default function MovableAreaDemo () {
   // todo replace div with view when style is supported
   const Text = <div style={style}>text</div>
   return (
-    <div style={{position: 'relative', width: '200px', height: '200px', background: '#999'}}>
-      <MovableArea width={200} height={200}>
+    <div style={{position: 'relative', width: '300px', height: '300px', background: '#999'}}>
+      <MovableArea width={300} height={300}>
         <MovableView x={10} y={10} direction='all'>{Text}</MovableView>
       </MovableArea>
     </div>
