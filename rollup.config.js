@@ -74,7 +74,8 @@ function createConfig(buildName, output, plugins = []) {
     '@uni-store/core': 'UniStore',
     '@vue/reactivity': 'UniStore',
     '@vue/runtime-core': 'UniStore',
-    '@uni-store/react': 'UniStoreReact'
+    '@uni-store/react': 'UniStoreReact',
+    '@uni-component/core': 'UniComponent'
   }
 
   output.file = resolve(output.file)
@@ -117,10 +118,12 @@ function createConfig(buildName, output, plugins = []) {
 
   const external = [
     'react',
+    'vue',
     '@uni-store/core',
     '@uni-store/react',
     '@vue/reactivity',
-    '@vue/runtime-core'
+    '@vue/runtime-core',
+    '@uni-component/core'
   ]
   if (!isGlobalBuild) {
     external.push.apply(external, [
