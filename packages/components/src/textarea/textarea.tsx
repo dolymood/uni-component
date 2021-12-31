@@ -27,9 +27,9 @@ const UniTextarea = uniComponent('uni-textarea', {
   const textarea = ref<HTMLTextAreaElement>()
   const setTextareaRef = useRef(textarea)
 
-  const _value = ref(props.value)
-  watch(() => props.value, (value) => {
-    _value.value = value
+  const value = ref(props.value)
+  watch(() => props.value, (newVal) => {
+    value.value = newVal
   })
 
   watch(() => props.autoFocus, (newValue, oldValue) => {
@@ -39,7 +39,7 @@ const UniTextarea = uniComponent('uni-textarea', {
   })
 
   const { setFormValue } = useField(props.name || '', FieldType.textarea)
-  watch(() => _value.value, (value) => {
+  watch(() => value.value, (value) => {
     setFormValue(value)
   })
 
@@ -47,9 +47,11 @@ const UniTextarea = uniComponent('uni-textarea', {
     e.stopPropagation()
     onLineChange()
     const target = e.target as HTMLTextAreaElement
+    const val = target.value
+    value.value = val
     props.onInput && props.onInput({
-      value: target.value,
-      cursor: target.value.length
+      value: val,
+      cursor: val.length
     })
   }
 
@@ -145,7 +147,7 @@ const UniTextarea = uniComponent('uni-textarea', {
     rootClass,
     setTextareaRef,
     line,
-    _value,
+    value,
     onInput,
     onFocus,
     onBlur,
@@ -165,7 +167,7 @@ UniTextarea.render = function (props, state) {
   } = props
   const {
     rootClass,
-    _value,
+    value,
     setTextareaRef,
     line,
     onInput,
@@ -186,7 +188,7 @@ UniTextarea.render = function (props, state) {
     <textarea
       ref={setTextareaRef}
       class={rootClass}
-      value={fixControlledValue(_value)}
+      value={fixControlledValue(value)}
       placeholder={placeholder}
       name={name}
       disabled={disabled}
