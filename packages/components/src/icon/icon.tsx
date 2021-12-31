@@ -1,18 +1,20 @@
 import { h, PropType, uniComponent, uni2Platform } from '@uni-component/core'
 import { computed } from '@uni-store/core'
-
+import { props, useContainer } from '../_/container'
 
 export type Type = 'success' | 'success_no_circle' | 'info'| 'warn'| 'waiting'| 'cancel'| 'download'| 'search'| 'clear'
 type IconType = Exclude<Type, 'success_no_circle'> | 'success-no-circle'
 
 const UniIcon = uniComponent('uni-icon', {
+  ...props,
   type: String as PropType<Type>,
   size: {
     type: [Number, String],
     default: 23
   },
   color: String
-}, (name, props) => {
+}, (_, props) => {
+  const { setEleRef } = useContainer(props)
   const iconType = computed(() => {
     return props.type?.replace(/_/g, '-') as IconType
   })
@@ -30,15 +32,16 @@ const UniIcon = uniComponent('uni-icon', {
 
   return {
     rootClass,
-    rootStyle
+    rootStyle,
+    setEleRef
   }
 })
 
 UniIcon.render = function (_, state) {
-  const { rootClass, rootStyle } = state
+  const { rootClass, rootStyle, setEleRef } = state
 
   return (
-    <i class={rootClass} style={rootStyle}></i>
+    <i ref={setEleRef} class={rootClass} style={rootStyle}></i>
   )
 }
 

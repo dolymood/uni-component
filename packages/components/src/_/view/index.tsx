@@ -6,9 +6,11 @@ import {
 } from '@uni-component/core'
 import { computed } from '@uni-store/core'
 import { useHover, props as hoverProps } from '../hover'
+import { props as containerProps, useContainer } from '../container'
 
 export const props = {
   ...hoverProps,
+  ...containerProps,
   hoverStartTime: {
     type: Number,
     default: 50
@@ -17,30 +19,22 @@ export const props = {
     type: Number,
     default: 400
   },
-  animation: String,
-  onLongPress: Function
+  animation: String
 }
 
 export type Props = ExtractPropTypes<typeof props>
 
 export const useView = (props: Props) => {
-  let timeoutEvent: NodeJS.Timeout
-  let startTime = 0
-
   const {
     rootClass,
     onTouchStart,
     onTouchEnd
-  } = useHover(props, () => {
-    timeoutEvent = setTimeout(() => {
-      props.onLongPress && props.onLongPress()
-    }, 350)
-    startTime = Date.now()
-  }, () => {
-    const spanTime = Date.now() - startTime
-    if (spanTime < 350) {
-      clearTimeout(timeoutEvent)
-    }
+  } = useHover(props)
+  const {
+    setEleRef
+  } = useContainer<HTMLDivElement>(props, {
+    onTouchStart,
+    onTouchEnd
   })
 
   const attrs = computed(() => {
@@ -53,16 +47,10 @@ export const useView = (props: Props) => {
     return attrs
   })
 
-  const onTouchMove = () => {
-    clearTimeout(timeoutEvent)
-  }
-
   return {
     rootClass,
     attrs,
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd
+    setEleRef
   }
 }
 
@@ -72,17 +60,13 @@ export const render = (_: Props, state: State, { slots }: Context) => {
   const {
     rootClass,
     attrs,
-    onTouchStart,
-    onTouchMove,
-    onTouchEnd
+    setEleRef
   } = state
   return (
     <div
       class={rootClass}
+      ref={setEleRef}
       { ...attrs }
-      onTouchStart={ onTouchStart }
-      onTouchMove={ onTouchMove }
-      onTouchEnd={ onTouchEnd }
     >
       { slots.default && slots.default() }
     </div>
