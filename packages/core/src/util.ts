@@ -1,6 +1,6 @@
-import { capitalize, camelize } from '@vue/shared'
+import { capitalize, camelize, hyphenate } from '@vue/shared'
 
-export { camelize, capitalize }
+export { camelize, capitalize, hyphenate }
 
 export const normalized = (name: string) => {
   return capitalize(camelize(name))

@@ -80,7 +80,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           // <UniA><ReactX><UniB></UniB></ReactX></UniA>
           // can not get correct relations
           const result = _children.find((child: any) => {
-            return equal(child.props, rawProps) && child.type === FC
+            return child && equal(child.props, rawProps) && child.type === FC
           })
           return !!result
         }
@@ -91,7 +91,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             propsChildren = [propsChildren]
           }
           propsChildren = propsChildren.filter((child: any) => {
-            return child.type.___UNI___
+            return child && child.type.___UNI___
           })
           return children.length >= propsChildren.length
         }
@@ -147,6 +147,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         _state = setup(name, props)
       }
 
+      // todo
+      // id style support
       const rootClass = computed(() => {
         const otherRootClass = _state && _state.rootClass
         return classNames(name, unref(otherRootClass), (props as any).className || props.class)
