@@ -70,6 +70,8 @@ export default function PickerViewDemo () {
         <PickerViewColumn>
           <View>
             <Text>☀</Text>
+          </View>
+          <View>
             <Text>🌑</Text>
           </View>
         </PickerViewColumn>

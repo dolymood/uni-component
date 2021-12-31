@@ -1,5 +1,5 @@
 import { h, uniComponent, uni2Platform } from '@uni-component/core'
-import { ref } from '@uni-store/core'
+import { ref, watch } from '@uni-store/core'
 import { View } from '@uni-component/components'
 import { Page } from './components/Page'
 import AdDemo from './pages/ad'
@@ -269,6 +269,11 @@ const UniApp = uniComponent('uni-app', () => {
       target.value = undefined
     }
   }
+
+  watch(() => target.value, (val) => {
+    document.documentElement.style.overflow = val ? 'hidden' : 'auto'
+  })
+
   return {
     target,
     gotoTarget
