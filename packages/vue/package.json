@@ -60,8 +60,7 @@
     "@vue/compiler-sfc": "3",
     "@vue/runtime-core": "^3.2.24",
     "@vue/runtime-dom": "^3.2.24",
-    "vue": "^3.2.24",
-    "vue-jsx-runtime": "^0.1.0"
+    "vue": "^3.2.24"
   },
   "peerDependencies": {
     "@uni-component/core": "0.0.1",

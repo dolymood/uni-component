@@ -1,6 +1,4 @@
-import { h } from 'vue'
-// jsx using for jest test
-import { jsx } from '../vue-shim'
+import { h } from '@uni-component/core'
 import { CubeButtons as UniButtons } from '@uni-component/example'
 import { uni2Vue } from '../../src'
 

@@ -162,7 +162,6 @@ importers:
       '@vue/runtime-core': ^3.2.24
       '@vue/runtime-dom': ^3.2.24
       vue: ^3.2.24
-      vue-jsx-runtime: ^0.1.0
     devDependencies:
       '@testing-library/vue': 6.5.0_ae87cbba5ec93a01f3fe1197df446ca3
       '@uni-component/core': link:../core
@@ -172,7 +171,6 @@ importers:
       '@vue/runtime-core': 3.2.26
       '@vue/runtime-dom': 3.2.26
       vue: 3.2.26
-      vue-jsx-runtime: 0.1.0_vue@3.2.26
 
 packages:
 
@@ -5874,14 +5872,6 @@ packages:
       sass: 1.45.1
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
-
-  /vue-jsx-runtime/0.1.0_vue@3.2.26:
-    resolution: {integrity: sha512-gISr2PorSYKoiUk1Y0E20BrRC1rAiVTQNKLZZYigKFY0HEC9VpUq7nrI7wgXe1DzhsjyWNIpcuvLsiHTi5yBXw==}
-    peerDependencies:
-      vue: '3'
-    dependencies:
-      vue: 3.2.26
     dev: true
 
   /vue/3.2.26:

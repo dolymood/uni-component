@@ -1,6 +1,5 @@
-import { h, defineComponent, ref } from 'vue'
-// jsx using for jest test
-import { jsx } from '../example/vue-shim'
+import { defineComponent, ref } from 'vue'
+import { h } from '@uni-component/core'
 import { nextTick } from '@uni-store/core'
 import {
   fireEvent,
