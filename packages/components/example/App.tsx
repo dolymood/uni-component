@@ -23,7 +23,7 @@ import LabelDemo from './pages/label'
 import LivePlayerDemo from './pages/live-player'
 import LivePusherDemo from './pages/live-pusher'
 import MapDemo from './pages/map'
-import MatchDediaDemo from './pages/match-media'
+import MatchMediaDemo from './pages/match-media'
 import MovableAreaDemo from './pages/movable-area'
 import NavigationBarDemo from './pages/navigation-bar'
 import NavigatorDemo from './pages/navigator'
@@ -217,8 +217,8 @@ const list: Item[] = [
     Demo: MapDemo
   },
   {
-    name: 'MatchDedia',
-    Demo: MatchDediaDemo
+    name: 'MatchMedia',
+    Demo: MatchMediaDemo
   },
   {
     name: 'NavigationBar',
