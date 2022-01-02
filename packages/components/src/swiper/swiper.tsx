@@ -21,6 +21,8 @@ export interface SwiperProvide {
 }
 export const swiperProvide = 'swiperProvide'
 
+type Source = 'touch' | ''
+
 const UniSwiper = uniComponent('uni-swiper', {
   indicatorDots: Boolean,
   indicatorColor: {
@@ -64,9 +66,9 @@ const UniSwiper = uniComponent('uni-swiper', {
     type: String as PropType<'default' | 'linear' | 'easeInCubic' | 'easeOutCubic' | 'easeInOutCubic'>,
     default: 'default'
   },
-  onChange: Function,
-  onAnimationFinish: Function,
-  onTransition: Function
+  onChange: Function as PropType<(detail: {current: number, currentItemId: string, source: Source}) => void>,
+  onAnimationFinish: Function as PropType<(detail: {current: number, currentItemId: string, source: Source}) => void>,
+  onTransition: Function as PropType<(detail: {dx: number, dy: number}) => void>
 }, (name, props) => {
   const wrapper = ref<HTMLDivElement>()
   const setWrapperRef = useRef(wrapper)
@@ -74,7 +76,7 @@ const UniSwiper = uniComponent('uni-swiper', {
   let bs: BScroll | null = null
   let lastX: number
   let lastY: number
-  let changeSource: string
+  let changeSource: Source
   const currentIndex = ref(props.current)
   watch(() => props.current, (val) => {
     if (bs) {

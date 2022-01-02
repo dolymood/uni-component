@@ -19,6 +19,8 @@ BScroll.use(Zoom)
 
 type MovableDirection = 'none' | 'all' | 'vertical' | 'horizontal'
 
+type Source = 'touch' | 'touch-out-of-bounds' | 'out-of-bounds' | 'friction' | ''
+
 const UniMovableView = uniComponent('uni-movable-view', {
   direction: {
     type: String as PropType<MovableDirection>,
@@ -72,10 +74,10 @@ const UniMovableView = uniComponent('uni-movable-view', {
     type: Boolean,
     default: true
   },
-  onChange: Function,
-  onHtouchmove: Function,
-  onVtouchmove: Function,
-  onScale: Function
+  onChange: Function as PropType<(detail: {x: number, y: number, source: Source}) => void>,
+  onHtouchmove: Function as PropType<() => void>,
+  onVtouchmove: Function as PropType<() => void>,
+  onScale: Function as PropType<(detail: {x: number, y: number, scale: number}) => void>,
 }, (name, props) => {
   const ele = ref<HTMLDivElement>()
   const setEleRef = useRef(ele)
@@ -95,7 +97,7 @@ const UniMovableView = uniComponent('uni-movable-view', {
     lastestScale: 1,
     isZooming: false,
     isFirstTouch: true,
-    source: ''
+    source: '' as Source
   }
 
   const friction = computed(() => {
@@ -156,11 +158,9 @@ const UniMovableView = uniComponent('uni-movable-view', {
           return
         }
         props.onChange && props.onChange({
-          detail: {
-            x: roundFun(position.x) ? roundFun(position.x) : 0,
-            y: roundFun(position.y) ? roundFun(position.y) : 0,
-            source: data.source
-          }
+          x: roundFun(position.x) ? roundFun(position.x) : 0,
+          y: roundFun(position.y) ? roundFun(position.y) : 0,
+          source: data.source
         })
       }
       data.lastestX = roundFun(position.x)
@@ -213,11 +213,9 @@ const UniMovableView = uniComponent('uni-movable-view', {
         }
         data.isZooming = true
         props.onScale && props.onScale({
-          detail: {
-            x: roundFun(bs.x),
-            y: roundFun(bs.y),
-            scale: roundFun(scale)
-          }
+          x: roundFun(bs.x),
+          y: roundFun(bs.y),
+          scale: roundFun(scale)
         })
         data.lastestScale = roundFun(scale)
       })

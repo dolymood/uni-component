@@ -1,27 +1,30 @@
 import {
   ExtractPropTypes,
+  PropType,
   useRef,
   onMounted,
   onUnmounted
 } from '@uni-component/core'
 import { ref } from '@uni-store/core'
 
+type TouchEventHandler = PropType<(e: TouchEvent) => void>
+
 const touchEventProps = {
-  onTouchStart: Function,
-  onTouchMove: Function,
-  onTouchCancel: Function,
-  onTouchEnd: Function,
-  onLongPress: Function,
+  onTouchStart: Function as TouchEventHandler,
+  onTouchMove: Function as TouchEventHandler,
+  onTouchCancel: Function as TouchEventHandler,
+  onTouchEnd: Function as TouchEventHandler,
+  onLongPress: Function as PropType<() => void>,
   // onLongTap: Function, // do not support
   // ontouchforcechange: Function
 }
 const eventProps = {
-  onClick: Function,
+  onClick: Function as PropType<(e: MouseEvent) => void>,
   // onTap: Function, // use click
-  onTransitionEnd: Function,
-  onAnimationStart: Function,
-  onAnimationIteration: Function,
-  onAnimationEnd: Function
+  onTransitionEnd: Function as PropType<(e: TransitionEvent) => void>,
+  onAnimationStart: Function as PropType<(e: AnimationEvent) => void>,
+  onAnimationIteration: Function as PropType<(e: AnimationEvent) => void>,
+  onAnimationEnd: Function as PropType<(e: AnimationEvent) => void>
 }
 
 export const props = {

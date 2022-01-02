@@ -1,4 +1,4 @@
-import { h, uniComponent, uni2Platform } from '@uni-component/core'
+import { h, uniComponent, uni2Platform, PropType } from '@uni-component/core'
 
 const UniAudio = uniComponent('uni-audio', {
   src: String,
@@ -10,11 +10,11 @@ const UniAudio = uniComponent('uni-audio', {
   loop: Boolean,
   muted: Boolean,
   nativeProps: Object,
-  onError: Function,
-  onPlay: Function,
-  onPause: Function,
-  onTimeUpdate: Function,
-  onEnded: Function
+  onError: Function as PropType<(code?: number) => void>,
+  onPlay: Function as PropType<() => void>,
+  onPause: Function as PropType<(e: Event) => void>,
+  onTimeUpdate: Function as PropType<(detail: {duration: number, currentTime: number}) => void>,
+  onEnded: Function as PropType<() => void>
 }, (_, props) => {
 
   // onMounted(() => {

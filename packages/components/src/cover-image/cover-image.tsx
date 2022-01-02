@@ -1,11 +1,11 @@
-import { h, uniComponent, uni2Platform, useRef } from '@uni-component/core'
+import { h, uniComponent, uni2Platform, useRef, PropType } from '@uni-component/core'
 import { ref } from '@uni-store/core'
 
 const UniCoverImage = uniComponent('uni-cover-image', {
   src: String,
   nativeProps: Object,
-  onLoad: Function,
-  onError: Function
+  onLoad: Function as PropType<(detail: {width?: number, height?: number}) => void>,
+  onError: Function as PropType<() => void>
 }, (_, props) => {
   const img = ref<HTMLImageElement>()
   // todo with ref supported

@@ -24,8 +24,8 @@ const UniButton = uniComponent('uni-button', {
   plain: Boolean,
   loading: Boolean,
   formType: String as PropType<'submit' | 'reset'>,
-  onSubmit: Function,
-  onReset: Function
+  onSubmit: Function as PropType<() => void>,
+  onReset: Function as PropType<() => void>
 }, (name, props) => {
   const {
     rootClass: hoverClass,

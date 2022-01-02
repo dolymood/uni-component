@@ -28,8 +28,8 @@ const UniPickerViewDemo = uniComponent('uni-picker-view-demo', () => {
   const day = ref(2)
   const isDaytime = ref(true)
 
-  const bindChange = (e: any) => {
-    const val = e.value
+  const bindChange = (e: {value?: number[]}) => {
+    const val = e.value!
     year.value = years[val[0]]
     month.value = months[val[1]]
     day.value = days[val[2]]

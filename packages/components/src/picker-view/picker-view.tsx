@@ -34,10 +34,10 @@ export const UniPickerView = uniComponent('uni-picker-view', {
   indicatorClass: String,
   maskStyle: String,
   maskClass: String,
-  onChange: Function,
-  onPickStart: Function,
-  onPickEnd: Function
-}, (name, props) => {
+  onChange: Function as PropType<(detail: {value?: number[]}) => void>,
+  onPickStart: Function as PropType<() => void>,
+  onPickEnd: Function as PropType<() => void>
+}, (_, props) => {
   const rootClass = computed(() => {
     return props.maskClass
   })

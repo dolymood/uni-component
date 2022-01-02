@@ -1,7 +1,8 @@
 import {
   h,
   uniComponent,
-  uni2Platform
+  uni2Platform,
+  PropType
 } from '@uni-component/core'
 
 const UniWebView = uniComponent('uni-web-view', {
@@ -10,8 +11,8 @@ const UniWebView = uniComponent('uni-web-view', {
     default: '',
     required: true
   },
-  onLoad: Function,
-  onError: Function
+  onLoad: Function as PropType<(detail: {src: string}) => void>,
+  onError: Function as PropType<(detail: {src: string}) => void>
 }, (_, props) => {
   const onLoad = (e: Event) => {
     e.stopPropagation()

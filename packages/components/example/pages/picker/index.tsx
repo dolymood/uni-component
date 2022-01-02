@@ -6,11 +6,11 @@ const array = ['美国', '中国', '巴西', '日本']
 
 const UniPickerDemo = uniComponent('uni-picker-demo', () => {
   const index = ref(0)
-  const bindPickerChange = (e: any) => {
+  const bindPickerChange = (e: {value: any}) => {
     index.value = e.value
   }
   const date = ref('2016-09-01')
-  const bindDateChange = (e: any) => {
+  const bindDateChange = (e: {value: any}) => {
     date.value = e.value
   }
   return {

@@ -1,11 +1,11 @@
-import { h, uniComponent, uni2Platform } from '@uni-component/core'
+import { h, uniComponent, uni2Platform, PropType } from '@uni-component/core'
 
 const LONG_TAP_DELAY = 500
 
 const UniCanvas = uniComponent('uni-canvas', {
   canvasId: String,
   nativeProps: Object,
-  onLongTap: Function
+  onLongTap: Function as PropType<() => void>
 }, (_, props) => {
   let timer: NodeJS.Timeout
 

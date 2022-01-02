@@ -1,5 +1,5 @@
 import { classNames } from '@uni-component/core'
-import { Ref, computed, ref, watch, nextTick } from '@uni-store/core'
+import { Ref, computed, ref, watch } from '@uni-store/core'
 
 function nextFrame(cb: FrameRequestCallback) {
   requestAnimationFrame(() => {

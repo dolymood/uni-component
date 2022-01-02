@@ -1,4 +1,13 @@
-import { h, uniComponent, uni2Platform, onMounted, onUnmounted, onUpdated, PropType, useRef } from '@uni-component/core'
+import {
+  h,
+  uniComponent,
+  uni2Platform,
+  onMounted,
+  onUnmounted,
+  onUpdated,
+  PropType,
+  useRef
+} from '@uni-component/core'
 import { ref, computed, watch } from '@uni-store/core'
 import { processSize } from '../_/util'
 import BScroll, { Options } from '@better-scroll/core'
@@ -9,6 +18,8 @@ BScroll.use(ObserveDom)
 BScroll.use(PullDown)
 
 type RefresherStyle = 'black' | 'white' | 'none'
+
+type Direction = 'top' | 'right' | 'bottom' | 'left'
 
 const UniScrollView = uniComponent('uni-scroll-view', {
   scrollX: Boolean,
@@ -50,16 +61,23 @@ const UniScrollView = uniComponent('uni-scroll-view', {
     type: Boolean,
     default: true
   },
-  onDragStart: Function,
-  onDragging: Function,
-  onDragEnd: Function,
-  onScrollToUpper: Function,
-  onScrollToLower: Function,
-  onScroll: Function,
-  onRefresherPulling: Function,
-  onRefresherRefresh: Function,
-  onRefresherRestore: Function,
-  onRefresherAbort	: Function
+  onDragStart: Function as PropType<(detail: {scrollTop: number, scrollLeft: number}) => void>,
+  onDragging: Function as PropType<(detail: {scrollTop: number, scrollLeft: number}) => void>,
+  onDragEnd: Function as PropType<(detail: {scrollTop: number, scrollLeft: number}) => void>,
+  onScrollToUpper: Function as PropType<(detail: {direction: Direction}) => void>,
+  onScrollToLower: Function as PropType<(detail: {direction: Direction}) => void>,
+  onScroll: Function as PropType<(detail: {
+    scrollTop: number,
+    scrollLeft: number,
+    scrollWidth: number,
+    scrollHeight: number,
+    deltaX: number,
+    deltaY: number
+  }) => void>,
+  onRefresherPulling: Function as PropType<() => void>,
+  onRefresherRefresh: Function as PropType<() => void>,
+  onRefresherRestore: Function as PropType<() => void>,
+  onRefresherAbort: Function as PropType<() => void>
 }, (_, props) => {
   const wrapper = ref<HTMLDivElement>()
   const setWrapperRef = useRef(wrapper)
@@ -297,7 +315,7 @@ const UniScrollView = uniComponent('uni-scroll-view', {
     bs && bs.refresh()
   }
   // todo throttle
-  const dispatchScrollTo = (direction: 'top' | 'right' | 'bottom' | 'left') => {
+  const dispatchScrollTo = (direction: Direction) => {
     if (direction === 'bottom' || direction === 'right') {
       props.onScrollToLower && props.onScrollToLower({
         direction

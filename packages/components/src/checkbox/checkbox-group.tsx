@@ -1,5 +1,5 @@
-import { h, uniComponent, provide, uni2Platform } from '@uni-component/core'
-import { watch, ref, computed, ComputedRef, Ref } from '@uni-store/core'
+import { h, uniComponent, provide, uni2Platform, PropType } from '@uni-component/core'
+import { watch, ref, computed, ComputedRef } from '@uni-store/core'
 
 export const checkboxGroupProvide = 'uni-checkbox-group'
 
@@ -10,7 +10,7 @@ export interface CheckboxGroupProvide {
 
 const UniCheckboxGroup = uniComponent('uni-checkbox-group', {
   name: String,
-  onChange: Function
+  onChange: Function as PropType<(detail: {value: string[]}) => void>
 }, (_, props) => {
   const uniqueName = Date.now().toString(36)
   const value = ref<string[]>([])

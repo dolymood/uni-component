@@ -1,4 +1,4 @@
-import { h, uniComponent, inject, uni2Platform } from '@uni-component/core'
+import { h, uniComponent, inject, uni2Platform, PropType } from '@uni-component/core'
 import { watch, ref, computed } from '@uni-store/core'
 import { CheckboxGroupProvide, checkboxGroupProvide } from './checkbox-group'
 import { useField, FieldType } from '../_/form/field'
@@ -10,7 +10,7 @@ const UniCheckbox = uniComponent('uni-checkbox', {
   checked: Boolean,
   disabled: Boolean,
   nativeProps: Object,
-  onChange: Function
+  onChange: Function as PropType<(detail: {checked: boolean, value?: string}) => void>
 }, (name, props) => {
   const checkboxGroup = inject<CheckboxGroupProvide>(checkboxGroupProvide)
 

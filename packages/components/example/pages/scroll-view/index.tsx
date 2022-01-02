@@ -17,8 +17,8 @@ const UniPullRefreshDemo = uniComponent('uni-pull-refresh-demo', () => {
       triggered.value = true
     }, 1000)
   })
-  const onPulling = (e: any) => {
-    console.log('onPulling:', e)
+  const onPulling = () => {
+    console.log('onPulling:')
   }
 
   const onRefresh = () => {
@@ -30,12 +30,12 @@ const UniPullRefreshDemo = uniComponent('uni-pull-refresh-demo', () => {
     }, 3000)
   }
 
-  const onRestore = (e: any) => {
-    console.log('onRestore:', e)
+  const onRestore = () => {
+    console.log('onRestore:')
   }
 
-  const onAbort = (e: any) => {
-    console.log('onAbort', e)
+  const onAbort = () => {
+    console.log('onAbort')
   }
 
   return {

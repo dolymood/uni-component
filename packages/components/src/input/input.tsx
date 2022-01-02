@@ -1,4 +1,12 @@
-import { h, uniComponent, onMounted, onUnmounted, uni2Platform, useRef } from '@uni-component/core'
+import {
+  h,
+  uniComponent,
+  onMounted,
+  onUnmounted,
+  uni2Platform,
+  useRef,
+  PropType
+} from '@uni-component/core'
 import { watch, ref, computed } from '@uni-store/core'
 import { useField, FieldType } from '../_/form/field'
 
@@ -19,12 +27,12 @@ const UniInput = uniComponent('uni-input', {
   },
   name: String,
   nativeProps: Object,
-  onInput: Function,
-  onFocus: Function,
-  onBlur: Function,
-  onConfirm: Function,
-  onChange: Function,
-  onKeyDown: Function
+  onInput: Function as PropType<(detail?: {value: string, cursor: number}) => void>,
+  onFocus: Function as PropType<(detail: {value: string}) => void>,
+  onBlur: Function as PropType<(detail: {value: string}) => void>,
+  onConfirm: Function as PropType<(detail: {value: string}) => void>,
+  onChange: Function as PropType<(detail: {value: string}) => void>,
+  onKeyDown: Function as PropType<(detail: {value: string, cursor: number, keyCode: number}) => void>
 }, (_, props) => {
   const rootClass = computed(() => {
     return 'weui-input'
@@ -73,7 +81,7 @@ const UniInput = uniComponent('uni-input', {
       value.value = val
 
       props.onInput && props.onInput({
-        value,
+        value: val,
         cursor: val.length
       })
     }
@@ -105,7 +113,7 @@ const UniInput = uniComponent('uni-input', {
   const onKeyDown = (e: KeyboardEvent) => {
     const target = e.target as HTMLInputElement
     const value = target.value
-    const keyCode = e.keyCode || e.code
+    const keyCode = Number(e.keyCode || e.code)
     onInputExcuted = false
 
     e.stopPropagation()
@@ -124,7 +132,8 @@ const UniInput = uniComponent('uni-input', {
 
     if (e.type === 'compositionend') {
       isOnComposition = false
-      props.onInput && props.onInput({ value: e.target.value })
+      const val = e.target.value
+      props.onInput && props.onInput({ value: val, cursor: val.length })
     } else {
       isOnComposition = true
     }
@@ -135,6 +144,7 @@ const UniInput = uniComponent('uni-input', {
     const ele = input.value
     if (props.type === 'file') {
       fileListener = () => {
+        // todo
         props.onInput && props.onInput()
       }
       ele?.addEventListener('change', fileListener)

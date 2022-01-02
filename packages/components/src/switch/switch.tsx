@@ -15,7 +15,7 @@ const UniSwitch = uniComponent('uni-switch', {
   name: String,
   disabled: Boolean,
   nativeProps: Object,
-  onChange: Function
+  onChange: Function as PropType<(detail: {value: boolean}) => void>
 }, (_, props) => {
   const rootClass = computed(() => `weui-${props.type}`)
 

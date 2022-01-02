@@ -1,4 +1,4 @@
-import { h, uniComponent, inject, uni2Platform } from '@uni-component/core'
+import { h, uniComponent, inject, uni2Platform, PropType } from '@uni-component/core'
 import { watch, ref, computed } from '@uni-store/core'
 import { RadioGroupProvide, radioGroupProvide } from './radio-group'
 import { useField, FieldType } from '../_/form/field'
@@ -10,8 +10,8 @@ const UniRadio = uniComponent('uni-radio', {
   checked: Boolean,
   disabled: Boolean,
   nativeProps: Object,
-  onChange: Function
-}, (name, props) => {
+  onChange: Function as PropType<(detail: {value?: string}) => void>
+}, (_, props) => {
   const radioGroup = inject<RadioGroupProvide>(radioGroupProvide)
 
   const rootClass = 'weui-cells_checkbox'

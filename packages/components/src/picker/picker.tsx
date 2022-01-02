@@ -95,9 +95,9 @@ export const UniPicker = uniComponent('uni-picker', {
     type: String as PropType<Fields>,
     default: 'day'
   },
-  onChange: Function,
-  onColumnChange: Function,
-  onCancel: Function
+  onChange: Function as PropType<(detail: {value: any}) => void>,
+  onColumnChange: Function as PropType<(detail: {column: number, value: number}) => void>,
+  onCancel: Function as PropType<() => void>
 }, (name, props) => {
   const wrapper = ref<HTMLDivElement>()
   const setWrapperRef = useRef(wrapper)

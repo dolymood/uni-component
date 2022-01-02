@@ -1,4 +1,4 @@
-import { h, uniComponent, onMounted, uni2Platform, useRef } from '@uni-component/core'
+import { h, uniComponent, onMounted, uni2Platform, useRef, PropType } from '@uni-component/core'
 import { watch, ref, computed } from '@uni-store/core'
 import { useField, FieldType } from '../_/form/field'
 
@@ -14,11 +14,11 @@ const UniTextarea = uniComponent('uni-textarea', {
   autoHeight: Boolean,
   name: String,
   nativeProps: Object,
-  onInput: Function,
-  onFocus: Function,
-  onBlur: Function,
-  onChange: Function,
-  onLineChange: Function
+  onInput: Function as PropType<(detail: {value: string, cursor: number}) => void>,
+  onFocus: Function as PropType<(detail: {value: string}) => void>,
+  onBlur: Function as PropType<(detail: {value: string}) => void>,
+  onChange: Function as PropType<(detail: {value: string}) => void>,
+  onLineChange: Function as PropType<(detail: {height: number, lineCount: number}) => void>
 }, (_, props) => {
   const rootClass = computed(() => {
     return props.autoHeight ? 'auto-height' : ''

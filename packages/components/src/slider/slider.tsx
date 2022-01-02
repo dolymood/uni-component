@@ -1,4 +1,4 @@
-import { h, uniComponent, uni2Platform, useRef } from '@uni-component/core'
+import { h, uniComponent, uni2Platform, useRef, PropType } from '@uni-component/core'
 import { watch, ref, computed } from '@uni-store/core'
 import { useField, FieldType } from '../_/form/field'
 
@@ -38,8 +38,8 @@ const UniSlider = uniComponent('uni-slider', {
   },
   showValue: Boolean,
   name: String,
-  onChange: Function,
-  onChanging: Function
+  onChange: Function as PropType<(detail: {detail: number, value: number}) => void>,
+  onChanging: Function as PropType<(detail: {detail: number, value: number}) => void>
 }, (_, props) => {
   const rootClass = 'weui-slider-box'
 

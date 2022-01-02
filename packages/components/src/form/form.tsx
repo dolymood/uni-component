@@ -1,10 +1,10 @@
-import { h, uniComponent, provide, uni2Platform } from '@uni-component/core'
+import { h, uniComponent, provide, uni2Platform, PropType } from '@uni-component/core'
 import { ref } from '@uni-store/core'
 import { formProvide } from '../_/form/form'
 
 const UniForm = uniComponent('uni-form', {
-  onSubmit: Function,
-  onReset: Function
+  onSubmit: Function as PropType<(detail: {value: Record<string, any>}) => void>,
+  onReset: Function as PropType<() => void>
 }, (_, props) => {
   const value = ref<Record<string, any>>({})
 

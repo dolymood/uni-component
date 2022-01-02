@@ -36,8 +36,8 @@ const UniImage = uniComponent('uni-image', {
   },
   lazyLoad: Boolean,
   nativeProps: Object,
-  onLoad: Function,
-  onError: Function
+  onLoad: Function as PropType<(detail: {width: number, height: number}) => void>,
+  onError: Function as PropType<() => void>,
 }, (name, props) => {
   let aspectFillMode = ref('width')
 
