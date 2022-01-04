@@ -1,6 +1,7 @@
 import { h, uniComponent, uni2Platform } from '@uni-component/core'
 import { ref, watch, markRaw } from '@uni-store/core'
 import { View } from '@uni-component/components'
+import { Item } from './components/Item'
 import { Page } from './components/Page'
 import AdDemo from './pages/ad'
 import AdCustomDemo from './pages/ad-custom'
@@ -48,11 +49,6 @@ import ViewDemo from './pages/view'
 import VoipRoomDemo from './pages/voip-room'
 import WebViewDemo from './pages/web-view'
 import './App.scss'
-
-interface Item {
-  name: string,
-  Demo?: Function
-}
 
 const list: Item[] = [
   {
@@ -286,15 +282,7 @@ UniApp.render = function (_, state) {
     <View class='app'>
       <View class='weui-cells'>
         {list.map(item => {
-          const cls = `weui-cell${item.Demo ? ' weui-cell_access' : ''}`
-          return (
-            <View class={cls} key={item.name} onClick={() => gotoTarget(item)}>
-              <View class='weui-cell__bd'>
-                {item.name}
-              </View>
-              {item.Demo ? <div class='weui-cell__ft'>{item.name}</div> : undefined}
-            </View>
-          )
+          return <Item item={item} key={item.name} onClick={gotoTarget}></Item>
         })}
       </View>
       { target ? <Page target={target} onClose={gotoTarget}></Page> : undefined}
