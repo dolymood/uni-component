@@ -14,3 +14,23 @@ npm install @uni-component/core @uni-component/react
 
 ## Usage
 
+```tsx
+/// <reference types="@uni-component/react/platform" />
+import { h } from '@uni-component/core'
+import '@uni-component/react'
+import ReactDOM from 'react-dom'
+
+const App = () => {
+  return (
+    <>
+      <CubeButton>child</CubeButton>
+      <CubeButton primary={true} text='text'></CubeButton>
+    </>
+  )
+}
+
+ReactDOM.render(<App />, document.getElementById('root'))
+```
+
+> JSX with tsconfig:
+> { "jsxFactory": "h" }

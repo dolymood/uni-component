@@ -14,3 +14,24 @@ npm install @uni-component/core @uni-component/vue
 
 ## Usage
 
+
+```tsx
+/// <reference types="@uni-component/vue/platform" />
+import { h } from '@uni-component/core'
+import '@uni-component/vue'
+import { createApp } from 'vue'
+
+const App = () => {
+  return (
+    <>
+      <CubeButton>child</CubeButton>
+      <CubeButton primary={true} text='text'></CubeButton>
+    </>
+  )
+}
+
+createApp(App).mount('#root')
+```
+
+> JSX with tsconfig:
+> { "jsxFactory": "h" }
