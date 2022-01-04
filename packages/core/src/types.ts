@@ -1017,9 +1017,6 @@ export namespace JSXBase {
     key?: string | number;
 
     ref?: (elm?: T) => void;
-    slot?: string;
-    part?: string;
-    exportparts?: string;
 
     // Clipboard Events
     onCopy?: (event: ClipboardEvent) => void;
