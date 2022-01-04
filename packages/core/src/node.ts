@@ -13,6 +13,11 @@ export type UniNode = VNode
 
 export type GetState<S extends {}> = UnwrapNestedRefs<Omit<S, 'rootClass'>> & { rootClass: string }
 
+export interface GlobalProps {
+  class?: string
+  key?: string
+}
+
 /**
  * Notes:
  * `Node` is just only for ts
@@ -23,7 +28,7 @@ export interface FCComponent<
   S extends {},
   RawProps extends RawPropTypes = undefined,
   Defaults = ExtractDefaultPropTypes<RawProps>,
-  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults> & { class?: string, key?: string },
+  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults> & GlobalProps,
   State = GetState<S>,
   Node extends UniNode = UniNode
 > {
