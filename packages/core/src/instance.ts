@@ -3,7 +3,8 @@ import { UniNode, FCComponent } from './node'
 
 type Provides = Record<symbol | string, any>
 
-export interface Instance<Props extends {}, S extends {}, Node extends UniNode = UniNode> {
+export interface Instance<Props extends {}, S extends {}, Node extends UniNode = UniNode, C extends FCComponent<any, any, any> = any> {
+  type: C,
   props: Props,
   state: S,
   parent?: Instance<any, any>,
@@ -21,7 +22,7 @@ export function newInstance <
   P extends Instance<any, any>,
   C extends FCComponent<any, any, any>,
   Node extends UniNode = UniNode
->(props: Props, state: S, render: () => Node, C: C, parent?: P): Instance<Props, S, Node> {
+>(props: Props, state: S, render: () => Node, C: C, parent?: P): Instance<Props, S, Node, C> {
   const instance = markRaw({
     type: C,
     props,
