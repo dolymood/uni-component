@@ -16,6 +16,8 @@ const rootInstance: any = {
 }
 let currentIns = rootInstance
 
+export const getRootInstance = () => rootInstance
+
 /**
  * Define a uniComponent
  * @param name - Component name
