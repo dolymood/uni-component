@@ -6,6 +6,8 @@ export interface PlatformComponent<P> {
   [key: string]: any
 }
 
+export interface PlatformFragment extends PlatformComponent<any> {}
+
 export interface PlatformVNode extends UniNode {}
 
 export interface Platform {
@@ -16,7 +18,8 @@ export interface Platform {
     Defaults,
     FCProps
   >(UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>, render?: FCComponent<Props & { children?: PlatformVNode }, S, RawProps>['render']) => PlatformComponent<FCProps>
-  createVNode: (type: any, props?: any, children?: any) => UniNode
+  createVNode: (type: any, props?: any, children?: any) => UniNode,
+  Fragment?: PlatformFragment
 }
 
 // istanbul ignore next

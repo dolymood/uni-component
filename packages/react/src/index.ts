@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { createElement, Fragment } from 'react'
 import { setPlatform } from '@uni-component/core'
 import { uni2React } from './react'
 
@@ -13,6 +13,7 @@ const transformPropsMap: Record<string, string> = {
 const transformProps = Object.keys(transformPropsMap)
 
 setPlatform({
+  Fragment,
   createComponent: uni2React,
   createVNode: function (type, props, children) {
     const isPlainNode = typeof type === 'string'
