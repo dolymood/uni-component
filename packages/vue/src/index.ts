@@ -11,8 +11,8 @@ setPlatform({
   Fragment: Fragment as unknown as PlatformFragment,
   createComponent: uni2Vue,
   createVNode: function (type, props, children) {
+    const isPlainNode = typeof type === 'string'
     if (props) {
-      const isPlainNode = typeof type === 'string'
       isPlainNode && Object.keys(props).forEach((key) => {
         if (key.indexOf('on') === 0) {
           // process on events
@@ -28,7 +28,7 @@ setPlatform({
       delete props.__source
       delete props.__self
     }
-    return createVNode(type, props, {
+    return createVNode(type, props, (isPlainNode || type === Fragment) ? children : {
       default: () => children
     })
   }
