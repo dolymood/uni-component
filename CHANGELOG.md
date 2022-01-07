@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/dolymood/uni-component/compare/v0.2.0...v0.3.0) (2022-01-07)
+
+
+### Bug Fixes
+
+* del initPlatform ([15ce6da](https://github.com/dolymood/uni-component/commit/15ce6da95fd9b9765d635992aa9b32da02f531c7))
+
+
+
 ## [0.1.1](https://github.com/dolymood/uni-component/compare/v0.0.1...v0.1.1) (2022-01-05)
 
 
