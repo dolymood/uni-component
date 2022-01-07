@@ -54,7 +54,11 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
   const helper = {
     // like vue setup function
-    [normalizedName]: (props, context: Context = { slots: {} }) => {
+    [normalizedName]: (props, context?: Context) => {
+      if (!context) {
+        context = { slots: {} }
+      }
+
       let setupState = {} as {
         rootClass: any
       }
@@ -117,7 +121,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const instance = newInstance(props, state, () => {
         currentIns = instance
-        const nodes = FC.render(props, state, context)
+        const nodes = FC.render(props, state, context!)
         return nodes
       }, FC, lastIns)
 
@@ -134,7 +138,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       })
 
       onUnmounted(() => {
-        context.uniParent = undefined
+        context!.uniParent = undefined
         instance.children.length = 0
         instance.provides = {}
         instance.props = {}
