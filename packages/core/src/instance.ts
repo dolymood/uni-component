@@ -7,7 +7,7 @@ export interface Instance<Props extends {}, S extends {}, Node extends UniNode =
   type: C,
   props: Props,
   state: S,
-  parent?: Instance<any, any>,
+  parent?: Instance<any, any> | RootInstance,
   children: any[],
   render: () => Node,
   isMounted: boolean,
@@ -19,10 +19,10 @@ export interface Instance<Props extends {}, S extends {}, Node extends UniNode =
 export function newInstance <
   Props extends {},
   S extends {},
-  P extends Instance<any, any>,
+  P extends Instance<any, any> | RootInstance,
   C extends FCComponent<any, any, any>,
   Node extends UniNode = UniNode
->(props: Props, state: S, render: () => Node, C: C, parent?: P): Instance<Props, S, Node, C> {
+>(props: Props, state: S, render: () => Node, C: C, parent: P): Instance<Props, S, Node, C> {
   const instance = markRaw({
     type: C,
     props,
@@ -36,12 +36,30 @@ export function newInstance <
     provides: parent ? parent.provides : {}
   })
 
+  parent.children.push(instance)
+
   return instance
 }
 
-let currentInstance: Instance<any, any> | undefined = undefined
+export interface RootInstance {
+  parent: null
+  props: {}
+  provides: Provides
+  children: any[]
+}
 
-export const setCurrentInstance = (instance?: Instance<any, any>) => {
+const rootInstance: RootInstance = {
+  parent: null,
+  props: {},
+  provides: {},
+  children: []
+}
+
+export const getRootInstance = () => rootInstance
+
+let currentInstance: Instance<any, any> | RootInstance = rootInstance
+
+export const setCurrentInstance = (instance: Instance<any, any> | RootInstance) => {
   const pre = currentInstance
   currentInstance = instance
   return pre

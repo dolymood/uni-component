@@ -5,18 +5,18 @@ import type { RawPropTypes, ExtractPropTypes } from './props'
 import type { FCComponent, Context } from './node'
 import { normalized, equal } from './util'
 import { UniNode } from './node'
-import { Instance, setCurrentInstance, newInstance } from './instance'
+import {
+  Instance,
+  RootInstance,
+  newInstance,
+  setCurrentInstance,
+  getCurrentInstance,
+  getRootInstance
+} from './instance'
 import { onMounted, onUpdated, onUnmounted } from './lifecycle'
 import { getPlatform } from './platform'
 
-const rootInstance: any = {
-  props: {},
-  provides: {},
-  children: []
-}
-let currentIns = rootInstance
-
-export const getRootInstance = () => rootInstance
+const rootInstance = getRootInstance()
 
 /**
  * Define a uniComponent
@@ -65,7 +65,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const state = reactive(setupState)
 
-      let lastIns = currentIns
+      let lastIns = getCurrentInstance()
+      let currentIns = lastIns
 
       if ('uniParent' in context) {
         // vue case
@@ -90,7 +91,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           })
           return !!result
         }
-        const isFull = (ins: Instance<any, any>) => {
+        const isFull = (ins: Instance<any, any> | RootInstance) => {
           const children = ins.children
           let propsChildren = ins.props.children
           if (!Array.isArray(propsChildren)) {
@@ -104,7 +105,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         while (lastIns) {
           // todo can not have plain components
           if (!lastIns.props || !lastIns.props.children || !hasChild(lastIns.props.children) || isFull(lastIns)) {
-            lastIns = lastIns.parent
+            lastIns = lastIns.parent!
           } else {
             break
           }
@@ -120,21 +121,20 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       }
 
       const instance = newInstance(props, state, () => {
-        currentIns = instance
+        preInstance = setCurrentInstance(instance)
         const nodes = FC.render(props, state, context!)
         return nodes
       }, FC, lastIns)
 
-      lastIns.children.push(instance)
-      currentIns = instance
-
-      const preInstance = setCurrentInstance(instance)
+      let preInstance = setCurrentInstance(instance)
 
       onMounted(() => {
-        currentIns = lastIns
+        // created case
+        setCurrentInstance(preInstance)
       })
       onUpdated(() => {
-        currentIns = lastIns
+        // updated case, rerender
+        setCurrentInstance(preInstance)
       })
 
       onUnmounted(() => {
@@ -163,8 +163,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       Object.assign(setupState, _state, {
         rootClass
       })
-
-      setCurrentInstance(preInstance)
 
       return instance
     }
