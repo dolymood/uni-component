@@ -5,8 +5,11 @@ import {
   fireEvent,
   render
 } from '@testing-library/vue'
+import { initPlatform } from '../src'
 import { CubeButton } from '../example/button/button'
 import { CubeButtons } from '../example/buttons/buttons'
+
+initPlatform()
 
 describe('Test Vue', () => {
   const actClickEvent = async (ele: Element) => {

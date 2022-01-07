@@ -6,8 +6,11 @@ import {
   fireEvent,
   render
 } from '@testing-library/react'
+import { initPlatform } from '../src'
 import { CubeButton } from '../example/button/button'
 import { CubeButtons } from '../example/buttons/buttons'
+
+initPlatform()
 
 afterEach(cleanup)
 
