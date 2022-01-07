@@ -33,13 +33,13 @@ export function uniComponent<
   Props = Readonly<{
     [key in PropNames]?: any
   }>
-> (name: string, props: PropNames[], setup: (name: string, props: Props) => S): FCComponent<Props, S, PropNames[]>
+> (name: string, props: PropNames[], setup: (name: string, props: Props, context: Context) => S): FCComponent<Props, S, PropNames[]>
 
 export function uniComponent<
   P extends object,
   S,
   Props = Readonly<ExtractPropTypes<P>>
-> (name: string, props: P, setup: (name: string, props: Props) => S): FCComponent<Props, S, P>
+> (name: string, props: P, setup: (name: string, props: Props, context: Context) => S): FCComponent<Props, S, P>
 export function uniComponent (name: string, rawProps?: RawPropTypes | Function, setup?: Function) {
   // class
   // style
@@ -151,7 +151,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       let _state = {} as Record<string, any>
       if (setup) {
-        _state = setup(name, props)
+        _state = setup(name, props, context!)
       }
 
       // todo
