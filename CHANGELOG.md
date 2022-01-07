@@ -1,10 +1,8 @@
-# [0.3.0](https://github.com/dolymood/uni-component/compare/v0.2.0...v0.3.0) (2022-01-07)
+# [0.3.0](https://github.com/dolymood/uni-component/compare/v0.1.1...v0.3.0) (2022-01-07)
 
+### Features
 
-### Bug Fixes
-
-* del initPlatform ([15ce6da](https://github.com/dolymood/uni-component/commit/15ce6da95fd9b9765d635992aa9b32da02f531c7))
-
+* **core:** expprt getRootInstance ([db46c3b](https://github.com/dolymood/uni-component/commit/db46c3b7c7f26ed5e1c9245683e212eed54321b4))
 
 
 ## [0.1.1](https://github.com/dolymood/uni-component/compare/v0.0.1...v0.1.1) (2022-01-05)
