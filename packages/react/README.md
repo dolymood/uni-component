@@ -17,8 +17,10 @@ npm install @uni-component/core @uni-component/react
 ```tsx
 /// <reference types="@uni-component/react/platform" />
 import { h } from '@uni-component/core'
-import '@uni-component/react'
+import { initPlatform } '@uni-component/react'
 import ReactDOM from 'react-dom'
+
+initPlatform()
 
 const App = () => {
   return (

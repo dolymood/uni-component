@@ -99,8 +99,10 @@ Use:
 ```tsx
 /// <reference types="@uni-component/vue/platform" />
 import { h } from '@uni-component/core'
-import '@uni-component/vue'
+import { initPlatform } from '@uni-component/vue'
 import { createApp } from 'vue'
+
+initPlatform()
 
 const App = () => {
   return (
@@ -134,8 +136,10 @@ Use:
 ```tsx
 /// <reference types="@uni-component/react/platform" />
 import { h } from '@uni-component/core'
-import '@uni-component/react'
+import { initPlatform } from '@uni-component/react'
 import ReactDOM from 'react-dom'
+
+initPlatform()
 
 const App = () => {
   return (
