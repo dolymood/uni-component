@@ -42,7 +42,7 @@ export function newInstance <
 }
 
 export interface RootInstance {
-  parent: null
+  parent: undefined
   props: {}
   provides: Provides
   children: any[],
@@ -50,7 +50,7 @@ export interface RootInstance {
 }
 
 const rootInstance: RootInstance = {
-  parent: null,
+  parent: undefined,
   props: {},
   provides: {},
   children: [],

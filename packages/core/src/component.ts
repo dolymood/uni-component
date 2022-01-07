@@ -121,23 +121,24 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       }
 
       const instance = newInstance(props, state, () => {
-        preInstance = setCurrentInstance(instance)
+        setCurrentInstance(instance)
         const nodes = FC.render(props, state, context!)
         return nodes
       }, FC, lastIns)
 
-      let preInstance = setCurrentInstance(instance)
+      setCurrentInstance(instance)
 
       onMounted(() => {
         // created case
-        setCurrentInstance(preInstance)
+        setCurrentInstance(instance.parent!)
       })
       onUpdated(() => {
         // updated case, rerender
-        setCurrentInstance(preInstance)
+        setCurrentInstance(instance.parent!)
       })
 
       onUnmounted(() => {
+        setCurrentInstance(instance.parent!)
         context!.uniParent = undefined
         instance.children.length = 0
         instance.provides = {}
