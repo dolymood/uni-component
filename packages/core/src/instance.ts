@@ -45,14 +45,16 @@ export interface RootInstance {
   parent: null
   props: {}
   provides: Provides
-  children: any[]
+  children: any[],
+  hooks: any
 }
 
 const rootInstance: RootInstance = {
   parent: null,
   props: {},
   provides: {},
-  children: []
+  children: [],
+  hooks: {}
 }
 
 export const getRootInstance = () => rootInstance
