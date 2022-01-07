@@ -1,7 +1,7 @@
 /// <reference types="../../react/platform" />
 
 import { h } from '@uni-component/core'
-import '@uni-component/react'
+import { initPlatform } from '@uni-component/react'
 import { nextTick } from '@uni-store/core'
 import {
   act,
@@ -9,6 +9,8 @@ import {
   fireEvent,
   render
 } from '@testing-library/react'
+
+initPlatform()
 
 afterEach(cleanup)
 
