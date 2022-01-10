@@ -10,11 +10,12 @@ export default defineConfig({
       babel: {
         plugins: [
           [
-            "@babel/plugin-transform-react-jsx",
+            '@babel/plugin-transform-react-jsx',
             {
-              "throwIfNamespace": false,
-              "runtime": "classic",
-              "pragma": "h"
+              'throwIfNamespace': false,
+              'runtime': 'classic',
+              'pragma': 'h',
+              'pragmaFrag': 'Fragment'
             }
           ]
         ]
