@@ -3,7 +3,7 @@ import { computed, reactive, unref, toRaw } from '@uni-store/core'
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
-import { normalized, equal } from './util'
+import { normalized, equal, inlineStyle2Obj } from './util'
 import { UniNode } from './node'
 import {
   Instance,
@@ -60,7 +60,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       }
 
       let setupState = {} as {
-        rootClass: any
+        rootId?: string
+        rootClass: any,
+        rootStyle: any
       }
 
       const state = reactive(setupState)
@@ -154,15 +156,29 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         _state = setup(name, props, context!)
       }
 
-      // todo
-      // id style support
       const rootClass = computed(() => {
         const otherRootClass = _state && _state.rootClass
         return classNames(name, unref(otherRootClass), (props as any).className || props.class)
       })
+      const rootStyle = computed(() => {
+        const otherRootStyle = unref(_state && _state.rootStyle)
+        const inlineStyle = props.style
+        const styles = [otherRootStyle, inlineStyle]
+        return styles.reduce((style, val) => {
+          if (val) {
+            if (typeof val === 'string') {
+              val = inlineStyle2Obj(val)
+            }
+            Object.assign(style, val)
+          }
+          return style
+        }, {} as Record<string, any>)
+      })
 
       Object.assign(setupState, _state, {
-        rootClass
+        rootClass,
+        rootStyle,
+        rootId: computed(() => props.id)
       })
 
       return instance

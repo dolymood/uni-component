@@ -92,8 +92,15 @@ describe('Test Core', () => {
           'a-b_c': !props.a
         }
       })
+      const rootStyle = computed(() => {
+        return {
+          width: '100px',
+          height: '100px'
+        }
+      })
       return {
         rootClass,
+        rootStyle,
         props,
         name,
         clickAction
@@ -101,10 +108,10 @@ describe('Test Core', () => {
     })
     expect(typeof C).toBe('function')
     expect(C.name).toEqual('AB')
-    expect(C.defaultProps).toBeDefined
+    expect(C.defaultProps).toBeDefined()
     expect(C.defaultProps?.a).toEqual(false)
     expect(C.defaultProps?.c).toEqual('c')
-    expect(C.defaultProps?.d).toBeUndefined
+    expect(C.defaultProps?.d).toBeUndefined()
     expect(typeof C.render).toBe('function')
     C.render = (props, state) => {
       expect(props.a).toEqual(undefined)
@@ -112,6 +119,10 @@ describe('Test Core', () => {
       expect(props.c).toEqual('cc')
       expect(props.d).toEqual('d')
       expect(state.rootClass).toEqual('a-b a-b_c')
+      expect(state.rootStyle.width).toEqual('100px')
+      expect(state.rootStyle.height).toEqual('200px')
+      expect(state.rootStyle.color).toBeUndefined()
+      expect(state.rootId).toEqual('id')
       expect(state.name).toEqual('a-b')
       return {
         type: 'vnode'
@@ -120,7 +131,9 @@ describe('Test Core', () => {
     const r = C({
       b: 1,
       c: 'cc',
-      d: 'd'
+      d: 'd',
+      id: 'id',
+      style: 'height: 200px ; '
     })
     const s = r.state
     expect(s.name).toEqual('a-b')
