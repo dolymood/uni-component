@@ -19,7 +19,7 @@ export interface Platform {
     FCProps
   >(UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>, render?: FCComponent<Props & { children?: PlatformVNode }, S, RawProps>['render']) => PlatformComponent<FCProps>
   createVNode: (type: any, props?: any, children?: any) => UniNode,
-  Fragment?: PlatformFragment
+  Fragment: PlatformFragment
 }
 
 // istanbul ignore next
@@ -48,7 +48,8 @@ const defaultPlatform = {
       children: children
     }
     return node as UniNode
-  }
+  },
+  Fragment: () => undefined
 }
 
 let platform: Platform = defaultPlatform
