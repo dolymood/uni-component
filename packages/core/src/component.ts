@@ -45,6 +45,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
   // style
   // action
 
+  // rodo attrs
+  // extract(props, rawProps)
+
   if (typeof rawProps === 'function') {
     setup = rawProps
     rawProps = undefined
