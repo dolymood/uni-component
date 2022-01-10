@@ -81,7 +81,6 @@ describe('Test Core', () => {
       },
       d: {
         type: String,
-        // todo vue bug, required
         required: true
       }
     }, (name, props) => {

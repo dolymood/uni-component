@@ -31,7 +31,7 @@ function createComponent <
   FCProps
 >(
   UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
-  render?: FCComponent<Props, S, RawProps>['render']
+  render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
 ) {
   if (render) {
     UniComponent.render = render

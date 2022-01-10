@@ -1,8 +1,10 @@
 import { ExtractPropTypes } from '@vue/runtime-core'
 export type {
+  Prop,
   PropType,
   ExtractPropTypes,
-  ExtractDefaultPropTypes
+  ExtractDefaultPropTypes,
+  ComponentPropsOptions
 } from '@vue/runtime-core'
 
 export type RawPropTypes = string[] | object | undefined

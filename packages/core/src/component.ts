@@ -1,7 +1,7 @@
 import classNames from 'classnames'
 import { computed, reactive, unref, toRaw } from '@uni-store/core'
 import { getDefaultProps } from './props'
-import type { RawPropTypes, ExtractPropTypes } from './props'
+import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
 import { normalized, equal } from './util'
 import { UniNode } from './node'
@@ -36,7 +36,7 @@ export function uniComponent<
 > (name: string, props: PropNames[], setup: (name: string, props: Props, context: Context) => S): FCComponent<Props, S, PropNames[]>
 
 export function uniComponent<
-  P extends object,
+  P extends Readonly<ComponentPropsOptions>,
   S,
   Props = Readonly<ExtractPropTypes<P>>
 > (name: string, props: P, setup: (name: string, props: Props, context: Context) => S): FCComponent<Props, S, P>
