@@ -13,9 +13,9 @@ const UniAppItem = uniComponent('uni-app-item', {
   },
   onClick: Function as PropType<(item: Item) => void>
 }, (_, props) => {
-  const rootClass = `weui-cell${props.item!.Demo ? ' weui-cell_access' : ''}`
+  const rootClass = `weui-cell${props.item.Demo ? ' weui-cell_access' : ''}`
   const onClick = () => {
-    props.onClick && props.onClick(props.item!)
+    props.onClick && props.onClick(props.item)
   }
   return {
     rootClass,
@@ -24,7 +24,7 @@ const UniAppItem = uniComponent('uni-app-item', {
 })
 
 export const Item = uni2Platform(UniAppItem, (props, state) => {
-  const item = props.item!
+  const item = props.item
   const { rootClass, onClick } = state
   return (
     <View class={rootClass} onClick={onClick}>

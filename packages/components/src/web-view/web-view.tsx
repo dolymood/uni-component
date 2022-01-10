@@ -8,7 +8,6 @@ import {
 const UniWebView = uniComponent('uni-web-view', {
   src: {
     type: String,
-    default: '',
     required: true
   },
   onLoad: Function as PropType<(detail: {src: string}) => void>,

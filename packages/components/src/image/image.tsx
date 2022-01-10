@@ -27,7 +27,6 @@ export type Mode =
 const UniImage = uniComponent('uni-image', {
   src: {
     type: String,
-    default: '',
     required: true
   },
   mode: {

@@ -10,7 +10,6 @@ interface Item {
 const UniPage = uniComponent('uni-page', {
   target: {
     type: Object as PropType<Item>,
-    default: {},
     required: true
   },
   onClose: Function
