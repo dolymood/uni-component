@@ -18,6 +18,12 @@ import { getPlatform } from './platform'
 
 const rootInstance = getRootInstance()
 
+type BeforeFn = (props: {}, state: {}, context: Context) => void
+const befores: BeforeFn[] = []
+export const beforeUniSetup = (beforeFn: BeforeFn) => {
+  !befores.includes(beforeFn) && befores.push(beforeFn)
+}
+
 /**
  * Define a uniComponent
  * @param name - Component name
@@ -67,6 +73,10 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         rootClass: any,
         rootStyle: any
       }
+
+      befores.forEach((beforeFn) => {
+        beforeFn(props, setupState, context!)
+      })
 
       const state = reactive(setupState)
 
