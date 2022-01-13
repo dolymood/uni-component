@@ -8,7 +8,6 @@ import {
 import type {
   DefineComponent
 } from 'vue'
-import { toRaw, shallowReactive, watchEffect } from '@uni-store/core'
 import { invokeMounted, invokeUpdated, invokeUnmounted, Context } from '@uni-component/core'
 import type { FCComponent, Instance } from '@uni-component/core'
 
@@ -96,17 +95,7 @@ export function uni2Vue(
     uniContext.uniParent = uniParent
     uniContext.nodeProps = vueInstance?.vnode.props
 
-    const _props = shallowReactive({ ...toRaw(props) })
-
-    // collect deps
-    watchEffect(() => {
-      Object.keys(props).forEach((propKey: string) => {
-        const val = (props as any)[propKey]
-        ;(_props as any)[propKey] = val
-      })
-    })
-
-    const instance = rawSetup!(_props, uniContext as any) as Instance<any, any>
+    const instance = rawSetup!(props, uniContext as any) as Instance<any, any>
     ;(vueInstance as any).__UNI_INSTANCE__ = instance
 
     const invoke = (hook: Function) => {

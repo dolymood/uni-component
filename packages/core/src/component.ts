@@ -1,5 +1,6 @@
 import classNames from 'classnames'
-import { computed, reactive, unref, watchEffect } from '@uni-store/core'
+import { computed, reactive, unref, watchEffect, shallowReactive, toRaw } from '@uni-store/core'
+import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
 import { normalized, equal, inlineStyle2Obj } from './util'
@@ -60,9 +61,12 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
   const normalizedName = normalized(name)
 
+  const defaultProps = getDefaultProps(rawProps) as null | Record<string, any>
+
   const helper = {
     // like vue setup function
     [normalizedName]: (props, context?: Context) => {
+      const processedAttrs = context?.attrs
       if (!context) {
         context = { slots: {}, attrs: {} }
       }
@@ -75,10 +79,52 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const state = reactive(setupState)
 
+      const _props = shallowReactive({ ...toRaw(props) }) as Record<string, any>
+
+      watchEffect(() => {
+        if (processedAttrs) {
+          // collect deps
+          Object.keys(props).forEach((propKey: string) => {
+            const val = (props as any)[propKey]
+            ;(_props as any)[propKey] = val
+          })
+        } else {
+          // handle attrs
+          const attrs = {} as Record<string, any>
+          Object.keys(props).forEach((propKey: string) => {
+            const val = (props as any)[propKey]
+            let hasProp = FC.rawProps && (
+              Array.isArray(FC.rawProps) ? (FC.rawProps as any[]).includes(propKey) : FC.rawProps.hasOwnProperty(propKey)
+            )
+            if (hasProp || propKey === 'children') {
+              _props[propKey] = val
+            } else {
+              attrs[propKey] = val
+              delete _props[propKey]
+            }
+          })
+          context!.attrs = shallowReactive(attrs)
+
+          // default props
+          defaultProps && Object.keys(defaultProps).forEach((propKey) => {
+            if ((props as any)[propKey] === undefined) {
+              // use default
+              const config = (FC.rawProps as any)![propKey]
+              let defaultVal = defaultProps[propKey]
+              if (config && config.type !== Function && typeof defaultVal === 'function') {
+                // do not support instance now
+                defaultVal = defaultVal()
+              }
+              _props[propKey] =  defaultVal
+            }
+          })
+        }        
+      })
+
       // handle instance
       let lastIns = getCurrentInstance()
       let currentIns = lastIns
-      if ('uniParent' in context) {
+      if ('uniParent' in context!) {
         lastIns = context.uniParent || rootInstance
       } else {
         // normal case
@@ -125,9 +171,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         } 
       }
 
-      const instance = newInstance(props, state, () => {
+      const instance = newInstance(_props, state, () => {
         setCurrentInstance(instance)
-        const nodes = FC.render(props, state, context!)
+        const nodes = FC.render(_props, state, context!)
         return nodes
       }, FC, lastIns)
 
@@ -135,7 +181,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       watchEffect(() => {
         befores.forEach((beforeFn) => {
-          beforeFn(props, setupState, context!)
+          beforeFn(_props, setupState, context!)
         })
       })
 
@@ -163,16 +209,16 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       let _state = {} as Record<string, any>
       if (setup) {
-        _state = setup(name, props, context!)
+        _state = setup(name, _props, context!)
       }
 
       const rootClass = computed(() => {
         const otherRootClass = _state && _state.rootClass
-        return classNames(name, unref(otherRootClass), context?.attrs.class)
+        return classNames(name, unref(otherRootClass), context!.attrs.class)
       })
       const rootStyle = computed(() => {
         const otherRootStyle = unref(_state && _state.rootStyle)
-        const inlineStyle = context?.attrs.style
+        const inlineStyle = context!.attrs.style
         const styles = [otherRootStyle, inlineStyle]
         return styles.reduce((style, val) => {
           if (val) {
@@ -188,7 +234,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       Object.assign(setupState, _state, {
         rootClass,
         rootStyle,
-        rootId: computed(() => context?.attrs.id)
+        rootId: computed(() => context!.attrs.id)
       })
 
       return instance

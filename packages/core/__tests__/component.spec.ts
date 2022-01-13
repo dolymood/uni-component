@@ -1,6 +1,6 @@
 import { computed } from '@uni-store/core'
 import { isArray, isFunction } from '@vue/shared'
-import { h, uniComponent, provide, inject, UniNode } from '../src'
+import { h, uniComponent, provide, inject, invokeUnmounted, UniNode } from '../src'
 
 describe('Test Core', () => {
   it('should work correctly - without props', () => {
@@ -31,6 +31,7 @@ describe('Test Core', () => {
     expect(r.render).not.toEqual(C.render)
     expect(s.rootClass).toEqual('a')
     expect((r.render() as any).type).toEqual('vnode')
+    invokeUnmounted(r)
   })
   it('should work correctly - with array props', () => {
     const C = uniComponent('a-b', ['a', 'b'], (name, props) => {
@@ -68,6 +69,7 @@ describe('Test Core', () => {
     expect(r.props.a).toEqual('a')
     expect(r.props.b).toEqual(1)
     expect((r.render() as any).type).toEqual('vnode')
+    invokeUnmounted(r)
   })
   it('should work correctly - with object props', () => {
     const C = uniComponent('a-b', {
@@ -108,7 +110,7 @@ describe('Test Core', () => {
     expect(C.name).toEqual('AB')
     expect(typeof C.render).toBe('function')
     C.render = (props, state) => {
-      expect(props.a).toEqual(undefined)
+      expect(props.a).toEqual(false)
       expect(props.b).toEqual(1)
       expect(props.c).toEqual('cc')
       expect(props.d).toEqual('d')
@@ -136,40 +138,39 @@ describe('Test Core', () => {
     expect(r.render).not.toEqual(C.render)
     expect(s.rootClass).toEqual('a-b a-b_c')
     // todo
-    // props defaultProps is implementation by top lib
-    expect(r.props.a).toEqual(undefined)
+    expect(r.props.a).toEqual(false)
     expect(r.props.b).toEqual(1)
     expect(r.props.c).toEqual('cc')
     expect(r.props.d).toEqual('d')
     expect((r.render() as any).type).toEqual('vnode')
+    invokeUnmounted(r)
   })
 })
-
 
 describe('Test instance', () => {
   it('should work correctly - instance', () => {
     const render = (props: any, state: any) => {
       return h('div', props)
     }
-    const A = uniComponent('a', (name) => {
+    const A = uniComponent('a', { context: String }, (name) => {
       return {
         name
       }
     })
     A.render = render
-    const B = uniComponent('b', (name) => {
+    const B = uniComponent('b', { context: String }, (name) => {
       return {
         name
       }
     })
     B.render = render
-    const C = uniComponent('c', (name) => {
+    const C = uniComponent('c', { context: String }, (name) => {
       return {
         name
       }
     })
     C.render = render
-    const D = uniComponent('d', (name) => {
+    const D = uniComponent('d', { context: String }, (name) => {
       return {
         name
       }
@@ -298,6 +299,8 @@ describe('Test instance', () => {
     expect(dCA2B.state.name).toEqual('b')
     expect(dCA2B.props.context).toEqual('d-c-a2-b')
     expect(dCA2B.children.length).toEqual(0)
+
+    invokeUnmounted(container)
   })
 })
 
@@ -364,6 +367,7 @@ describe('Test provide & inject', () => {
     const acInstance = aInstance.children[1]
     expect(acInstance.state.key1Value).toEqual('a')
     expect(acInstance.state.key2Value).toEqual('aa')
+    invokeUnmounted(instance)
   })
 })
 
