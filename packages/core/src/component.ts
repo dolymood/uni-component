@@ -18,7 +18,7 @@ import { getPlatform } from './platform'
 
 const rootInstance = getRootInstance()
 
-type BeforeFn = (props: {}, state: {}, context: Context) => void
+type BeforeFn = (props: {}, state: {}, context: Context, UniComponent: FCComponent<any, any, any>) => void
 const befores: BeforeFn[] = []
 export const beforeUniSetup = (beforeFn: BeforeFn) => {
   !befores.includes(beforeFn) && befores.push(beforeFn)
@@ -182,7 +182,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       watchEffect(() => {
         befores.forEach((beforeFn) => {
-          beforeFn(_props, setupState, context!)
+          beforeFn(_props, setupState, context!, FC)
         })
       })
 
