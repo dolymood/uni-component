@@ -26,10 +26,9 @@ export function getDefaultProps<
       if (!propValue.required) {
         defaultValue = 'default' in propValue ? propValue.default : false
       }
-    } else {
+    } else if (propValue) {
       // default cases
       if ('default' in propValue) {
-        // todo default is function
         defaultValue = propValue.default
       }
     }
@@ -37,7 +36,6 @@ export function getDefaultProps<
       if (!defaultProps) {
         defaultProps = {}
       }
-      // todo defaultValue as function ?
       (defaultProps as any)[key] = defaultValue
     }
   })

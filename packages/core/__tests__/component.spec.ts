@@ -15,7 +15,6 @@ describe('Test Core', () => {
     })
     expect(typeof C).toBe('function')
     expect(C.name).toEqual('A')
-    expect(C.defaultProps).toBeUndefined
     expect(typeof C.render).toBe('function')
     C.render = (_, state) => {
       expect(state.rootClass).toEqual('a')
@@ -46,7 +45,6 @@ describe('Test Core', () => {
     })
     expect(typeof C).toBe('function')
     expect(C.name).toEqual('AB')
-    expect(C.defaultProps).toBeUndefined
     expect(typeof C.render).toBe('function')
     C.render = (props, state) => {
       expect(props.a).toEqual('a')
@@ -108,10 +106,6 @@ describe('Test Core', () => {
     })
     expect(typeof C).toBe('function')
     expect(C.name).toEqual('AB')
-    expect(C.defaultProps).toBeDefined()
-    expect(C.defaultProps?.a).toEqual(false)
-    expect(C.defaultProps?.c).toEqual('c')
-    expect(C.defaultProps?.d).toBeUndefined()
     expect(typeof C.render).toBe('function')
     C.render = (props, state) => {
       expect(props.a).toEqual(undefined)

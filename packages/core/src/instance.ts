@@ -42,9 +42,9 @@ export function newInstance <
 }
 
 export interface RootInstance {
-  parent: undefined
-  props: {}
-  provides: Provides
+  parent: undefined,
+  props: {},
+  provides: Provides,
   children: any[],
   hooks: any
 }

@@ -1,11 +1,13 @@
 import type { UnwrapNestedRefs } from '@uni-store/core'
 import type { RawPropTypes, ExtractDefaultPropTypes } from './props'
-import { Instance } from './instance'
+import { Instance, RootInstance } from './instance'
 import { VNode, JSXBase } from './types'
 
 export interface Context {
   slots: Record<string, any>
-  uniParent?: Instance<any, any>
+  uniParent?: Instance<any, any> | RootInstance
+  attrs: Record<string, any>
+  nodeProps?: Record<string, any> | null
   [key: string]: any
 }
 
@@ -39,7 +41,6 @@ export interface FCComponent<
 > {
   (props: FCProps, context?: Context): Instance<Props, State, Node> & Node
   rawProps?: RawProps
-  defaultProps?: Partial<FCProps>
   ___UNI___: true
   render: (props: Props, state: State, context: Context) => Node
 }

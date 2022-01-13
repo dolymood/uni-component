@@ -1,6 +1,5 @@
 import classNames from 'classnames'
-import { computed, reactive, unref, toRaw } from '@uni-store/core'
-import { getDefaultProps } from './props'
+import { computed, reactive, unref, watchEffect } from '@uni-store/core'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
 import { normalized, equal, inlineStyle2Obj } from './util'
@@ -65,7 +64,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
     // like vue setup function
     [normalizedName]: (props, context?: Context) => {
       if (!context) {
-        context = { slots: {} }
+        context = { slots: {}, attrs: {} }
       }
 
       let setupState = {} as {
@@ -74,23 +73,14 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         rootStyle: any
       }
 
-      befores.forEach((beforeFn) => {
-        beforeFn(props, setupState, context!)
-      })
-
       const state = reactive(setupState)
 
+      // handle instance
       let lastIns = getCurrentInstance()
       let currentIns = lastIns
-
       if ('uniParent' in context) {
-        // vue case
         lastIns = context.uniParent || rootInstance
       } else {
-        // react case
-        // todo react update cases
-        const rawProps = toRaw(props)
-
         // normal case
         // find parent
         // <A><B><C></C></B></A>
@@ -102,7 +92,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           // <UniA><ReactX><UniB></UniB></ReactX></UniA>
           // can not get correct relations
           const result = _children.find((child: any) => {
-            return child && equal(child.props, rawProps) && child.type === FC
+            return child && equal(child.props, props) && child.type === FC
           })
           return !!result
         }
@@ -125,14 +115,14 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             break
           }
         }
-      }
 
-      if (lastIns === undefined) {
-        // fallback
-        // B = <div></div>
-        // A = <B></B>
-        // <A></A>
-        lastIns = currentIns
+        if (lastIns === undefined) {
+          // fallback
+          // B = <div></div>
+          // A = <B></B>
+          // <A></A>
+          lastIns = currentIns
+        } 
       }
 
       const instance = newInstance(props, state, () => {
@@ -142,6 +132,12 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       }, FC, lastIns)
 
       setCurrentInstance(instance)
+
+      watchEffect(() => {
+        befores.forEach((beforeFn) => {
+          beforeFn(props, setupState, context!)
+        })
+      })
 
       onMounted(() => {
         // created case
@@ -155,6 +151,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       onUnmounted(() => {
         setCurrentInstance(instance.parent!)
         context!.uniParent = undefined
+        context!.nodeProps = undefined
         instance.children.length = 0
         instance.provides = {}
         instance.props = {}
@@ -171,11 +168,11 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const rootClass = computed(() => {
         const otherRootClass = _state && _state.rootClass
-        return classNames(name, unref(otherRootClass), (props as any).className || props.class)
+        return classNames(name, unref(otherRootClass), context?.attrs.class)
       })
       const rootStyle = computed(() => {
         const otherRootStyle = unref(_state && _state.rootStyle)
-        const inlineStyle = props.style
+        const inlineStyle = context?.attrs.style
         const styles = [otherRootStyle, inlineStyle]
         return styles.reduce((style, val) => {
           if (val) {
@@ -191,7 +188,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       Object.assign(setupState, _state, {
         rootClass,
         rootStyle,
-        rootId: computed(() => props.id)
+        rootId: computed(() => context?.attrs.id)
       })
 
       return instance
@@ -208,10 +205,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
   FC.___UNI___ = true
 
   FC.rawProps = rawProps
-  const defaultProps = getDefaultProps(rawProps)
-  if (defaultProps) {
-    FC.defaultProps = defaultProps
-  }
 
   return FC
 }

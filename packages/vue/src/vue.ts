@@ -8,7 +8,8 @@ import {
 import type {
   DefineComponent
 } from 'vue'
-import { invokeMounted, invokeUpdated, invokeUnmounted } from '@uni-component/core'
+import { toRaw, shallowReactive, watchEffect } from '@uni-store/core'
+import { invokeMounted, invokeUpdated, invokeUnmounted, Context } from '@uni-component/core'
 import type { FCComponent, Instance } from '@uni-component/core'
 
 export type DefineComponentFn = typeof vueDefine
@@ -66,17 +67,22 @@ export function uni2Vue(
   const rawProps = UniComponent.rawProps
   if (rawProps) {
     component = defineComponent({
+      inheritAttrs: false,
       name: UniComponent.name,
       props: rawProps,
       setup: UniComponent
     })
   } else {
-    component = defineComponent(UniComponent)
+    component = defineComponent({
+      inheritAttrs: false,
+      name: UniComponent.name,
+      setup: UniComponent
+    })
   }
   const rawSetup = component.setup
   component.setup = function (props, context) {
     const vueInstance = getCurrentInstance()
-    let uniParent: Instance<any, any> | null = null
+    let uniParent: Instance<any, any> | undefined
     let p = vueInstance?.parent as any
     while (p) {
       if (p.__UNI_INSTANCE__) {
@@ -86,9 +92,21 @@ export function uni2Vue(
         p = p.parent
       }
     }
-    context = Object.assign({}, context)
-    ;(context as any).uniParent = uniParent
-    const instance = rawSetup!(props, context) as Instance<any, any>
+    const uniContext = Object.assign({}, context) as Context
+    uniContext.uniParent = uniParent
+    uniContext.nodeProps = vueInstance?.vnode.props
+
+    const _props = shallowReactive({ ...toRaw(props) })
+
+    // collect deps
+    watchEffect(() => {
+      Object.keys(props).forEach((propKey: string) => {
+        const val = (props as any)[propKey]
+        ;(_props as any)[propKey] = val
+      })
+    })
+
+    const instance = rawSetup!(_props, uniContext as any) as Instance<any, any>
     ;(vueInstance as any).__UNI_INSTANCE__ = instance
 
     const invoke = (hook: Function) => {
