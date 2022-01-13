@@ -67,6 +67,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
     // like vue setup function
     [normalizedName]: (props, context?: Context) => {
       const processedAttrs = context?.attrs
+      // todo use children, no slots
       if (!context) {
         context = { slots: {}, attrs: {} }
       }

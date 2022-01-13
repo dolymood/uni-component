@@ -23,6 +23,7 @@ export function uni2React<
       const context = {
         slots: {} as Record<string, Function>
       } as Context
+      // todo use children, no slots
       if (props.children) {
         context.slots.default = () => props.children
       }
