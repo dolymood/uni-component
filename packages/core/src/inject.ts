@@ -1,5 +1,5 @@
 import { isFunction } from '@vue/shared'
-import { ref } from '@uni-store/core'
+import { ref, Ref } from '@uni-store/core'
 import { getCurrentInstance } from './instance'
 import { onMounted, onUpdated } from './lifecycle'
 
@@ -36,13 +36,13 @@ export function inject(key: string | InjectionKey<any>, defaultValue?: unknown, 
   }
 }
 
-export function capture<T>(key: InjectionKey<T> | string): T | undefined
-export function capture<T>(key: InjectionKey<T> | string, defaultValue: T): T
+export function capture<T>(key: InjectionKey<T> | string): Ref<T | undefined>
+export function capture<T>(key: InjectionKey<T> | string, defaultValue: T): Ref<T | undefined>
 export function capture<T>(
   key: InjectionKey<T> | string,
   defaultValue: () => T,
   treatDefaultAsFactory: true
-): T
+): Ref<T | undefined>
 export function capture(key: string | InjectionKey<any>, defaultValue?: unknown, treatDefaultAsFactory: boolean = false) {
   const instance = getCurrentInstance()
   const target = ref()
