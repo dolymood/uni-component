@@ -21,17 +21,21 @@ export function getDefaultProps<
   Object.keys(rawProps).forEach(key => {
     const propValue = (rawProps as any)[key]
     let defaultValue
-    if (propValue === Boolean || propValue.type === Boolean) {
-      // boolean
-      if (!propValue.required) {
-        defaultValue = 'default' in propValue ? propValue.default : false
-      }
-    } else if (propValue) {
-      // default cases
-      if ('default' in propValue) {
-        defaultValue = propValue.default
+
+    if (propValue) {
+      if (propValue === Boolean || propValue.type === Boolean) {
+        // boolean
+        if (!propValue.required) {
+          defaultValue = 'default' in propValue ? propValue.default : false
+        }
+      } else {
+        // default cases
+        if ('default' in propValue) {
+          defaultValue = propValue.default
+        }
       }
     }
+    
     if (defaultValue !== undefined) {
       if (!defaultProps) {
         defaultProps = {}
