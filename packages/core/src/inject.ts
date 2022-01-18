@@ -1,5 +1,7 @@
 import { isFunction } from '@vue/shared'
+import { ref } from '@uni-store/core'
 import { getCurrentInstance } from './instance'
+import { onMounted, onUpdated } from './lifecycle'
 
 export interface InjectionKey<T> extends Symbol {}
 
@@ -32,4 +34,38 @@ export function inject(key: string | InjectionKey<any>, defaultValue?: unknown, 
   } else if (arguments.length > 1) {
     return treatDefaultAsFactory && isFunction(defaultValue) ? defaultValue() : defaultValue
   }
+}
+
+export function capture<T>(key: InjectionKey<T> | string): T | undefined
+export function capture<T>(key: InjectionKey<T> | string, defaultValue: T): T
+export function capture<T>(
+  key: InjectionKey<T> | string,
+  defaultValue: () => T,
+  treatDefaultAsFactory: true
+): T
+export function capture(key: string | InjectionKey<any>, defaultValue?: unknown, treatDefaultAsFactory: boolean = false) {
+  const instance = getCurrentInstance()
+  const target = ref()
+  const setTarget = () => {
+    let newTarget
+    const children = instance.children
+    for (const child of children) {
+      const provides = child.provides
+      const k = key as string | symbol
+      if (provides && k in provides) {
+        newTarget = provides[k]
+        break
+      }
+    }
+    if (newTarget === undefined && arguments.length > 1) {
+      newTarget = treatDefaultAsFactory && isFunction(defaultValue) ? defaultValue() : defaultValue
+    }
+    if (target.value !== newTarget) {
+      target.value = newTarget
+    }
+  }
+  onMounted(setTarget)
+  onUpdated(setTarget)
+
+  return target
 }
