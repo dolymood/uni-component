@@ -69,13 +69,13 @@ export function uni2Vue(
       inheritAttrs: false,
       name: UniComponent.name,
       props: rawProps,
-      setup: UniComponent
+      setup: UniComponent as any
     })
   } else {
     component = defineComponent({
       inheritAttrs: false,
       name: UniComponent.name,
-      setup: UniComponent
+      setup: UniComponent as any
     })
   }
   const rawSetup = component.setup
@@ -92,7 +92,7 @@ export function uni2Vue(
       }
     }
     // todo use children, no slots
-    const uniContext = Object.assign({}, context) as Context
+    const uniContext = Object.assign({$attrs: {}}, context) as Context
     uniContext.uniParent = uniParent
     uniContext.nodeProps = vueInstance?.vnode.props
 
