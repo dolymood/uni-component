@@ -7,6 +7,7 @@ export interface Context {
   slots: Record<string, any>
   uniParent?: Instance<any, any> | RootInstance
   attrs: Record<string, any>
+  $attrs: Record<string, any>
   nodeProps?: Record<string, any> | null
   [key: string]: any
 }

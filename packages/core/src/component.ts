@@ -3,7 +3,7 @@ import { computed, reactive, unref, watchEffect, shallowReactive, toRaw } from '
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
-import { normalized, equal, inlineStyle2Obj } from './util'
+import { normalized, equal, mergeStyle } from './util'
 import { UniNode } from './node'
 import {
   Instance,
@@ -69,7 +69,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       const processedAttrs = context?.attrs
       // todo use children, no slots
       if (!context) {
-        context = { slots: {}, attrs: {} }
+        context = { slots: {}, attrs: {}, $attrs: {} }
       }
 
       let setupState = {} as {
@@ -119,7 +119,17 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
               _props[propKey] =  defaultVal
             }
           })
-        }        
+        }
+        const $attrs = {} as Record<string, any>
+        Object.keys(context!.attrs).forEach((key) => {
+          // class style id
+          if (key === 'class' || key === 'id' || key === 'style') {
+            // skip class id style
+            return
+          }
+          $attrs[key] = context!.attrs[key]
+        })
+        context!.$attrs = shallowReactive($attrs)
       })
 
       // handle instance
@@ -220,16 +230,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       const rootStyle = computed(() => {
         const otherRootStyle = unref(_state && _state.rootStyle)
         const inlineStyle = context!.attrs.style
-        const styles = [otherRootStyle, inlineStyle]
-        return styles.reduce((style, val) => {
-          if (val) {
-            if (typeof val === 'string') {
-              val = inlineStyle2Obj(val)
-            }
-            Object.assign(style, val)
-          }
-          return style
-        }, {} as Record<string, any>)
+        return mergeStyle(otherRootStyle, inlineStyle)
       })
 
       Object.assign(setupState, _state, {

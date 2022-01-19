@@ -18,6 +18,18 @@ export const inlineStyle2Obj = (str?: string) => {
   return obj
 }
 
+export const mergeStyle = (...styles: any[]) => {
+  return styles.reduce((style, val) => {
+    if (val) {
+      if (typeof val === 'string') {
+        val = inlineStyle2Obj(val)
+      }
+      Object.assign(style, val)
+    }
+    return style
+  }, {} as Record<string, any>)
+}
+
 export const equal = (a: any, b: any) => {
   let r = true
   for (const k in a) {
