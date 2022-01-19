@@ -2,7 +2,7 @@ import {
   createVNode,
   Fragment
 } from 'vue'
-import { PlatformFragment, setPlatform } from '@uni-component/core'
+import { PlatformFragment, setPlatform, UniNode } from '@uni-component/core'
 import { uni2Vue } from './vue'
 
 export * from './vue'
@@ -28,8 +28,11 @@ setPlatform({
       delete props.__source
       delete props.__self
     }
-    return createVNode(type, props, (isPlainNode || type === Fragment) ? children : {
-      default: () => children
-    })
+    const slotContent = children && children.length ? children : undefined
+    const slots: Record<string, () => UniNode> = {}
+    if (slotContent) {
+      slots.default = () => slotContent
+    }
+    return createVNode(type, props, (isPlainNode || type === Fragment) ? slotContent : slots)
   }
 })
