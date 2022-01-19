@@ -7,7 +7,7 @@ export function h (type: any, props: any, ...children: any[]) {
     Fragment = platform.Fragment
   }
   if (children.length === 0) {
-    children = props.children || []
+    children = (props && props.children) || []
   }
   if (children && !Array.isArray(children)) {
     children = [children]
