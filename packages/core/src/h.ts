@@ -12,6 +12,7 @@ export function h (type: any, props: any, ...children: any[]) {
   if (children && !Array.isArray(children)) {
     children = [children]
   }
+  children = children.filter((child) => child !== undefined)
   const vnode = platform.createVNode(type, props, children)
   return vnode
 }
