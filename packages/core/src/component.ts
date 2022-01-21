@@ -201,7 +201,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         } 
       }
 
-      const instance = newInstance(_props, state, () => {
+      const instance = newInstance(_props, state, context!, () => {
         setCurrentInstance(instance)
         const nodes = FC.render(_props, state, context!)
         return nodes
@@ -231,6 +231,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         instance.children.length = 0
         instance.provides = {}
         instance.props = {}
+        ;(instance as any).context = undefined
         const children = lastIns.children
         const i = children.indexOf(instance)
         children.splice(i, 1)

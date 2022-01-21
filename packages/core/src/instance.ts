@@ -1,5 +1,5 @@
 import { markRaw } from '@uni-store/core'
-import { UniNode, FCComponent } from './node'
+import { UniNode, FCComponent, Context } from './node'
 
 type Provides = Record<symbol | string, any>
 
@@ -7,6 +7,7 @@ export interface Instance<Props extends {}, S extends {}, Node extends UniNode =
   type: C,
   props: Props,
   state: S,
+  context: Context,
   parent?: Instance<any, any> | RootInstance,
   children: any[],
   render: () => Node,
@@ -22,11 +23,12 @@ export function newInstance <
   P extends Instance<any, any> | RootInstance,
   C extends FCComponent<any, any, any>,
   Node extends UniNode = UniNode
->(props: Props, state: S, render: () => Node, C: C, parent: P): Instance<Props, S, Node, C> {
+>(props: Props, state: S, context: Context, render: () => Node, C: C, parent: P): Instance<Props, S, Node, C> {
   const instance = markRaw({
     type: C,
     props,
     state,
+    context,
     render,
     children: [],
     isMounted: false,
@@ -44,6 +46,7 @@ export function newInstance <
 export interface RootInstance {
   parent: undefined,
   props: {},
+  context: Context,
   provides: Provides,
   children: any[],
   hooks: any
@@ -52,6 +55,11 @@ export interface RootInstance {
 const rootInstance: RootInstance = {
   parent: undefined,
   props: {},
+  context: {
+    slots: {},
+    attrs: {},
+    $attrs: {}
+  },
   provides: {},
   children: [],
   hooks: {}
