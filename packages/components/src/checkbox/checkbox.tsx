@@ -53,7 +53,7 @@ const UniCheckbox = uniComponent('uni-checkbox', {
   }
 })
 
-UniCheckbox.render = function (props, state, { slots }) {
+UniCheckbox.render = function (props, state, { renders }) {
   const { value, color, disabled, nativeProps } = props
   const { rootClass, checkedClass, eleName, checked, onChange } = state
 
@@ -70,7 +70,7 @@ UniCheckbox.render = function (props, state, { slots }) {
         onChange={onChange}
         {...nativeProps}
       />
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </div>
   )
 }

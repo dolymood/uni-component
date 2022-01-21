@@ -102,13 +102,13 @@ const UniPickerViewColumn = uniComponent('uni-picker-view-column', {}, (name, pr
 
 // for H5
 // mini just use Mini components
-UniPickerViewColumn.render = function (props, state, { slots }) {
+UniPickerViewColumn.render = function (props, state, { renders }) {
   const { rootClass, setEleRef } = state
   return (
     // wheel-wrapper
     <div class={rootClass} ref={setEleRef}>
       <div class='wheel-scroll'>
-        {slots.default && slots.default()}
+        {renders.defaultRender && renders.defaultRender()}
       </div>
     </div>
   )

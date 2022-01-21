@@ -43,12 +43,12 @@ const UniCheckboxGroup = uniComponent('uni-checkbox-group', {
   }
 })
 
-UniCheckboxGroup.render = function (_, state, { slots }) {
+UniCheckboxGroup.render = function (_, state, { renders }) {
   const { rootClass } = state
 
   return (
     <div class={rootClass}>
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </div>
   )
 }

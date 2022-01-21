@@ -208,7 +208,7 @@ const UniSwiper = uniComponent('uni-swiper', {
   }
 })
 
-UniSwiper.render = function (props, state, { slots }) {
+UniSwiper.render = function (props, state, { renders }) {
   const { indicatorDots, indicatorActiveColor, indicatorColor, vertical } = props
   const { rootClass, setWrapperRef, contentClass, itemIds, currentIndex } = state
 
@@ -236,7 +236,7 @@ UniSwiper.render = function (props, state, { slots }) {
   return (
     <div class={rootClass} ref={setWrapperRef}>
       <div class={contentClass}>
-        {slots.default && slots.default()}
+        {renders.defaultRender && renders.defaultRender()}
       </div>
       {dots}
     </div>

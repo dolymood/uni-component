@@ -6,10 +6,10 @@ const UniLabel = uniComponent('uni-label', {
   return {}
 })
 
-UniLabel.render = function (props, _, { slots }) {
+UniLabel.render = function (props, _, { renders }) {
   return (
     <label htmlFor={props.for}>
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </label>
   )
 }

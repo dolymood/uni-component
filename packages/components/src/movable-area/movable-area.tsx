@@ -53,12 +53,12 @@ const UniMovableArea = uniComponent('uni-movable-area', {
 
 // for H5
 // mini just use Mini components
-UniMovableArea.render = function (_, state, { slots }) {
+UniMovableArea.render = function (_, state, { renders }) {
   const { rootClass, rootStyle, wrapperClass, setEleRef } = state
   return (
     <div class={rootClass} style={rootStyle} ref={setEleRef}>
       <div class={wrapperClass}>
-        { slots.default && slots.default() }
+        { renders.defaultRender && renders.defaultRender() }
       </div>
     </div>
   )

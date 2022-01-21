@@ -2,13 +2,13 @@ import React from 'react'
 import { uni2React } from '../../src'
 import { CubeButton as UniButton } from '@uni-component/example'
 
-export const CubeButton = uni2React(UniButton, (props, state, { slots }) => {
+export const CubeButton = uni2React(UniButton, (props, state, { renders }) => {
   const {
     n,
     rootClass,
     clickAction
   } = state
-  const t = props.text ? props.text : slots.default && slots.default()
+  const t = props.text ? props.text : renders.defaultRender && renders.defaultRender()
   return (
     <button className={rootClass} type={props.type} onClick={() => clickAction()}>
       <span>{ `${t} ${n}` }</span>

@@ -59,7 +59,7 @@ const UniButton = uniComponent('uni-button', {
 
 // for H5
 // mini just use Mini components
-UniButton.render = (props, state, { slots }) => {
+UniButton.render = (props, state, { renders }) => {
   const { disabled, loading, formType } = props
   const { rootClass, onTouchStart, onTouchEnd } = state
   return (
@@ -71,7 +71,7 @@ UniButton.render = (props, state, { slots }) => {
       onTouchEnd={ onTouchEnd }
     >
       {loading && <i class='weui-loading' />}
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </button>
   )
 }

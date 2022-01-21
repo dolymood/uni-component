@@ -22,10 +22,10 @@ const UniText = uniComponent('uni-text', {
 
 // for H5
 // mini just use Mini components
-UniText.render = (_, state, { slots }) => {
+UniText.render = (_, state, { renders }) => {
   return (
     <span class={ state.rootClass }>
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </span>
   )
 }

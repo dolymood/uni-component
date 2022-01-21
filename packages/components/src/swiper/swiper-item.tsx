@@ -15,11 +15,11 @@ const UniSwiperItem = uniComponent('uni-swiper-item', {
   itemIds.push(props.itemId || String(itemIds.length))
 })
 
-UniSwiperItem.render = function (_, state, { slots }) {
+UniSwiperItem.render = function (_, state, { renders }) {
   const { rootClass } = state
   return (
     <div class={rootClass}>
-      {slots.default && slots.default()}
+      {renders.defaultRender && renders.defaultRender()}
     </div>
   )
 }

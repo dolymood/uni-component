@@ -56,7 +56,7 @@ export const useView = (props: Props) => {
 
 export type State = GetState<ReturnType<typeof useView>>
 
-export const render = (_: Props, state: State, { slots }: Context) => {
+export const render = (_: Props, state: State, { renders }: Context) => {
   const {
     rootClass,
     attrs,
@@ -68,7 +68,7 @@ export const render = (_: Props, state: State, { slots }: Context) => {
       ref={setEleRef}
       { ...attrs }
     >
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </div>
   )
 }

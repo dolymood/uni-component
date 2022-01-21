@@ -37,7 +37,7 @@ const UniForm = uniComponent('uni-form', {
 
 // for H5
 // mini just use Mini components
-UniForm.render = function (_, state, { slots }) {
+UniForm.render = function (_, state, { renders }) {
   const { rootClass, onSubmit, onReset } = state
   return (
     <form
@@ -45,7 +45,7 @@ UniForm.render = function (_, state, { slots }) {
       onSubmit={onSubmit}
       onReset={onReset}
     >
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </form>
   )
 }

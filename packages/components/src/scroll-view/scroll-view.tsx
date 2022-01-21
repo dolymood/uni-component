@@ -345,7 +345,7 @@ const UniScrollView = uniComponent('uni-scroll-view', {
   }
 })
 
-UniScrollView.render = function (props, state, { slots }) {
+UniScrollView.render = function (props, state, { renders }) {
   const { refresherEnabled, refresherDefaultStyle } = props
   const {
     rootClass,
@@ -374,7 +374,7 @@ UniScrollView.render = function (props, state, { slots }) {
       <div class='uni-scroll-view-content'>
         {pullDownWrapper}
         <div ref={setInnerWrapperRef}>
-          {slots.default && slots.default()}
+          {renders.defaultRender && renders.defaultRender()}
         </div>
       </div>
     </div>

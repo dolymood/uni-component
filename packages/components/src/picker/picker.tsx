@@ -497,7 +497,7 @@ export const UniPicker = uniComponent('uni-picker', {
   }
 })
 
-UniPicker.render = function (_, state, { slots }) {
+UniPicker.render = function (_, state, { renders }) {
   const {
     rootClass,
     pickerData,
@@ -513,7 +513,7 @@ UniPicker.render = function (_, state, { slots }) {
   return (
     <div class={rootClass}>
       <div onClick={show}>
-        {slots.default && slots.default()}
+        {renders.defaultRender && renders.defaultRender()}
       </div>
       <div class={mainClass} style={fadeTransition.style} onTransitionEnd={fadeTransition.onTransitionEnd} onTouchMove={(e) => e.preventDefault()} onClick={cancel}>
         <div class={panelClass} style={moveTransition.style} onTransitionEnd={moveTransition.onTransitionEnd} onClick={(e) => e.stopPropagation()}>

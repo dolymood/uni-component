@@ -65,7 +65,7 @@ const UniRadio = uniComponent('uni-radio', {
   }
 })
 
-UniRadio.render = function (props, state, { slots }) {
+UniRadio.render = function (props, state, { renders }) {
   const { value, color, disabled, nativeProps } = props
   const { rootClass, eleName, checked, onChange, onClick } = state
 
@@ -83,7 +83,7 @@ UniRadio.render = function (props, state, { slots }) {
         {...nativeProps}
       />
       <i class='weui-icon-checked' />
-      { slots.default && slots.default() }
+      { renders.defaultRender && renders.defaultRender() }
     </div>
   )
 }

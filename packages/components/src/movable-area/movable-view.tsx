@@ -325,12 +325,12 @@ const UniMovableView = uniComponent('uni-movable-view', {
   }
 })
 
-UniMovableView.render = function (_, state, { slots }) {
+UniMovableView.render = function (_, state, { renders }) {
   const { rootClass, setEleRef, contentClass } = state
   return (
     <div class={rootClass} ref={setEleRef}>
       <div class={contentClass}>
-        { slots.default && slots.default() }
+        { renders.defaultRender && renders.defaultRender() }
       </div>
     </div>
   )

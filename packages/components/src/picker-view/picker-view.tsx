@@ -125,7 +125,7 @@ export const UniPickerView = uniComponent('uni-picker-view', {
 
 // for H5
 // mini just use Mini components
-UniPickerView.render = function (props, state, { slots }) {
+UniPickerView.render = function (props, state, { renders }) {
   const {
     indicatorClass
   } = props
@@ -157,7 +157,7 @@ UniPickerView.render = function (props, state, { slots }) {
           <div class="mask-bottom" style={_maskStyle}></div>
           <div class={_indicatorClass} style={indicatorStyle} ref={setIndicatorMaskEleRef}></div>
           <div class='uni-picker-view-container' style={containerStyle}>
-            {slots.default && slots.default()}
+            {renders.defaultRender && renders.defaultRender()}
           </div>
         </div>
       </div>
