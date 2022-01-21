@@ -3,7 +3,7 @@ import { computed, reactive, unref, watchEffect, shallowReactive, toRaw } from '
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
-import { normalized, equal, mergeStyle } from './util'
+import { normalized, equal, mergeStyle, camelize } from './util'
 import { UniNode } from './node'
 import {
   Instance,
@@ -83,7 +83,22 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       const _props = shallowReactive({ ...toRaw(props) }) as Record<string, any>
 
       watchEffect(() => {
+        const slots = context!.slots
+        // slots to xxRender
+        Object.keys(slots).forEach((name) => {
+          if (slots[name]) {
+            (_props as any)[`${camelize(name)}Render`] = slots[name]
+          }
+        })
+        // prop xxRender to slots
+        const propToSlot = (key: string, val: any) => {
+          const renderMatch = key.match(/(.+)Render$/)
+          if (renderMatch && typeof val === 'function') {
+            slots[renderMatch[1]] = val
+          }
+        }
         if (processedAttrs) {
+          // vue case
           // collect deps
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
@@ -94,6 +109,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           const attrs = {} as Record<string, any>
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
+
+            propToSlot(propKey, val)
+
             let hasProp = FC.rawProps && (
               Array.isArray(FC.rawProps) ? (FC.rawProps as any[]).includes(propKey) : FC.rawProps.hasOwnProperty(propKey)
             )
@@ -116,6 +134,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
                 // do not support instance now
                 defaultVal = defaultVal()
               }
+              propToSlot(propKey, defaultVal)
               _props[propKey] =  defaultVal
             }
           })
