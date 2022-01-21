@@ -67,9 +67,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
     // like vue setup function
     [normalizedName]: (props, context?: Context) => {
       const processedAttrs = context?.attrs
-      // todo use children, no slots
       if (!context) {
-        context = { slots: {}, attrs: {}, $attrs: {} }
+        context = { renders: {}, attrs: {}, $attrs: {} }
       }
 
       let setupState = {} as {
@@ -83,18 +82,12 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       const _props = shallowReactive({ ...toRaw(props) }) as Record<string, any>
 
       watchEffect(() => {
-        const slots = context!.slots
-        // slots to xxRender
-        Object.keys(slots).forEach((name) => {
-          if (slots[name]) {
-            (_props as any)[`${camelize(name)}Render`] = slots[name]
-          }
-        })
-        // prop xxRender to slots
-        const propToSlot = (key: string, val: any) => {
+        const renders = {} as Record<string, Function>
+        // prop xxRender to renders
+        const propToRenders = (key: string, val: any) => {
           const renderMatch = key.match(/(.+)Render$/)
           if (renderMatch && typeof val === 'function') {
-            slots[renderMatch[1]] = val
+            renders[key] = val
           }
         }
         if (processedAttrs) {
@@ -103,6 +96,17 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
             ;(_props as any)[propKey] = val
+            propToRenders(propKey, val)
+          })
+          const slots = context!.slots
+          // slots to xxRender
+          Object.keys(slots).forEach((name) => {
+            const val = slots[name]
+            if (val) {
+              const key = `${camelize(name)}Render`
+              ;(_props as any)[key] = val
+              propToRenders(key, val)
+            }
           })
         } else {
           // handle attrs
@@ -110,13 +114,14 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
 
-            propToSlot(propKey, val)
+            propToRenders(propKey, val)
 
             let hasProp = FC.rawProps && (
               Array.isArray(FC.rawProps) ? (FC.rawProps as any[]).includes(propKey) : FC.rawProps.hasOwnProperty(propKey)
             )
             if (hasProp || propKey === 'children') {
               _props[propKey] = val
+              propToRenders('defaultRender', () => val)
             } else {
               attrs[propKey] = val
               delete _props[propKey]
@@ -134,7 +139,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
                 // do not support instance now
                 defaultVal = defaultVal()
               }
-              propToSlot(propKey, defaultVal)
+              propToRenders(propKey, defaultVal)
               _props[propKey] =  defaultVal
             }
           })
@@ -149,6 +154,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           $attrs[key] = context!.attrs[key]
         })
         context!.$attrs = shallowReactive($attrs)
+
+        context!.renders = shallowReactive(renders)
       })
 
       // handle instance

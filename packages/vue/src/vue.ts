@@ -91,8 +91,8 @@ export function uni2Vue(
         p = p.parent
       }
     }
-    // todo use children, no slots
-    const uniContext = Object.assign({$attrs: {}}, context) as Context
+
+    const uniContext = Object.assign({$attrs: {}, renders: {}}, context) as Context
     uniContext.uniParent = uniParent
     uniContext.nodeProps = vueInstance?.vnode.props
 

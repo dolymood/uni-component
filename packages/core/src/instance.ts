@@ -56,7 +56,7 @@ const rootInstance: RootInstance = {
   parent: undefined,
   props: {},
   context: {
-    slots: {},
+    renders: {},
     attrs: {},
     $attrs: {}
   },

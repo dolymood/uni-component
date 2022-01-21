@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect } from 'react'
 import type { FunctionComponent, ReactElement, ReactNode } from 'react'
 import type { UnwrapNestedRefs } from '@uni-store/core'
 import { reactiveReact, useSetup } from '@uni-store/react'
-import { invokeMounted, invokeUpdated, invokeUnmounted, getDefaultProps } from '@uni-component/core'
+import { invokeMounted, invokeUpdated, invokeUnmounted } from '@uni-component/core'
 import type { FCComponent, RawPropTypes, Context } from '@uni-component/core'
 
 export function uni2React<
@@ -21,15 +21,8 @@ export function uni2React<
   const FC: FunctionComponent<FCProps> = (props: FCProps & { children?: ReactNode }) => {
     const instance = useSetup((props: UnwrapNestedRefs<FCProps> & { children?: ReactNode }) => {
       const context = {
-        slots: {} as Record<string, Function>
+        renders: {} as Record<string, Function>
       } as Context
-      // todo use children, no slots
-      if (props.children) {
-        context.slots.default = () => props.children
-      }
-      if ((props as any).slots) {
-        Object.assign(context.slots, (props as any).slots)
-      }
 
       context.nodeProps = props
 
