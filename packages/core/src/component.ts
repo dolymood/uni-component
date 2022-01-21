@@ -81,6 +81,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const _props = shallowReactive({ ...toRaw(props) }) as Record<string, any>
 
+      // todo
+      // all use proxy/computed?
+      // cache, dynamic update
       watchEffect(() => {
         const renders = {} as Record<string, Function>
         // prop xxRender to renders
@@ -98,10 +101,11 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             ;(_props as any)[propKey] = val
             propToRenders(propKey, val)
           })
+          // todo dynamic slots?
           const slots = context!.slots
           // slots to xxRender
           Object.keys(slots).forEach((name) => {
-            const val = slots[name]
+            const val = (...args: any[]) => slots[name](...args)
             if (val) {
               const key = `${camelize(name)}Render`
               ;(_props as any)[key] = val
@@ -156,6 +160,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         context!.$attrs = shallowReactive($attrs)
 
         context!.renders = shallowReactive(renders)
+      }, {
+        flush: 'sync'
       })
 
       // handle instance
@@ -220,6 +226,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         befores.forEach((beforeFn) => {
           beforeFn(_props, setupState, context!, FC)
         })
+      }, {
+        flush: 'sync'
       })
 
       onMounted(() => {
