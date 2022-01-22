@@ -4,7 +4,7 @@ import { Instance, RootInstance } from './instance'
 import { VNode, JSXBase } from './types'
 
 export interface Context {
-  renders: Record<string, Function>
+  renders: Record<string, (...args: any[]) => any>
   uniParent?: Instance<any, any> | RootInstance
   attrs: Record<string, any>
   $attrs: Record<string, any>
