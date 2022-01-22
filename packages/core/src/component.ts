@@ -85,6 +85,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       // all use proxy/computed?
       // cache, dynamic update
       watchEffect(() => {
+        // todo renders type
         const renders = {} as Context['renders']
         // prop xxRender to renders
         const propToRenders = (key: string, val: any) => {
