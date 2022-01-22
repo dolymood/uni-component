@@ -123,7 +123,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             let hasProp = FC.rawProps && (
               Array.isArray(FC.rawProps) ? (FC.rawProps as any[]).includes(propKey) : FC.rawProps.hasOwnProperty(propKey)
             )
-            if (hasProp || propKey === 'children') {
+            if (hasProp) {
+              _props[propKey] = val
+            } else if (propKey === 'children') {
               _props[propKey] = val
               propToRenders('defaultRender', () => val)
             } else {
