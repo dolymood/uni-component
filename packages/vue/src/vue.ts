@@ -8,8 +8,8 @@ import {
 import type {
   DefineComponent
 } from 'vue'
-import { invokeMounted, invokeUpdated, invokeUnmounted, Context } from '@uni-component/core'
-import type { FCComponent, Instance } from '@uni-component/core'
+import { invokeMounted, invokeUpdated, invokeUnmounted  } from '@uni-component/core'
+import type { FCComponent, Instance, Context } from '@uni-component/core'
 
 export type DefineComponentFn = typeof vueDefine
 
@@ -112,7 +112,11 @@ export function uni2Vue(
     })
 
     // todo async cases
-    return (instance as Instance<any, any>).render
+    return instance.state
+  }
+  component.render = function () {
+    const instance = getCurrentInstance()
+    return (instance as any).__UNI_INSTANCE__.render()
   }
   return component
 }
