@@ -158,7 +158,10 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             // skip class id style
             return
           }
-          $attrs[key] = context!.attrs[key]
+          const val = context!.attrs[key]
+          $attrs[key] = val
+          // keep renders passed to children
+          propToRenders(key, val)
         })
         context!.$attrs = shallowReactive($attrs)
 
