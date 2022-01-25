@@ -1,3 +1,41 @@
+# [0.4.0](https://github.com/dolymood/uni-component/compare/v0.3.0...v0.4.0) (2022-01-25)
+
+
+### Bug Fixes
+
+* attrs should append to renders ([aa06d1b](https://github.com/dolymood/uni-component/commit/aa06d1b13d71433541d4e19aea06dd4219f8e6fd))
+* capture return type ([fc737c9](https://github.com/dolymood/uni-component/commit/fc737c92daac93dcb6602987a1f413301aa7f49a))
+* capture should return Ref value ([b337047](https://github.com/dolymood/uni-component/commit/b337047ef5e34b7498ca2a5e81650866b1cad98e))
+* children to render ([e552627](https://github.com/dolymood/uni-component/commit/e552627917b5fe6c3c6401d8b592bcb5082681fb))
+* **core:** defaultProps should handle null case ([69b3add](https://github.com/dolymood/uni-component/commit/69b3add0771fcc7365d1f4087ccb2e63c27e13eb))
+* **core:** should ignore undefined ([ce4bc52](https://github.com/dolymood/uni-component/commit/ce4bc52a44a85ab482f0431ecb85d84de9eb2154))
+* do not update props and renders ([1cf53b0](https://github.com/dolymood/uni-component/commit/1cf53b0770b26d0807be6622649077c8950a7834))
+* instance tree ([6a92c6e](https://github.com/dolymood/uni-component/commit/6a92c6ea37eb7fc90298208402661e638813f4a6))
+* only component should handle slots ([0993bfd](https://github.com/dolymood/uni-component/commit/0993bfd389f9b4388f2d9c66e588b3fc9c0f31ce))
+* props could be null ([c967767](https://github.com/dolymood/uni-component/commit/c9677677f17ff778a822a3ecb2e3480929038ee6))
+* rootInstance set hooks ([466d9b9](https://github.com/dolymood/uni-component/commit/466d9b9a92278a53f757ac852e1593bfd3725596))
+* type error ([52cefb4](https://github.com/dolymood/uni-component/commit/52cefb4409a7effa57222822fb58a37dfaeda2f7))
+* **vue:** slots should be valiable when have content ([fd06b36](https://github.com/dolymood/uni-component/commit/fd06b3660adb76237ccdcf5edaf838e15af8553a))
+
+
+### Features
+
+* before add FC param ([2a468c6](https://github.com/dolymood/uni-component/commit/2a468c6224828e7494daaf32a13f2474fa78bc44))
+* **core:** context support $attrs ([ce5bbe8](https://github.com/dolymood/uni-component/commit/ce5bbe808145a5db8bc9a04ef1db541e3f7a119e))
+* **core:** support capture ([8f21468](https://github.com/dolymood/uni-component/commit/8f21468a4bddfdac8e1960175a6b285f09afbb68))
+* **core:** support Fragment ([999b2ea](https://github.com/dolymood/uni-component/commit/999b2ea1ff32ff81bae527773c99108dc2bfdc29))
+* **core:** support rootStyle & rootId ([52cc378](https://github.com/dolymood/uni-component/commit/52cc37867a8535c09015d9c8c6205d59c85b4037))
+* drop slots, use renders ([1234bb8](https://github.com/dolymood/uni-component/commit/1234bb88855afc98bac9b64b8d4b0a86640b1918))
+* instance add context prop ([51f65c8](https://github.com/dolymood/uni-component/commit/51f65c81655933f6656c28c677e6ca3246d45677))
+* setup have context param ([b9ddc9b](https://github.com/dolymood/uni-component/commit/b9ddc9bbf01cc475c98c41022827fd666b4d1b6b))
+* slots collect all xRender, xRender to slots ([d6da004](https://github.com/dolymood/uni-component/commit/d6da0046b8162a91da47b92172095039d6559d07))
+* support attrs & nodeProps ([80c8c03](https://github.com/dolymood/uni-component/commit/80c8c03123306f936c2997229f3edd8c71ed7856))
+* support beforeUniSetup hook ([a80de81](https://github.com/dolymood/uni-component/commit/a80de81e95d373e56fd125c306c570dabe3e577b))
+* support PlatformFragment ([93757cc](https://github.com/dolymood/uni-component/commit/93757cc4d574fe4c73ea7bf432bd5cc524ce893e))
+* **vue:** export setup result for vue refs ([ae696a3](https://github.com/dolymood/uni-component/commit/ae696a3208ff40224de030f9399edea9e3b99985))
+
+
+
 # [0.3.0](https://github.com/dolymood/uni-component/compare/v0.1.1...v0.3.0) (2022-01-07)
 
 ### Features
