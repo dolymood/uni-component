@@ -176,35 +176,44 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       if ('uniParent' in context!) {
         lastIns = context.uniParent || rootInstance
       } else {
+        const $children: any[] = []
+        const collectUniChildren = (children?: any[]) => {
+          if (children) {
+            const _children = Array.isArray(children) ? children : [children]
+            _children.forEach((child) => {
+              if (child) {
+                if (child.type && child.type.___UNI___) {
+                  $children.push(child)
+                } else {
+                  // find children
+                  // not uni child
+                  collectUniChildren(child.children)
+                }
+              }
+            })
+          }
+        }
+        collectUniChildren(_props.children)
+        context.$children = $children
         // normal case
         // find parent
         // <A><B><C></C></B></A>
 
-        const hasChild = (children: UniNode | UniNode[]) => {
-          const _children = Array.isArray(children) ? children : [children]
-          // todo for performance, do not check children.children fornow
-          // for plain components cases
+        const hasChild = (ins: Instance<any, any> | RootInstance) => {
+          const _children = ins.context.$children
           // <UniA><ReactX><UniB></UniB></ReactX></UniA>
           // can not get correct relations
           const result = _children.find((child: any) => {
-            return child && equal(child.props, props) && child.type === FC
+            return child && equal(child.props, props) && child.type === context!.FC
           })
           return !!result
         }
         const isFull = (ins: Instance<any, any> | RootInstance) => {
           const children = ins.children
-          let propsChildren = ins.props.children
-          if (!Array.isArray(propsChildren)) {
-            propsChildren = [propsChildren]
-          }
-          propsChildren = propsChildren.filter((child: any) => {
-            return child && child.type.___UNI___
-          })
-          return children.length >= propsChildren.length
+          return children.length >= ins.context.$children.length
         }
         while (lastIns) {
-          // todo can not have plain components
-          if (!lastIns.props || !lastIns.props.children || !hasChild(lastIns.props.children) || isFull(lastIns)) {
+          if (!lastIns.props || !lastIns.props.children || !hasChild(lastIns) || isFull(lastIns)) {
             lastIns = lastIns.parent!
           } else {
             break
@@ -217,7 +226,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           // A = <B></B>
           // <A></A>
           lastIns = currentIns
-        } 
+        }
       }
 
       const instance = newInstance(_props, state, context!, () => {

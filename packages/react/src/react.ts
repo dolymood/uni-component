@@ -25,7 +25,7 @@ export function uni2React<
       } as Context
 
       context.nodeProps = props
-
+      context.FC = RC
       return UniComponent(props as FCProps & { children?: ReactNode }, context)
     }, props)
 
@@ -47,5 +47,6 @@ export function uni2React<
   }
   FC.displayName = UniComponent.name
   const RC = reactiveReact(FC)
+  ;(RC as any).___UNI___ = true
   return RC
 }

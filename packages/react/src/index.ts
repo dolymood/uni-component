@@ -7,8 +7,18 @@ export * from './react'
 const transformPropsMap: Record<string, string> = {
   class: 'className',
   autoplay: 'autoPlay',
-  maxlength:'maxLength',
-  autofocus: 'autoFocus'
+  maxlength: 'maxLength',
+  autofocus: 'autoFocus',
+  readonly: 'readOnly',
+  tabindex: 'tabIndex',
+  novalidate: 'noValidate',
+  ariaLabel: 'aria-label',
+  ariaDisabled: 'aria-disabled',
+  ariaCurrent: 'aria-current',
+  'stroke-width': 'strokeWidth',
+  'stroke-dasharray': 'strokeDasharray',
+  'stroke-dashoffset': 'strokeDashoffset',
+  'inset-inline-start': 'insetInlineStart'
 }
 const transformProps = Object.keys(transformPropsMap)
 
@@ -17,7 +27,7 @@ setPlatform({
   createComponent: uni2React,
   createVNode: function (type, props, children) {
     const isPlainNode = typeof type === 'string'
-    isPlainNode && transformProps.forEach((key) => {
+    isPlainNode && props && transformProps.forEach((key) => {
       if (props.hasOwnProperty(key)) {
         props[transformPropsMap[key]] = props[key]
         delete props[key]

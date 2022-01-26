@@ -23,7 +23,7 @@ export function getDefaultProps<
     let defaultValue
 
     if (propValue) {
-      if (propValue === Boolean || propValue.type === Boolean) {
+      if (propValue === Boolean || propValue.type === Boolean || (Array.isArray(propValue) && propValue.includes(Boolean)) || (Array.isArray(propValue.type) && propValue.type.includes(Boolean))) {
         // boolean
         if (!propValue.required) {
           defaultValue = 'default' in propValue ? propValue.default : false
