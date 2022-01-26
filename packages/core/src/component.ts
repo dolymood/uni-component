@@ -127,7 +127,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             if (hasProp) {
               _props[propKey] = val
             } else if (propKey === 'children') {
-              _props[propKey] = val
+              // _props[propKey] = val
               propToRenders('defaultRender', () => val)
             } else {
               attrs[propKey] = val
@@ -172,61 +172,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       // handle instance
       let lastIns = getCurrentInstance()
-      let currentIns = lastIns
       if ('uniParent' in context!) {
         lastIns = context.uniParent || rootInstance
-      } else {
-        const $children: any[] = []
-        const collectUniChildren = (children?: any[]) => {
-          if (children) {
-            const _children = Array.isArray(children) ? children : [children]
-            _children.forEach((child) => {
-              if (child) {
-                if (child.type && child.type.___UNI___) {
-                  $children.push(child)
-                } else {
-                  // find children
-                  // not uni child
-                  collectUniChildren(child.children)
-                }
-              }
-            })
-          }
-        }
-        collectUniChildren(_props.children)
-        context.$children = $children
-        // normal case
-        // find parent
-        // <A><B><C></C></B></A>
-
-        const hasChild = (ins: Instance<any, any> | RootInstance) => {
-          const _children = ins.context.$children
-          // <UniA><ReactX><UniB></UniB></ReactX></UniA>
-          // can not get correct relations
-          const result = _children.find((child: any) => {
-            return child && equal(child.props, props) && child.type === context!.FC
-          })
-          return !!result
-        }
-        const isFull = (ins: Instance<any, any> | RootInstance) => {
-          const children = ins.children
-          return children.length >= ins.context.$children.length
-        }
-        while (lastIns) {
-          if (!lastIns.props || !lastIns.props.children || !hasChild(lastIns) || isFull(lastIns)) {
-            lastIns = lastIns.parent!
-          } else {
-            break
-          }
-        }
-
-        if (lastIns === undefined) {
-          // fallback
-          // B = <div></div>
-          // A = <B></B>
-          // <A></A>
-          lastIns = currentIns
-        }
       }
 
       const instance = newInstance(_props, state, context!, () => {
