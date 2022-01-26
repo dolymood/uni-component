@@ -1,3 +1,14 @@
+## [0.4.1](https://github.com/dolymood/uni-component/compare/v0.4.0...v0.4.1) (2022-01-26)
+
+
+### Bug Fixes
+
+* capture should only check child provide ([3e9d58e](https://github.com/dolymood/uni-component/commit/3e9d58e20f96de5f86c96e728e38f20912aecdb7))
+* collect uni children for react case ([a585507](https://github.com/dolymood/uni-component/commit/a58550782a7a2737ada1e2deeea36ce721aad594))
+* **react:** more transform keys ([019483c](https://github.com/dolymood/uni-component/commit/019483c2357c3c7d63a667389de19fb59b89a8c6))
+
+
+
 # [0.4.0](https://github.com/dolymood/uni-component/compare/v0.3.0...v0.4.0) (2022-01-25)
 
 
