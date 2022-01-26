@@ -27,8 +27,6 @@ export function uni2React<
   }
   const FC: FunctionComponent<FCProps> = (props: FCProps & { children?: ReactNode }) => {
     const current = ReactSharedInternals.ReactCurrentOwner.current
-    current.elementType.___UNI___
-    current.return
     let uniParent: Instance<any, any> | undefined
     let p = current.return
     while (p) {
