@@ -12,6 +12,7 @@ setPlatform({
   createComponent: uni2Vue,
   createVNode: function (type, props, children) {
     const isPlainNode = typeof type === 'string'
+    const isFragment = type === Fragment
     if (props) {
       isPlainNode && Object.keys(props).forEach((key) => {
         if (key.indexOf('on') === 0) {
@@ -33,6 +34,6 @@ setPlatform({
     if (slotContent) {
       slots.default = () => slotContent
     }
-    return createVNode(type, props, (isPlainNode || type === Fragment) ? slotContent : slots)
+    return createVNode(type, props, isPlainNode ? slotContent : isFragment ? (slotContent || []) : slots)
   }
 })

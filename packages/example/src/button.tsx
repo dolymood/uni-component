@@ -5,6 +5,7 @@ import {
 import {
   h,
   PropType,
+  UniNode,
   uniComponent
 } from '@uni-component/core'
 
@@ -29,7 +30,8 @@ export const CubeButton = uniComponent('cube-button', {
   text: String,
   icon: String,
   primary: Boolean,
-  onClick: Function as PropType<(e?: MouseEvent) => any>
+  onClick: Function as PropType<(e?: MouseEvent) => any>,
+  appendRender: Function as PropType<() => UniNode | undefined>
 }, (name, props) => {
   const n = ref(0)
 

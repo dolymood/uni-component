@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { nextTick } from '@uni-store/core'
+import { getRootInstance } from '@uni-component/core'
 import {
   act,
   cleanup,
@@ -8,6 +9,7 @@ import {
 } from '@testing-library/react'
 import { CubeButton } from '../example/button/button'
 import { CubeButtons } from '../example/buttons/buttons'
+import { CubeTip } from '../example/tip/tip'
 
 afterEach(cleanup)
 
@@ -102,17 +104,18 @@ describe('Test React', () => {
     const btns = rendered.container.querySelectorAll('.cube-buttons')
     expect(btns.length).toEqual(1)
     const allBtns = btns[0].children
-    expect(allBtns.length).toEqual(3)
+    expect(allBtns.length).toEqual(4)
 
     expect(allBtns[0].className).toEqual('cube-button')
-    expect(allBtns[1].className).toEqual('cube-button cube-button-primary')
-    expect(allBtns[2].className).toEqual('')
-    await actClickEvent(allBtns[0])
+    expect(allBtns[1].className).toEqual('cube-button')
+    expect(allBtns[2].className).toEqual('cube-button cube-button-primary')
+    expect(allBtns[3].className).toEqual('')
+    await actClickEvent(allBtns[1])
     expect(fn1).toBeCalledTimes(1)
     expect(fn2).toBeCalledTimes(0)
     expect(rendered.getAllByText('btn1 in btns - 0 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 0')).toHaveLength(1)
-    await actClickEvent(allBtns[1])
+    await actClickEvent(allBtns[2])
     expect(fn1).toBeCalledTimes(1)
     expect(fn2).toBeCalledTimes(1)
     expect(rendered.getAllByText('btn1 in btns - 0 1')).toHaveLength(1)
@@ -122,5 +125,50 @@ describe('Test React', () => {
     await actClickEvent(rendered.getByTestId('incEle'))
     expect(rendered.getAllByText('btn1 in btns - 1 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 1 1')).toHaveLength(1)
+  })
+  it('should work correctly(instance) - with xxRender props', async () => {
+    const App = () => {
+      return (
+        <div>
+          <CubeButtons>
+            <CubeButton>btn1</CubeButton>
+            <CubeButton
+              appendRender={() => (
+                <CubeTip defaultRender={() => <i>tip2</i>} />)
+              }
+            >btn2</CubeButton>
+            <CubeButton
+              appendRender={() => (
+                <CubeTip defaultRender={() => <i>tip3</i>} />)
+              }
+            ><CubeTip>btn3 - tip</CubeTip></CubeButton>
+          </CubeButtons>
+        </div>
+      )
+    }
+
+    const rendered = render(<App />)
+
+    await nextTick()
+
+    expect(rendered.getAllByText('default btns btn 0')).toHaveLength(1)
+    expect(rendered.getAllByText('btn1 0')).toHaveLength(1)
+    expect(rendered.getAllByText('btn2 0')).toHaveLength(1)
+    expect(rendered.getAllByText('tip2')).toHaveLength(1)
+    expect(rendered.getAllByText('btn3 - tip')).toHaveLength(1)
+    expect(rendered.getAllByText('tip3')).toHaveLength(1)
+
+    const rootInstance = getRootInstance()
+    expect(rootInstance.children.length).toBe(1)
+    const btns = rootInstance.children[0]
+    expect(btns.children.length).toBe(4)
+    const allBtns = btns.children
+    expect(allBtns[0].children.length).toBe(0)
+    expect(allBtns[1].children.length).toBe(0)
+    expect(allBtns[2].children.length).toBe(1)
+    expect(allBtns[2].children[0].type.name).toBe('CubeTip')
+    expect(allBtns[3].children.length).toBe(2)
+    expect(allBtns[3].children[0].type.name).toBe('CubeTip')
+    expect(allBtns[3].children[1].type.name).toBe('CubeTip')
   })
 })

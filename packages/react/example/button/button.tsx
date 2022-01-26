@@ -11,7 +11,13 @@ export const CubeButton = uni2React(UniButton, (props, state, { renders }) => {
   const t = props.text ? props.text : renders.defaultRender && renders.defaultRender()
   return (
     <button className={rootClass} type={props.type} onClick={() => clickAction()}>
-      <span>{ `${t} ${n}` }</span>
+      <span>
+        <>
+          {t}
+          {` ${n}`}
+        </>
+      </span>
+      {props.appendRender?.()}
     </button>
   )
 })

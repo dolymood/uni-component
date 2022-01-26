@@ -12,6 +12,7 @@ const transformPropsMap: Record<string, string> = {
   readonly: 'readOnly',
   tabindex: 'tabIndex',
   novalidate: 'noValidate',
+  srcset: 'srcSet',
   ariaLabel: 'aria-label',
   ariaDisabled: 'aria-disabled',
   ariaCurrent: 'aria-current',

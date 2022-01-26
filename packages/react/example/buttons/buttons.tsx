@@ -7,6 +7,7 @@ export const CubeButtons = uni2React(UniButtons, (props, state, { renders }) => 
   const { rootClass } = state
   return (
     <div className={rootClass}>
+      <CubeButton>default btns btn</CubeButton>
       { renders.defaultRender && renders.defaultRender() }
     </div>
   )
