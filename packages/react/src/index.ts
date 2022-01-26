@@ -5,8 +5,10 @@ import { uni2React } from './react'
 export * from './react'
 
 const transformPropsMap: Record<string, string> = {
+  autocomplete: 'autoComplete',
   class: 'className',
   autoplay: 'autoPlay',
+  minlength: 'minLength',
   maxlength: 'maxLength',
   autofocus: 'autoFocus',
   readonly: 'readOnly',
