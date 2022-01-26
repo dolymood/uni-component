@@ -52,7 +52,7 @@ export function capture(key: string | InjectionKey<any>, defaultValue?: unknown,
     for (const child of children) {
       const provides = child.provides
       const k = key as string | symbol
-      if (provides && k in provides) {
+      if (provides && provides !== instance.provides && provides.hasOwnProperty(k)) {
         newTarget = provides[k]
         break
       }

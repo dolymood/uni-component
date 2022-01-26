@@ -1,6 +1,6 @@
 import { computed } from '@uni-store/core'
 import { isArray, isFunction } from '@vue/shared'
-import { h, uniComponent, provide, inject, invokeUnmounted, UniNode } from '../src'
+import { h, uniComponent, provide, inject, invokeMounted, invokeUnmounted, UniNode, capture } from '../src'
 
 describe('Test Core', () => {
   it('should work correctly - without props', () => {
@@ -314,8 +314,12 @@ describe('Test provide & inject', () => {
     const A = uniComponent('a', (name) => {
       provide(key1, name)
       provide(key2, `${name}${name}`)
+      const captureKey1 = capture(key1, 'def key1')
+      const captureKey2 = capture(key2, 'def key2')
       return {
-        name
+        name,
+        captureKey1,
+        captureKey2
       }
     })
     A.render = render
@@ -359,6 +363,9 @@ describe('Test provide & inject', () => {
     const dom = vnode.__dom__
     const instance = dom.instance
     const aInstance = instance.children[0]
+    invokeMounted(aInstance)
+    expect(aInstance.state.captureKey1).toEqual('b')
+    expect(aInstance.state.captureKey2).toEqual('def key2')
     const abcInstance = aInstance.children[0].children[0]
     
     expect(abcInstance.state.key1Value).toEqual('b')
@@ -395,14 +402,17 @@ function renderNode (vnode: UniNode, parentVNode?: UniNode) {
     parentVNode.__dom__.children.push(dom)
   }
   if (isFunction(type)) {
-    const instance = type(vnode.props || {})
+    const instance = type(vnode.props || {}, {
+      uniParent: parentVNode && parentVNode.__dom__.instance
+    })
     const childvnode = instance.render()
     dom.type = childvnode.type
+    dom.instance = instance
     const childdom = renderNode(childvnode, vnode).__dom__
     dom.type = childdom.type
     dom.children = childdom.children
-    dom.instance = instance
   } else {
+    dom.instance = parentVNode && parentVNode.__dom__.instance
     renderNodeChildren(vnode)
   }
   return vnode
