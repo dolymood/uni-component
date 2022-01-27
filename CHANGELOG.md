@@ -7,6 +7,15 @@
 
 
 
+## [0.4.3](https://github.com/dolymood/uni-component/compare/v0.4.2...v0.4.3) (2022-01-27)
+
+
+### Bug Fixes
+
+* props should be stable ([16849f2](https://github.com/dolymood/uni-component/commit/16849f20e94e15caa879db2a46ee8b846fe86f8c))
+
+
+
 ## [0.4.2](https://github.com/dolymood/uni-component/compare/v0.4.1...v0.4.2) (2022-01-27)
 
 
