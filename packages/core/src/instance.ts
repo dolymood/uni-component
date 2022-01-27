@@ -52,6 +52,8 @@ export interface RootInstance {
   hooks: any
 }
 
+// todo use instance
+// todo root canbe multi instance by creteXxx
 const rootInstance: RootInstance = {
   parent: undefined,
   props: {},

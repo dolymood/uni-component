@@ -1,13 +1,10 @@
 import classNames from 'classnames'
-import { computed, reactive, unref, watchEffect, shallowReactive, toRaw } from '@uni-store/core'
+import { computed, reactive, unref, watchEffect, shallowReactive } from '@uni-store/core'
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
-import { normalized, equal, mergeStyle, camelize } from './util'
-import { UniNode } from './node'
+import { normalized, mergeStyle, camelize } from './util'
 import {
-  Instance,
-  RootInstance,
   newInstance,
   setCurrentInstance,
   getCurrentInstance,

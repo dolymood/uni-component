@@ -29,14 +29,3 @@ export const mergeStyle = (...styles: any[]) => {
     return style
   }, {} as Record<string, any>)
 }
-
-export const equal = (a: any, b: any) => {
-  let r = true
-  for (const k in a) {
-    if (a[k] !== b[k]) {
-      r = false
-      break
-    }
-  }
-  return r
-}
