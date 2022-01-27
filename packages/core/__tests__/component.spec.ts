@@ -1,6 +1,6 @@
 import { computed } from '@uni-store/core'
 import { isArray, isFunction } from '@vue/shared'
-import { h, uniComponent, provide, inject, invokeMounted, invokeUnmounted, UniNode, capture } from '../src'
+import { h, uniComponent, provide, inject, invokeMounted, invokeUnmounted, UniNode, capture, Context } from '../src'
 
 describe('Test Core', () => {
   it('should work correctly - without props', () => {
@@ -149,8 +149,12 @@ describe('Test Core', () => {
 
 describe('Test instance', () => {
   it('should work correctly - instance', () => {
-    const render = (props: any, state: any) => {
-      return h('div', props)
+    const render = (props: any, state: any, { renders }: Context) => {
+      let children = renders.defaultRender?.() || []
+      if (!Array.isArray(children)) {
+        children = [children]
+      }
+      return h('div', props, ...children)
     }
     const A = uniComponent('a', { context: String }, (name) => {
       return {
@@ -306,8 +310,12 @@ describe('Test instance', () => {
 
 describe('Test provide & inject', () => {
   it('should work correctly - provide inject', () => {
-    const render = (props: any, state: any) => {
-      return h('div', props)
+    const render = (props: any, state: any, { renders }: Context) => {
+      let children = renders.defaultRender?.() || []
+      if (!Array.isArray(children)) {
+        children = [children]
+      }
+      return h('div', props, ...children)
     }
     const key1 = 'p1'
     const key2 = 'p2'

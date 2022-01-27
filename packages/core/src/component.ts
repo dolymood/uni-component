@@ -79,27 +79,40 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const state = reactive(setupState)
 
-      const _props = shallowReactive({ ...toRaw(props) }) as Record<string, any>
+      const _props = shallowReactive({ ...toRaw(props) } as Record<string, any>)
+      const renders = shallowReactive({} as Context['renders'])
+      const $attrs = shallowReactive({} as Record<string, any>)
+      const attrs = processedAttrs ? context.attrs : shallowReactive({} as Record<string, any>)
+      context.attrs = attrs
+      context.renders = renders
+      context.$attrs = $attrs
+
+      // todo renders type
+      // prop xxRender to renders
+      const propToRenders = (key: string, val: any) => {
+        const renderMatch = key.match(/(.+)Render$/)
+        if (renderMatch && typeof val === 'function') {
+          renders[key] = val
+        }
+      }
+      const reset = (data: Record<string, any>) => {
+        Object.keys(data).forEach((k) => {
+          delete data[k]
+        })
+      }
 
       // todo
       // all use proxy/computed?
       // cache, dynamic update
       watchEffect(() => {
-        // todo renders type
-        const renders = {} as Context['renders']
-        // prop xxRender to renders
-        const propToRenders = (key: string, val: any) => {
-          const renderMatch = key.match(/(.+)Render$/)
-          if (renderMatch && typeof val === 'function') {
-            renders[key] = val
-          }
-        }
+        reset(_props)
+        reset(renders)
         if (processedAttrs) {
           // vue case
           // collect deps
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
-            ;(_props as any)[propKey] = val
+            _props[propKey] = val
             propToRenders(propKey, val)
           })
           // todo dynamic slots?
@@ -109,13 +122,14 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             const val = (...args: any[]) => slots[name](...args)
             if (val) {
               const key = `${camelize(name)}Render`
-              ;(_props as any)[key] = val
+              _props[key] = val
               propToRenders(key, val)
             }
           })
         } else {
+          reset(attrs)
+          reset($attrs)
           // handle attrs
-          const attrs = {} as Record<string, any>
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
 
@@ -134,7 +148,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
               delete _props[propKey]
             }
           })
-          context!.attrs = shallowReactive(attrs)
 
           // default props
           defaultProps && Object.keys(defaultProps).forEach((propKey) => {
@@ -151,22 +164,20 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             }
           })
         }
-        const $attrs = {} as Record<string, any>
-        Object.keys(context!.attrs).forEach((key) => {
+
+        Object.keys(attrs).forEach((key) => {
           // class style id
           if (key === 'class' || key === 'id' || key === 'style') {
             // skip class id style
             return
           }
-          const val = context!.attrs[key]
+          const val = attrs[key]
           $attrs[key] = val
           // keep renders passed to children
           propToRenders(key, val)
         })
-        context!.$attrs = shallowReactive($attrs)
-
-        context!.renders = shallowReactive(renders)
       }, {
+        // todo performance
         flush: 'sync'
       })
 
@@ -222,11 +233,11 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const rootClass = computed(() => {
         const otherRootClass = _state && _state.rootClass
-        return classNames(name, unref(otherRootClass), context!.attrs.class)
+        return classNames(name, unref(otherRootClass), attrs.class)
       })
       const rootStyle = computed(() => {
         const otherRootStyle = unref(_state && _state.rootStyle)
-        const inlineStyle = context!.attrs.style
+        const inlineStyle = attrs.style
         return mergeStyle(otherRootStyle, inlineStyle)
       })
 
