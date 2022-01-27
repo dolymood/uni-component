@@ -87,7 +87,7 @@ describe('Test React', () => {
         <div>
           <CubeButtons>
             <CubeButton text={`btn1 in btns - ${n}`} onClick={fn1}></CubeButton>
-            <CubeButton text={`btn2 in btns - ${n}`} primary type="submit" onClick={fn2}></CubeButton>
+            <CubeButton primary type="submit" onClick={fn2}>{`btn2 in btns - ${n}`}</CubeButton>
             <button data-testid="incEle" onClick={inc}>inc</button>
           </CubeButtons>
         </div>

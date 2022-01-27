@@ -79,34 +79,20 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const state = reactive(setupState)
 
-      const _props = shallowReactive({ ...toRaw(props) } as Record<string, any>)
-      const renders = shallowReactive({} as Context['renders'])
-      const $attrs = shallowReactive({} as Record<string, any>)
-      const attrs = processedAttrs ? context.attrs : shallowReactive({} as Record<string, any>)
-      context.attrs = attrs
-      context.renders = renders
-      context.$attrs = $attrs
-
-      // todo renders type
-      // prop xxRender to renders
-      const propToRenders = (key: string, val: any) => {
-        const renderMatch = key.match(/(.+)Render$/)
-        if (renderMatch && typeof val === 'function') {
-          renders[key] = val
+      const contextProps = computed(() => {
+        const _props = shallowReactive({} as Record<string, any>)
+        const renders = shallowReactive({} as Context['renders'])
+        const attrs = processedAttrs ? context!.attrs : shallowReactive({} as Record<string, any>)
+        const $attrs = shallowReactive({} as Record<string, any>)
+        // todo renders type
+        // prop xxRender to renders
+        const propToRenders = (key: string, val: any) => {
+          const renderMatch = key.match(/(.+)Render$/)
+          if (renderMatch && typeof val === 'function') {
+            renders[key] = val
+          }
         }
-      }
-      const reset = (data: Record<string, any>) => {
-        Object.keys(data).forEach((k) => {
-          delete data[k]
-        })
-      }
-
-      // todo
-      // all use proxy/computed?
-      // cache, dynamic update
-      watchEffect(() => {
-        reset(_props)
-        reset(renders)
+        
         if (processedAttrs) {
           // vue case
           // collect deps
@@ -127,8 +113,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             }
           })
         } else {
-          reset(attrs)
-          reset($attrs)
           // handle attrs
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
@@ -176,10 +160,29 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           // keep renders passed to children
           propToRenders(key, val)
         })
-      }, {
-        // todo performance
-        flush: 'sync'
+
+        return {
+          props: _props,
+          attrs,
+          $attrs,
+          renders
+        }
       })
+
+      const _props = computed(() => contextProps.value.props)
+      const def = (key: 'attrs' | '$attrs' | 'renders') => {
+        Object.defineProperty(context, key, {
+          configurable: true,
+          get () {
+            return contextProps.value[key]
+          }
+        })
+      }
+      if (!processedAttrs) {
+        def('attrs')
+      }
+      def('$attrs')
+      def('renders')
 
       // handle instance
       let lastIns = getCurrentInstance()
@@ -187,9 +190,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         lastIns = context.uniParent || rootInstance
       }
 
-      const instance = newInstance(_props, state, context!, () => {
+      const instance = newInstance(_props.value, state, context!, () => {
         setCurrentInstance(instance)
-        const nodes = FC.render(_props, state, context!)
+        const nodes = FC.render(_props.value, state, context!)
         return nodes
       }, FC, lastIns)
 
@@ -197,10 +200,10 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       watchEffect(() => {
         befores.forEach((beforeFn) => {
-          beforeFn(_props, setupState, context!, FC)
+          beforeFn(_props.value, setupState, context!, FC)
         })
       }, {
-        flush: 'sync'
+        // flush: 'sync'
       })
 
       onMounted(() => {
@@ -214,12 +217,22 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       onUnmounted(() => {
         setCurrentInstance(instance.parent!)
-        context!.uniParent = undefined
-        context!.nodeProps = undefined
-        instance.children.length = 0
-        instance.provides = {}
-        instance.props = {}
-        ;(instance as any).context = undefined
+        const ctx = context as any
+        const ins = instance as any
+
+        delete ctx.uniParent
+        delete ctx.nodeProps
+        delete ctx.$attrs
+        delete ctx.attrs
+        delete ctx.renders
+        ins.children.length = 0
+        ins.provides = {}
+        ins.state = {}
+        ins.props = {}
+        ins.hooks = {}
+        ins.render = undefined
+        ins.type = undefined
+        ins.context = undefined
         const children = lastIns.children
         const i = children.indexOf(instance)
         children.splice(i, 1)
@@ -228,16 +241,16 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       let _state = {} as Record<string, any>
       if (setup) {
-        _state = setup(name, _props, context!)
+        _state = setup(name, _props.value, context!)
       }
 
       const rootClass = computed(() => {
         const otherRootClass = _state && _state.rootClass
-        return classNames(name, unref(otherRootClass), attrs.class)
+        return classNames(name, unref(otherRootClass), context!.attrs.class)
       })
       const rootStyle = computed(() => {
         const otherRootStyle = unref(_state && _state.rootStyle)
-        const inlineStyle = attrs.style
+        const inlineStyle = context!.attrs.style
         return mergeStyle(otherRootStyle, inlineStyle)
       })
 
