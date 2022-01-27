@@ -79,20 +79,28 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       const state = reactive(setupState)
 
-      const contextProps = computed(() => {
-        const _props = shallowReactive({} as Record<string, any>)
-        const renders = shallowReactive({} as Context['renders'])
-        const attrs = processedAttrs ? context!.attrs : shallowReactive({} as Record<string, any>)
-        const $attrs = shallowReactive({} as Record<string, any>)
-        // todo renders type
-        // prop xxRender to renders
-        const propToRenders = (key: string, val: any) => {
-          const renderMatch = key.match(/(.+)Render$/)
-          if (renderMatch && typeof val === 'function') {
-            renders[key] = val
-          }
+      const _props = shallowReactive({} as Record<string, any>)
+      const renders = shallowReactive({} as Context['renders'])
+      const attrs = processedAttrs ? context!.attrs : shallowReactive({} as Record<string, any>)
+      const $attrs = shallowReactive({} as Record<string, any>)
+      // todo renders type
+      // prop xxRender to renders
+      const propToRenders = (key: string, val: any) => {
+        const renderMatch = key.match(/(.+)Render$/)
+        if (renderMatch && typeof val === 'function') {
+          renders[key] = val
         }
-        
+      }
+      const reset = (data: Record<string, any>) => {
+        Object.keys(data).forEach((k) => {
+          delete data[k]
+        })
+      }
+
+      const contextProps = computed(() => {
+        reset(_props)
+        reset(renders)
+        reset($attrs)
         if (processedAttrs) {
           // vue case
           // collect deps
@@ -113,6 +121,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             }
           })
         } else {
+          reset(attrs)
           // handle attrs
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
@@ -169,7 +178,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         }
       })
 
-      const _props = computed(() => contextProps.value.props)
       const def = (key: 'attrs' | '$attrs' | 'renders') => {
         Object.defineProperty(context, key, {
           configurable: true,
@@ -178,6 +186,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           }
         })
       }
+      const finialProps = computed(() => contextProps.value.props)
       if (!processedAttrs) {
         def('attrs')
       }
@@ -190,9 +199,9 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         lastIns = context.uniParent || rootInstance
       }
 
-      const instance = newInstance(_props.value, state, context!, () => {
+      const instance = newInstance(finialProps.value, state, context!, () => {
         setCurrentInstance(instance)
-        const nodes = FC.render(_props.value, state, context!)
+        const nodes = FC.render(finialProps.value, state, context!)
         return nodes
       }, FC, lastIns)
 
@@ -200,7 +209,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       watchEffect(() => {
         befores.forEach((beforeFn) => {
-          beforeFn(_props.value, setupState, context!, FC)
+          beforeFn(finialProps.value, setupState, context!, FC)
         })
       }, {
         // flush: 'sync'
@@ -241,7 +250,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       let _state = {} as Record<string, any>
       if (setup) {
-        _state = setup(name, _props.value, context!)
+        _state = setup(name, finialProps.value, context!)
       }
 
       const rootClass = computed(() => {
