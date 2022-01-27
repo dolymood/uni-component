@@ -1,3 +1,12 @@
+## [0.4.2](https://github.com/dolymood/uni-component/compare/v0.4.1...v0.4.2) (2022-01-27)
+
+
+### Bug Fixes
+
+* **core:** context props should be stable ([3a5da67](https://github.com/dolymood/uni-component/commit/3a5da67572eb892ce7483373567190708e3f6077))
+
+
+
 ## [0.4.1](https://github.com/dolymood/uni-component/compare/v0.4.0...v0.4.1) (2022-01-26)
 
 
