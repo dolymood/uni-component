@@ -65,6 +65,9 @@ describe('Test Vue', () => {
   it('should work correctly - with buttons & button', async () => {
     const fn1 = jest.fn()
     const fn2 = jest.fn()
+
+    const btnRef = ref()
+
     const App = defineComponent(() => {
       const n = ref(0)
       const inc = () => {
@@ -73,7 +76,7 @@ describe('Test Vue', () => {
       return () => (
         <div>
           <CubeButtons>
-            <CubeButton text={`btn1 in btns - ${n.value}`} onClick={fn1}></CubeButton>
+            <CubeButton ref={btnRef} text={`btn1 in btns - ${n.value}`} onClick={fn1}></CubeButton>
             <CubeButton primary type="submit" onClick={fn2}>{ `btn2 in btns - ${n.value}` }</CubeButton>
             <button data-testid="incEle" onClick={inc}>inc</button>
           </CubeButtons>
@@ -87,6 +90,7 @@ describe('Test Vue', () => {
 
     expect(rendered.getAllByText('btn1 in btns - 0 0')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 0')).toHaveLength(1)
+    expect(btnRef.value.n).toEqual(0)
 
     const btns = rendered.container.querySelectorAll('.cube-buttons')
     expect(btns.length).toEqual(1)
@@ -101,6 +105,7 @@ describe('Test Vue', () => {
     expect(fn2).toBeCalledTimes(0)
     expect(rendered.getAllByText('btn1 in btns - 0 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 0')).toHaveLength(1)
+    expect(btnRef.value.n).toEqual(1)
     await actClickEvent(allBtns[1])
     expect(fn1).toBeCalledTimes(1)
     expect(fn2).toBeCalledTimes(1)
@@ -111,5 +116,6 @@ describe('Test Vue', () => {
     await actClickEvent(rendered.getByTestId('incEle'))
     expect(rendered.getAllByText('btn1 in btns - 1 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 1 1')).toHaveLength(1)
+    expect(btnRef.value.n).toEqual(1)
   })
 })
