@@ -1,6 +1,6 @@
 {
   "name": "@uni-component/react",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "Unified component for React",
   "main": "index.js",
   "module": "dist/uni-component-react.mjs",
@@ -63,7 +63,7 @@
     "react-dom": "^17.0.2"
   },
   "peerDependencies": {
-    "@uni-component/core": "0.6.1",
+    "@uni-component/core": "0.6.2",
     "@uni-store/core": ">=0.3.3",
     "@uni-store/react": ">=0.3.3",
     "react": "^17"

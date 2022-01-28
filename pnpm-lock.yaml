@@ -114,7 +114,7 @@ importers:
 
   packages/example:
     specifiers:
-      '@uni-component/core': 0.6.1
+      '@uni-component/core': 0.6.2
       '@uni-store/core': '*'
     dependencies:
       '@uni-component/core': link:../core

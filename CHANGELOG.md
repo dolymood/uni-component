@@ -1,3 +1,12 @@
+## [0.6.2](https://github.com/dolymood/uni-component/compare/v0.6.1...v0.6.2) (2022-01-28)
+
+
+### Bug Fixes
+
+* platform should return platformvnode ([a29680e](https://github.com/dolymood/uni-component/commit/a29680e1dc7a38f8fd41158c3ca9de2fd42a00c8))
+
+
+
 ## [0.6.1](https://github.com/dolymood/uni-component/compare/v0.6.0...v0.6.1) (2022-01-28)
 
 

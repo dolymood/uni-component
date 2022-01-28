@@ -1,8 +1,8 @@
 {
   "name": "@uni-component/example",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "dependencies": {
     "@uni-store/core": "*",
-    "@uni-component/core": "0.6.1"
+    "@uni-component/core": "0.6.2"
   }
 }
