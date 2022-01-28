@@ -2,11 +2,14 @@ import { UniNode, FCComponent } from './node'
 import { RawPropTypes } from './props'
 
 export interface PlatformComponent<P> {
-  (props: P): any
+  (props: P, ...args: any[]): any
   [key: string]: any
 }
 
-export interface PlatformFragment extends PlatformComponent<any> {}
+export interface PlatformFragment {
+  (props: any, ...args: any[]): any
+  [key: string]: any
+}
 
 export interface PlatformVNode extends UniNode {}
 
@@ -16,9 +19,27 @@ export interface Platform {
     S,
     RawProps extends RawPropTypes,
     Defaults,
-    FCProps
-  >(UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>, render?: FCComponent<Props & { children?: PlatformVNode }, S, RawProps>['render']) => PlatformComponent<FCProps>
-  createVNode: (type: any, props?: any, children?: any) => UniNode,
+    FCProps,
+    State
+  >(
+    UniComponent: FCComponent<
+      Props,
+      S,
+      RawProps,
+      Defaults,
+      FCProps,
+      State
+    >,
+    render?: FCComponent<
+      Props & { children?: PlatformVNode },
+      S,
+      RawProps,
+      Defaults,
+      FCProps,
+      State
+    >['render']
+  ) => PlatformComponent<FCProps>
+  createVNode: (type: any, props?: any, children?: any) => UniNode
   Fragment: PlatformFragment
 }
 
@@ -28,10 +49,11 @@ function createComponent <
   S,
   RawProps extends RawPropTypes,
   Defaults,
-  FCProps
+  FCProps,
+  State
 >(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
+  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
+  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
 ) {
   if (render) {
     UniComponent.render = render

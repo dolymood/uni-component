@@ -289,11 +289,12 @@ export function uni2Platform <
   S,
   RawProps extends RawPropTypes,
   Defaults,
-  FCProps
+  FCProps,
+  State
 >(
-  UniComponnet: FCComponent<Props, S, RawProps, Defaults, FCProps>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
+  UniComponnet: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
+  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
 ) {
   const platform = getPlatform()
-  return platform.createComponent<Props, S, RawProps, Defaults, FCProps>(UniComponnet, render)
+  return platform.createComponent<Props, S, RawProps, Defaults, FCProps, State>(UniComponnet, render)
 }

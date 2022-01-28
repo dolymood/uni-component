@@ -38,4 +38,4 @@ setPlatform({
     })
     return createElement(type, props, ...children)
   }
-})  
+})
