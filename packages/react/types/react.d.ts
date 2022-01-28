@@ -15,8 +15,8 @@ type FWC<P, T> = ForwardRefRenderFunction<T, P> & MemoExoticComponent<
 >
 
 declare module '@uni-component/core' {
-  interface PlatformComponent<P> extends FWC<P, any> {}
-  interface PlatformFragment extends Fragment {}
+  interface PlatformFunctionComponent<P> extends FWC<P, any> {}
+  interface PlatformFunctionFragment extends Fragment {}
 }
 
 declare module 'react/jsx-runtime' {

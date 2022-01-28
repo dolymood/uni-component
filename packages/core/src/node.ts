@@ -2,7 +2,6 @@ import type { UnwrapNestedRefs } from '@uni-store/core'
 import type { RawPropTypes, ExtractDefaultPropTypes } from './props'
 import type { Instance, RootInstance } from './instance'
 import type { VNode, JSXBase } from './types'
-import type { PlatformComponent } from './platform'
 
 export interface Context {
   renders: Record<string, (...args: any[]) => any>
