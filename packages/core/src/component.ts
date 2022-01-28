@@ -143,7 +143,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             if ((props as any)[propKey] === undefined) {
               // use default
               const config = (FC.rawProps as any)![propKey]
-              let defaultVal = defaultProps![propKey]
+              let defaultVal = defaultProps ? defaultProps[propKey] : undefined
               if (config && config.type !== Function && typeof defaultVal === 'function') {
                 // do not support instance now
                 defaultVal = defaultVal()
