@@ -8,8 +8,17 @@ import {
 import type {
   DefineComponent
 } from 'vue'
-import { invokeMounted, invokeUpdated, invokeUnmounted  } from '@uni-component/core'
+import { invokeMounted, invokeUpdated, invokeUnmounted, __innerSetRef } from '@uni-component/core'
 import type { FCComponent, Instance, Context } from '@uni-component/core'
+import type { Ref, UnwrapRef } from '@uni-store/core'
+
+__innerSetRef.setter = <RefObject extends Ref<any>> (ref: RefObject, el?: UnwrapRef<RefObject>) => {
+  if (el && el.$ && el.$.setupState) {
+    ref.value = el.$.setupState
+  } else {
+    ref.value = el
+  }
+}
 
 export type DefineComponentFn = typeof vueDefine
 
@@ -20,40 +29,39 @@ const defineComponent: DefineComponentFn = (options: any) => {
   } : options
 }
 
-interface FunctionVue<P> {
-  (props: P): any
-}
-
 export function uni2Vue<
   Props,
   S,
   RawProps extends undefined,
   Defaults,
-  FCProps
+  FCProps,
+  State
 >(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
-): DefineComponent<RawProps> & FunctionVue<FCProps>
+  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
+  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
+): DefineComponent<RawProps>
 export function uni2Vue<
   Props,
   S,
   RawProps extends string[],
   Defaults,
-  FCProps
+  FCProps,
+  State
 >(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
-): DefineComponent<RawProps> & FunctionVue<FCProps>
+  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
+  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
+): DefineComponent<RawProps>
 export function uni2Vue<
   Props,
   S,
   RawProps extends object,
   Defaults,
-  FCProps
+  FCProps,
+  State
 >(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps>['render']
-): DefineComponent<RawProps> & FunctionVue<FCProps>
+  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
+  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
+): DefineComponent<RawProps>
 
 export function uni2Vue(
   UniComponent: FCComponent<any, any, any>,
@@ -111,7 +119,6 @@ export function uni2Vue(
       delete (vueInstance as any).__UNI_INSTANCE__
     })
 
-    // todo async cases
     return instance.state
   }
   component.render = function () {

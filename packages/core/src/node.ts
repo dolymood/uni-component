@@ -1,7 +1,8 @@
 import type { UnwrapNestedRefs } from '@uni-store/core'
 import type { RawPropTypes, ExtractDefaultPropTypes } from './props'
-import { Instance, RootInstance } from './instance'
-import { VNode, JSXBase } from './types'
+import type { Instance, RootInstance } from './instance'
+import type { VNode, JSXBase } from './types'
+import type { PlatformComponent } from './platform'
 
 export interface Context {
   renders: Record<string, (...args: any[]) => any>
@@ -24,6 +25,7 @@ export interface GlobalProps {
   style?: Style
   id?: string
   key?: string
+  ref?: (target: {[key: string]: any} | HTMLElement | undefined) => void
 }
 
 /**

@@ -26,7 +26,7 @@ export function uni2React<
   if (render) {
     UniComponent.render = render
   }
-  const FC: ForwardRefRenderFunction<UnwrapRef<State>, FCProps> = (props: FCProps & { children?: ReactNode }, ref) => {
+  const FC: ForwardRefRenderFunction<Partial<UnwrapRef<State>>, FCProps> = (props: FCProps & { children?: ReactNode }, ref) => {
     const current = ReactSharedInternals.ReactCurrentOwner.current
     let uniParent: Instance<any, any> | undefined
     let p = current.return

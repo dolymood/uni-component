@@ -1,4 +1,4 @@
-import { getPlatform, PlatformFragment } from './platform'
+import { getPlatform, PlatformFragment, PlatformClassFragment } from './platform'
 import { JSXBase } from './types'
 
 export function h (type: any, props: any, ...children: any[]) {
@@ -17,14 +17,20 @@ export function h (type: any, props: any, ...children: any[]) {
   return vnode
 }
 
-let Fragment: PlatformFragment
+let Fragment: PlatformFragment | PlatformClassFragment
 
 export {
   Fragment
 }
 
-export namespace h {
+export declare namespace h {
   export namespace JSX {
+    interface ElementClass {
+      $props: {}
+    }
+    interface ElementAttributesProperty {
+      $props: {}
+    }
     export interface IntrinsicElements extends JSXBase.IntrinsicElements {
       [tagName: string]: any;
     }

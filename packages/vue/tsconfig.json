@@ -2,12 +2,5 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "jsxFactory": "h"
-  },
-  "include": [
-    "src",
-    "example",
-    "types",
-    "platform.d.ts",
-    "__tests__"
-  ]
+  }
 }

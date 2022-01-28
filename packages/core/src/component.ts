@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { computed, reactive, unref, watchEffect, shallowReactive } from '@uni-store/core'
+import { computed, reactive, unref, shallowReactive } from '@uni-store/core'
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'

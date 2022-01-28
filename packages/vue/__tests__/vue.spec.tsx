@@ -1,5 +1,5 @@
 import { defineComponent, ref } from 'vue'
-import { h } from '@uni-component/core'
+import { h, useRef } from '@uni-component/core'
 import { nextTick } from '@uni-store/core'
 import {
   fireEvent,
@@ -66,7 +66,12 @@ describe('Test Vue', () => {
     const fn1 = jest.fn()
     const fn2 = jest.fn()
 
+    // ref Vue instance
     const btnRef = ref()
+    // ref2 with useRef process
+    // will be setupState
+    const btnRef2 = ref()
+    const setBtnRef2 = useRef(btnRef2)
 
     const App = defineComponent(() => {
       const n = ref(0)
@@ -77,7 +82,7 @@ describe('Test Vue', () => {
         <div>
           <CubeButtons>
             <CubeButton ref={btnRef} text={`btn1 in btns - ${n.value}`} onClick={fn1}></CubeButton>
-            <CubeButton primary type="submit" onClick={fn2}>{ `btn2 in btns - ${n.value}` }</CubeButton>
+            <CubeButton ref={setBtnRef2} primary type="submit" onClick={fn2}>{ `btn2 in btns - ${n.value}` }</CubeButton>
             <button data-testid="incEle" onClick={inc}>inc</button>
           </CubeButtons>
         </div>
@@ -91,6 +96,9 @@ describe('Test Vue', () => {
     expect(rendered.getAllByText('btn1 in btns - 0 0')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 0')).toHaveLength(1)
     expect(btnRef.value.n).toEqual(0)
+    expect(btnRef.value.$props.text).toEqual('btn1 in btns - 0')
+    expect(btnRef2.value.n).toEqual(0)
+    expect(btnRef2.value.$props).toBeUndefined()
 
     const btns = rendered.container.querySelectorAll('.cube-buttons')
     expect(btns.length).toEqual(1)
@@ -100,22 +108,31 @@ describe('Test Vue', () => {
     expect(allBtns[0].className).toEqual('cube-button')
     expect(allBtns[1].className).toEqual('cube-button cube-button-primary')
     expect(allBtns[2].className).toEqual('')
+
     await actClickEvent(allBtns[0])
     expect(fn1).toBeCalledTimes(1)
     expect(fn2).toBeCalledTimes(0)
     expect(rendered.getAllByText('btn1 in btns - 0 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 0')).toHaveLength(1)
     expect(btnRef.value.n).toEqual(1)
+    expect(btnRef.value.$props.text).toEqual('btn1 in btns - 0')
+    expect(btnRef2.value.n).toEqual(0)
+
     await actClickEvent(allBtns[1])
     expect(fn1).toBeCalledTimes(1)
     expect(fn2).toBeCalledTimes(1)
     expect(rendered.getAllByText('btn1 in btns - 0 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 1')).toHaveLength(1)
+    expect(btnRef.value.n).toEqual(1)
+    expect(btnRef.value.$props.text).toEqual('btn1 in btns - 0')
+    expect(btnRef2.value.n).toEqual(1)
 
     // props changed
     await actClickEvent(rendered.getByTestId('incEle'))
     expect(rendered.getAllByText('btn1 in btns - 1 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 1 1')).toHaveLength(1)
     expect(btnRef.value.n).toEqual(1)
+    expect(btnRef.value.$props.text).toEqual('btn1 in btns - 1')
+    expect(btnRef2.value.n).toEqual(1)
   })
 })

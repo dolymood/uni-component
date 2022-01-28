@@ -5,6 +5,7 @@ import { CubeButton } from '../button/button'
 
 export const CubeButtons = uni2React(UniButtons, (props, state, { renders }) => {
   const { rootClass } = state
+  // const ref = () => {}
   return (
     <div className={rootClass}>
       <CubeButton>default btns btn</CubeButton>

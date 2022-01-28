@@ -2,13 +2,13 @@ import {
   createVNode,
   Fragment
 } from 'vue'
-import { PlatformFragment, setPlatform, UniNode } from '@uni-component/core'
+import { setPlatform, UniNode } from '@uni-component/core'
 import { uni2Vue } from './vue'
 
 export * from './vue'
 
 setPlatform({
-  Fragment: Fragment as unknown as PlatformFragment,
+  Fragment,
   createComponent: uni2Vue,
   createVNode: function (type, props, children) {
     const isPlainNode = typeof type === 'string'

@@ -80,7 +80,6 @@ Use:
 
 ```ts
 // vue/main.ts
-/// <reference types="@uni-component/vue/platform" />
 import '@uni-component/vue'
 import { createApp } from 'vue'
 
@@ -103,7 +102,6 @@ Use:
 
 ```ts
 // react/main.tsx
-/// <reference types="@uni-component/react/platform" />
 import { h } from '@uni-component/core'
 import '@uni-component/react'
 import ReactDOM from 'react-dom'

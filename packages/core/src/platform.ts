@@ -6,10 +6,14 @@ export interface PlatformComponent<P> {
   [key: string]: any
 }
 
+export interface PlatformClassComponent<P> {}
+
 export interface PlatformFragment {
   (props: any, ...args: any[]): any
   [key: string]: any
 }
+export interface PlatformClassFragment {}
+
 
 export interface PlatformVNode extends UniNode {}
 
@@ -38,9 +42,9 @@ export interface Platform {
       FCProps,
       State
     >['render']
-  ) => PlatformComponent<FCProps>
+  ) => (PlatformComponent<FCProps> | PlatformClassComponent<FCProps>)
   createVNode: (type: any, props?: any, children?: any) => UniNode
-  Fragment: PlatformFragment
+  Fragment: PlatformFragment | PlatformClassFragment
 }
 
 // istanbul ignore next
@@ -58,7 +62,7 @@ function createComponent <
   if (render) {
     UniComponent.render = render
   }
-  return UniComponent
+  return UniComponent as unknown as PlatformComponent<FCProps>
 }
 
 const defaultPlatform = {
@@ -71,7 +75,7 @@ const defaultPlatform = {
     }
     return node as UniNode
   },
-  Fragment: () => undefined
+  Fragment: {} as PlatformFragment
 }
 
 let platform: Platform = defaultPlatform

@@ -1,4 +1,4 @@
-import { h } from '@uni-component/core'
+import { h, Fragment } from '@uni-component/core'
 import { CubeButton as UniButton } from '@uni-component/example'
 import { uni2Vue } from '../../src'
 
@@ -14,5 +14,9 @@ export const CubeButton = uni2Vue(UniButton, (props, state, { renders }) => {
 
 // just for test
 const Appp = () => {
-  return <CubeButton primary>xxx</CubeButton>
+  return (
+    <Fragment>
+      <CubeButton type='button' primary>xxx</CubeButton>
+    </Fragment>
+  )
 }

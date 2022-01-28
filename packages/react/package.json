@@ -47,7 +47,6 @@
     "dist/*.cjs",
     "dist/uni-component-react.d.ts",
     "index.js",
-    "platform.d.ts",
     "LICENSE",
     "README.md"
   ],

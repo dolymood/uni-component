@@ -97,7 +97,6 @@ npm install @uni-component/vue
 Use:
 
 ```tsx
-/// <reference types="@uni-component/vue/platform" />
 import { h } from '@uni-component/core'
 import '@uni-component/vue'
 import { createApp } from 'vue'
@@ -132,7 +131,6 @@ npm install @uni-component/react
 Use:
 
 ```tsx
-/// <reference types="@uni-component/react/platform" />
 import { h } from '@uni-component/core'
 import '@uni-component/react'
 import ReactDOM from 'react-dom'
