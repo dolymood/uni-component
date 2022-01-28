@@ -19,12 +19,12 @@ export type ObjectStyle = Exclude<Style, string | undefined>
 
 export type GetState<S extends {}> = UnwrapNestedRefs<Omit<S, 'rootClass' | 'rootStyle' | 'rootId'>> & { rootClass: string, rootStyle: ObjectStyle, rootId?: string }
 
-export interface GlobalProps {
+export interface GlobalProps<S = {[key: string]: any}> {
   class?: string
   style?: Style
   id?: string
   key?: string
-  ref?: (target: {[key: string]: any} | HTMLElement | undefined) => void
+  ref?: (setupState: S | undefined) => void
 }
 
 /**
@@ -37,7 +37,7 @@ export interface FCComponent<
   S extends {},
   RawProps extends RawPropTypes = undefined,
   Defaults = ExtractDefaultPropTypes<RawProps>,
-  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults> & GlobalProps,
+  FCProps = Partial<Defaults> & Omit<Props, keyof Defaults> & GlobalProps<GetState<S>>,
   State = GetState<S>,
   Node extends UniNode = UniNode
 > {

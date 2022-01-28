@@ -5,7 +5,7 @@ import {
   fireEvent,
   render
 } from '@testing-library/vue'
-import { CubeButton } from '../example/button/button'
+import { CubeButton, PlatformButton } from '../example/button/button'
 import { CubeButtons } from '../example/buttons/buttons'
 
 describe('Test Vue', () => {
@@ -15,12 +15,19 @@ describe('Test Vue', () => {
   }
 
   it('should work correctly - with button', async () => {
+    const btnRef = ref<{
+      n: number
+      rootClass: string
+    }>()
+    const setBtnRef = useRef(btnRef)
+
     const App = defineComponent(() => {
       return () => (
         <div>
           <CubeButton text="btn1" />
           <CubeButton>btn2</CubeButton>
           <CubeButton primary type="submit" text="btn3 text">btn3 inner text</CubeButton>
+          <PlatformButton class='btn-4' ref={setBtnRef}>btn4</PlatformButton>
         </div>
       )
     })
@@ -32,9 +39,16 @@ describe('Test Vue', () => {
     expect(rendered.getAllByText('btn1 0')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 0')).toHaveLength(1)
     expect(rendered.getAllByText('btn3 text 0')).toHaveLength(1)
+    expect(rendered.getAllByText('btn4 0')).toHaveLength(1)
+    expect(btnRef.value!.n).toEqual(0)
+    expect(btnRef.value!.rootClass).toEqual('cube-button btn-4')
+    // @ts-ignore
+    expect(btnRef.value!.onClick).toBeUndefined()
+    // @ts-ignore
+    expect(typeof btnRef.value!.clickAction).toEqual('function')
 
     const btns = rendered.container.querySelectorAll('.cube-button')
-    expect(btns.length).toEqual(3)
+    expect(btns.length).toEqual(4)
     expect(btns[0].className).toEqual('cube-button')
     expect(btns[0].getAttribute('type')).toEqual('button')
     expect(btns[2].className).toEqual('cube-button cube-button-primary')
