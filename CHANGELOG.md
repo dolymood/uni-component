@@ -4,6 +4,7 @@
 ### Features
 
 * do not need platform.d.ts now ([b17746f](https://github.com/dolymood/uni-component/commit/b17746fb6d3f07e78765809860bf2a13d831b09c))
+* ref: useRef now return setup state ([b17746f](https://github.com/dolymood/uni-component/commit/b17746fb6d3f07e78765809860bf2a13d831b09c))
 
 
 
