@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/dolymood/uni-component/compare/v0.4.3...v0.5.0) (2022-01-28)
+
+
+### Features
+
+* react support component ref ([0003e47](https://github.com/dolymood/uni-component/commit/0003e477f9bc9e2e66e4da1171d672586f32053d))
+
+
+
 ## [0.4.3](https://github.com/dolymood/uni-component/compare/v0.4.2...v0.4.3) (2022-01-27)
 
 
