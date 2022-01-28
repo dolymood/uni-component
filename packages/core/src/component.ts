@@ -138,13 +138,12 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
               delete _props[propKey]
             }
           })
-
           // default props
-          defaultProps && Object.keys(defaultProps).forEach((propKey) => {
+          FC.rawProps && Object.keys(FC.rawProps).forEach((propKey) => {
             if ((props as any)[propKey] === undefined) {
               // use default
               const config = (FC.rawProps as any)![propKey]
-              let defaultVal = defaultProps[propKey]
+              let defaultVal = defaultProps![propKey]
               if (config && config.type !== Function && typeof defaultVal === 'function') {
                 // do not support instance now
                 defaultVal = defaultVal()
@@ -175,6 +174,12 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         }
       })
 
+      const runBeforeHooks = (props: Record<string, any>) => {
+        befores.forEach((beforeFn) => {
+          beforeFn(props, setupState, context!, FC)
+        })
+      }
+
       const def = (key: 'attrs' | '$attrs' | 'renders') => {
         Object.defineProperty(context, key, {
           configurable: true,
@@ -183,7 +188,11 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           }
         })
       }
-      const finialProps = computed(() => contextProps.value.props)
+      const finialProps = computed(() => {
+        const _props = contextProps.value.props
+        runBeforeHooks(_props)
+        return _props
+      })
       if (!processedAttrs) {
         def('attrs')
       }
@@ -196,7 +205,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         lastIns = context.uniParent || rootInstance
       }
 
-      const instance = newInstance(finialProps.value, state, context!, () => {
+      const instance = newInstance(contextProps.value.props, state, context!, () => {
         setCurrentInstance(instance)
         const nodes = FC.render(finialProps.value, state, context!)
         return nodes
@@ -204,13 +213,10 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       setCurrentInstance(instance)
 
-      watchEffect(() => {
-        befores.forEach((beforeFn) => {
-          beforeFn(finialProps.value, setupState, context!, FC)
-        })
-      }, {
-        // flush: 'sync'
-      })
+      let _state = {} as Record<string, any>
+      if (setup) {
+        _state = setup(name, finialProps.value, context!)
+      }
 
       onMounted(() => {
         // created case
@@ -244,11 +250,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         children.splice(i, 1)
         instance.parent = undefined
       })
-
-      let _state = {} as Record<string, any>
-      if (setup) {
-        _state = setup(name, finialProps.value, context!)
-      }
 
       const rootClass = computed(() => {
         const otherRootClass = _state && _state.rootClass
