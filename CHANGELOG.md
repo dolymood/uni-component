@@ -1,3 +1,12 @@
+# [0.6.0](https://github.com/dolymood/uni-component/compare/v0.5.1...v0.6.0) (2022-01-28)
+
+
+### Features
+
+* do not need platform.d.ts now ([b17746f](https://github.com/dolymood/uni-component/commit/b17746fb6d3f07e78765809860bf2a13d831b09c))
+
+
+
 ## [0.5.1](https://github.com/dolymood/uni-component/compare/v0.5.0...v0.5.1) (2022-01-28)
 
 
