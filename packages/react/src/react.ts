@@ -67,7 +67,8 @@ export function uni2React<
     return instance.render() as ReactElement<any, any>
   }
   FC.displayName = UniComponent.name
-  const RC = reactiveReact(FC)
-  ;(RC as any).___UNI___ = true
+  const RC = reactiveReact(FC, {
+    forwardRef: true
+  })
   return RC
 }
