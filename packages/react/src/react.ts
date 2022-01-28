@@ -1,6 +1,6 @@
-import React, { useEffect, useLayoutEffect } from 'react'
-import type { FunctionComponent, ReactElement, ReactNode } from 'react'
-import type { UnwrapNestedRefs } from '@uni-store/core'
+import React, { useEffect, useLayoutEffect, useImperativeHandle } from 'react'
+import type { ForwardRefRenderFunction, ReactElement, ReactNode } from 'react'
+import type { UnwrapNestedRefs, UnwrapRef } from '@uni-store/core'
 import { reactiveReact, useSetup } from '@uni-store/react'
 import { invokeMounted, invokeUpdated, invokeUnmounted } from '@uni-component/core'
 import type { FCComponent, RawPropTypes, Context, Instance } from '@uni-component/core'
@@ -17,15 +17,16 @@ export function uni2React<
   S,
   RawProps extends RawPropTypes,
   Defaults,
-  FCProps
+  FCProps,
+  State
 >(
-  UniComponent: FCComponent<Props & { children?: ReactNode }, S, RawProps, Defaults, FCProps & { children?: ReactNode }>,
-  render?: FCComponent<Props & { children?: ReactNode }, S, RawProps>['render']
+  UniComponent: FCComponent<Props & { children?: ReactNode }, S, RawProps, Defaults, FCProps & { children?: ReactNode }, State>,
+  render?: FCComponent<Props & { children?: ReactNode }, S, RawProps, Defaults, FCProps & { children?: ReactNode }, State>['render']
 ) {
   if (render) {
     UniComponent.render = render
   }
-  const FC: FunctionComponent<FCProps> = (props: FCProps & { children?: ReactNode }) => {
+  const FC: ForwardRefRenderFunction<UnwrapRef<State>, FCProps> = (props: FCProps & { children?: ReactNode }, ref) => {
     const current = ReactSharedInternals.ReactCurrentOwner.current
     let uniParent: Instance<any, any> | undefined
     let p = current.return
@@ -37,6 +38,7 @@ export function uni2React<
         p = p.return
       }
     }
+
     const instance = useSetup((props: UnwrapNestedRefs<FCProps> & { children?: ReactNode }) => {
       const context = {
         renders: {} as Record<string, Function>
@@ -46,6 +48,10 @@ export function uni2React<
       context.uniParent = uniParent
       return UniComponent(props as FCProps & { children?: ReactNode }, context)
     }, props)
+
+    if (ref) {
+      useImperativeHandle(ref, () => instance.state, [instance])
+    }
 
     current.__UNI_INSTANCE__ = instance
 

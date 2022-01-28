@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { createRef, useState } from 'react'
 import { nextTick } from '@uni-store/core'
 import { getRootInstance } from '@uni-component/core'
 import {
@@ -78,6 +78,9 @@ describe('Test React', () => {
   it('should work correctly - with buttons & button', async () => {
     const fn1 = jest.fn()
     const fn2 = jest.fn()
+
+    const btnRef = createRef<any>()
+
     const App = () => {
       const [n, setN] = useState(0)
       const inc = () => {
@@ -86,7 +89,7 @@ describe('Test React', () => {
       return (
         <div>
           <CubeButtons>
-            <CubeButton text={`btn1 in btns - ${n}`} onClick={fn1}></CubeButton>
+            <CubeButton ref={btnRef} text={`btn1 in btns - ${n}`} onClick={fn1}></CubeButton>
             <CubeButton primary type="submit" onClick={fn2}>{`btn2 in btns - ${n}`}</CubeButton>
             <button data-testid="incEle" onClick={inc}>inc</button>
           </CubeButtons>
@@ -100,6 +103,7 @@ describe('Test React', () => {
 
     expect(rendered.getAllByText('btn1 in btns - 0 0')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 0')).toHaveLength(1)
+    expect(btnRef.current.n).toEqual(0)
 
     const btns = rendered.container.querySelectorAll('.cube-buttons')
     expect(btns.length).toEqual(1)
@@ -115,6 +119,7 @@ describe('Test React', () => {
     expect(fn2).toBeCalledTimes(0)
     expect(rendered.getAllByText('btn1 in btns - 0 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 0 0')).toHaveLength(1)
+    expect(btnRef.current.n).toEqual(1)
     await actClickEvent(allBtns[2])
     expect(fn1).toBeCalledTimes(1)
     expect(fn2).toBeCalledTimes(1)
@@ -125,6 +130,7 @@ describe('Test React', () => {
     await actClickEvent(rendered.getByTestId('incEle'))
     expect(rendered.getAllByText('btn1 in btns - 1 1')).toHaveLength(1)
     expect(rendered.getAllByText('btn2 in btns - 1 1')).toHaveLength(1)
+    expect(btnRef.current.n).toEqual(1)
   })
   it('should work correctly(instance) - with xxRender props', async () => {
     const App = () => {
