@@ -15,7 +15,6 @@ export interface PlatformClassFragment {}
 
 export type PlatformComponent<P> = PlatformFunctionComponent<P> | PlatformClassComponent<P>
 export type PlatformFragment = PlatformFunctionFragment | PlatformClassFragment
-export interface PlatformVNode extends UniNode {}
 
 export interface Platform {
   createComponent: <
@@ -35,7 +34,7 @@ export interface Platform {
       State
     >,
     render?: FCComponent<
-      Props & { children?: PlatformVNode },
+      Props & { children?: UniNode },
       S,
       RawProps,
       Defaults,
@@ -43,7 +42,7 @@ export interface Platform {
       State
     >['render']
   ) => PlatformComponent<FCProps>
-  createVNode: (type: any, props?: any, children?: any) => PlatformVNode
+  createVNode: (type: any, props?: any, children?: any) => UniNode
   Fragment: PlatformFragment
 }
 
@@ -73,7 +72,7 @@ const defaultPlatform = {
       props,
       children: children
     }
-    return node as unknown as PlatformVNode
+    return node as unknown as UniNode
   },
   Fragment: {} as PlatformFunctionFragment
 }

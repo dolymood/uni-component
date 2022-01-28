@@ -12,7 +12,7 @@ export interface Context {
   [key: string]: any
 }
 
-export type UniNode = VNode
+export interface UniNode extends VNode {}
 
 export type Style = JSXBase.HTMLAttributes['style']
 export type ObjectStyle = Exclude<Style, string | undefined>
