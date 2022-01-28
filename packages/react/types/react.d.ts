@@ -4,7 +4,8 @@ import {
   MemoExoticComponent,
   ForwardRefExoticComponent,
   PropsWithoutRef,
-  RefAttributes
+  RefAttributes,
+  ReactElement
 } from 'react'
 
 type Fragment = typeof Fragment
@@ -17,6 +18,7 @@ type FWC<P, T> = ForwardRefRenderFunction<T, P> & MemoExoticComponent<
 declare module '@uni-component/core' {
   interface PlatformFunctionComponent<P> extends FWC<P, any> {}
   interface PlatformFunctionFragment extends Fragment {}
+  interface PlatformVNode extends ReactElement<any, any> {}
 }
 
 declare module 'react/jsx-runtime' {
