@@ -1,6 +1,6 @@
 {
   "name": "@uni-component/components",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Unified component components",
   "main": "index.js",
   "module": "dist/uni-component-components.mjs",
@@ -84,7 +84,7 @@
     "vue": "^3.2.26"
   },
   "peerDependencies": {
-    "@uni-component/core": "0.5.0",
+    "@uni-component/core": "0.5.1",
     "@uni-store/core": ">=0.3.3"
   },
   "repository": {

@@ -1,3 +1,13 @@
+## [0.5.1](https://github.com/dolymood/uni-component/compare/v0.5.0...v0.5.1) (2022-01-28)
+
+
+### Bug Fixes
+
+* default props should handle all rawProps ([299e3ec](https://github.com/dolymood/uni-component/commit/299e3eccdc8eef94f8a825e6f2018b9f80f4454d))
+* defaultprops can be null ([5984014](https://github.com/dolymood/uni-component/commit/5984014d104ab2d06720c68c9c735088f44f0365))
+
+
+
 # [0.5.0](https://github.com/dolymood/uni-component/compare/v0.4.3...v0.5.0) (2022-01-28)
 
 
