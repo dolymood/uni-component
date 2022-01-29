@@ -1,3 +1,12 @@
+## [0.6.3](https://github.com/dolymood/uni-component/compare/v0.6.2...v0.6.3) (2022-01-29)
+
+
+### Bug Fixes
+
+* revert platform.d.ts for common usage cases ([3da293d](https://github.com/dolymood/uni-component/commit/3da293db9f068e1cfdf425e7ea8a0935fb950278))
+
+
+
 ## [0.6.2](https://github.com/dolymood/uni-component/compare/v0.6.1...v0.6.2) (2022-01-28)
 
 
