@@ -1,5 +1,5 @@
 import { createElement, Fragment } from 'react'
-import { setPlatform } from '@uni-component/core'
+import { setPlatform, UniNode } from '@uni-component/core'
 import { uni2React } from './react'
 
 export * from './react'
@@ -36,6 +36,6 @@ setPlatform({
         delete props[key]
       }
     })
-    return createElement(type, props, ...children)
+    return createElement(type, props, ...children) as UniNode
   }
 })

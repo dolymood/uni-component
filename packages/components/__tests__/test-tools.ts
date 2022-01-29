@@ -1,3 +1,4 @@
+/// <reference types="@uni-component/react/platform" />
 import { h } from '@uni-component/core'
 import '@uni-component/react'
 import { nextTick } from '@uni-store/core'

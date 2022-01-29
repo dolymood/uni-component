@@ -16,6 +16,7 @@ npm install @uni-component/core @uni-component/vue
 
 
 ```tsx
+/// <reference types="@uni-component/vue/platform" />
 import { h } from '@uni-component/core'
 import '@uni-component/vue'
 import { createApp } from 'vue'

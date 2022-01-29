@@ -5,13 +5,17 @@ export interface PlatformFunctionComponent<P> {
   (props: P, ...args: any[]): any
   [key: string]: any
 }
-export interface PlatformClassComponent<P> {}
+export interface PlatformClassComponent<P> {
+  new (props: P): any
+}
 
 export interface PlatformFunctionFragment {
   (props: any, ...args: any[]): any
   [key: string]: any
 }
-export interface PlatformClassFragment {}
+export interface PlatformClassFragment {
+  new (): any
+}
 
 export type PlatformComponent<P> = PlatformFunctionComponent<P> | PlatformClassComponent<P>
 export type PlatformFragment = PlatformFunctionFragment | PlatformClassFragment

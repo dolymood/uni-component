@@ -34,6 +34,6 @@ setPlatform({
     if (slotContent) {
       slots.default = () => slotContent
     }
-    return createVNode(type, props, isPlainNode ? slotContent : isFragment ? (slotContent || []) : slots)
+    return createVNode(type, props, isPlainNode ? slotContent : isFragment ? (slotContent || []) : slots) as UniNode
   }
 })

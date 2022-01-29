@@ -1,29 +1,8 @@
-import {
-  Fragment,
-  ForwardRefRenderFunction,
-  MemoExoticComponent,
-  ForwardRefExoticComponent,
-  PropsWithoutRef,
-  RefAttributes,
-  ReactElement
-} from 'react'
-
-type Fragment = typeof Fragment
-type FWC<P, T> = ForwardRefRenderFunction<T, P> & MemoExoticComponent<
-  ForwardRefExoticComponent<
-    PropsWithoutRef<P> & RefAttributes<T>
-  >
->
-
-declare module '@uni-component/core' {
-  interface PlatformFunctionComponent<P> extends FWC<P, any> {}
-  interface PlatformFunctionFragment extends Fragment {}
-  interface UniNode extends ReactElement<any, any> {}
-}
+import React from 'react'
 
 declare module 'react/jsx-runtime' {
   export namespace JSX {
-    interface Element extends ReactElement<any, any> { }
+    interface Element extends React.ReactElement<any, any> { }
     interface ElementAttributesProperty { props: {} }
     interface ElementChildrenAttribute { children: {} }
 
