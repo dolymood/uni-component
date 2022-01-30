@@ -106,7 +106,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             _props[propKey] = val
             propToRenders(propKey, val)
           })
-          // todo dynamic slots?
           const slots = context!.slots
           // slots to xxRender
           Object.keys(slots).forEach((name) => {

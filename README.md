@@ -69,11 +69,11 @@ export const UniButton = uniComponent('uni-button', {
 })
 
 // platform component with pure render function
-export const CubeButton = uni2Platform(UniButton, (props, state, context) => {
+export const CubeButton = uni2Platform(UniButton, (props, state, { renders }) => {
   const { type, text } = props
   // rootClass always contain Component name, like 'cube-button'
   const { rootClass, n, clickAction } = state
-  const t = text ? text : slots.default && slots.default()
+  const t = text ? text : (renders.defaultRender && renders.defaultRender())
   return (
     <button class={rootClass} type={type} onClick={clickAction}>
       <span>{ t } { n }</span>
