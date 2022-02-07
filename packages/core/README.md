@@ -9,6 +9,8 @@ Unified Component core parts:
 - `setup`, like vue setup, just define the component state. The state can be used to any platforms. This should be contained pure component state logic.
 - `render`, optional. This should be used when platform support render function, like : web platform or miniapp which supported runtime render.
 
+**Refactor [vuetify@next](https://github.com/uni-component/vuetify) with uni-component.**
+
 ## Installation
 
 ```bash
