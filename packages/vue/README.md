@@ -14,18 +14,45 @@ npm install @uni-component/core @uni-component/vue
 
 ## Usage
 
+UniComponent to React component:
+
+```tsx
+import { uni2Vue } from '@uni-component/vue'
+
+export const VueButton = uni2Vue(UniButton, (props, state, { renders }) => {
+  const {
+    n,
+    rootClass,
+    clickAction
+  } = state
+  const t = props.text ? props.text : renders.defaultRender && renders.defaultRender()
+  return (
+    <button className={rootClass} type={props.type} onClick={() => clickAction()}>
+      <span>
+        <>
+          {t}
+          {` ${n}`}
+        </>
+      </span>
+      {props.appendRender?.()}
+    </button>
+  )
+})
+```
+
+Entry:
 
 ```tsx
 /// <reference types="@uni-component/vue/platform" />
-import { h } from '@uni-component/core'
+import { h, Fragment } from '@uni-component/core'
 import '@uni-component/vue'
 import { createApp } from 'vue'
 
 const App = () => {
   return (
     <>
-      <CubeButton>child</CubeButton>
-      <CubeButton primary={true} text='text'></CubeButton>
+      <VueButton>child</VueButton>
+      <VueButton primary={true} text='text'></VueButton>
     </>
   )
 }
@@ -34,4 +61,4 @@ createApp(App).mount('#root')
 ```
 
 > JSX with tsconfig:
-> { "jsxFactory": "h" }
+> { "jsxFactory": "h", "jsxFragmentFactory": "Fragment" }

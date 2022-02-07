@@ -14,17 +14,45 @@ npm install @uni-component/core @uni-component/react
 
 ## Usage
 
+UniComponent to React component:
+
+```tsx
+import { uni2React } from '@uni-component/react'
+
+export const ReactButton = uni2React(UniButton, (props, state, { renders }) => {
+  const {
+    n,
+    rootClass,
+    clickAction
+  } = state
+  const t = props.text ? props.text : renders.defaultRender && renders.defaultRender()
+  return (
+    <button className={rootClass} type={props.type} onClick={() => clickAction()}>
+      <span>
+        <>
+          {t}
+          {` ${n}`}
+        </>
+      </span>
+      {props.appendRender?.()}
+    </button>
+  )
+})
+```
+
+Entry:
+
 ```tsx
 /// <reference types="@uni-component/react/platform" />
-import { h } from '@uni-component/core'
+import { h, Fragment } from '@uni-component/core'
 import '@uni-component/react'
 import ReactDOM from 'react-dom'
 
 const App = () => {
   return (
     <>
-      <CubeButton>child</CubeButton>
-      <CubeButton primary={true} text='text'></CubeButton>
+      <ReactButton>child</ReactButton>
+      <ReactButton primary={true} text='text'></ReactButton>
     </>
   )
 }
@@ -33,4 +61,4 @@ ReactDOM.render(<App />, document.getElementById('root'))
 ```
 
 > JSX with tsconfig:
-> { "jsxFactory": "h" }
+> { "jsxFactory": "h", "jsxFragmentFactory": "Fragment" }
