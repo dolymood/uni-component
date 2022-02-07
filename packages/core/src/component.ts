@@ -12,6 +12,7 @@ import {
 } from './instance'
 import { onMounted, onUpdated, onUnmounted } from './lifecycle'
 import { getPlatform } from './platform'
+import type { PlatformComponent } from './platform'
 
 const rootInstance = getRootInstance()
 
@@ -294,7 +295,7 @@ export function uni2Platform <
 >(
   UniComponnet: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
   render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
-) {
+): PlatformComponent<FCProps, RawProps> {
   const platform = getPlatform()
   return platform.createComponent<Props, S, RawProps, Defaults, FCProps, State>(UniComponnet, render)
 }
