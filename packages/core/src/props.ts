@@ -1,4 +1,6 @@
 import { ExtractPropTypes } from '@vue/runtime-core'
+import type { JSXBase } from './types'
+
 export type {
   Prop,
   PropType,
@@ -6,6 +8,14 @@ export type {
   ExtractDefaultPropTypes,
   ComponentPropsOptions
 } from '@vue/runtime-core'
+
+export interface GlobalProps<S = {[key: string]: any}> {
+  class?: string
+  style?: JSXBase.HTMLAttributes['style']
+  id?: string
+  key?: string
+  ref?: ((setupState: S | undefined) => void)
+}
 
 export type RawPropTypes = string[] | object | undefined
 

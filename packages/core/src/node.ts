@@ -1,5 +1,5 @@
 import type { UnwrapNestedRefs } from '@uni-store/core'
-import type { RawPropTypes, ExtractDefaultPropTypes } from './props'
+import type { RawPropTypes, ExtractDefaultPropTypes, GlobalProps } from './props'
 import type { Instance, RootInstance } from './instance'
 import type { VNode, JSXBase } from './types'
 
@@ -18,14 +18,6 @@ export type Style = JSXBase.HTMLAttributes['style']
 export type ObjectStyle = Exclude<Style, string | undefined>
 
 export type GetState<S extends {}> = UnwrapNestedRefs<Omit<S, 'rootClass' | 'rootStyle' | 'rootId'>> & { rootClass: string, rootStyle: ObjectStyle, rootId?: string }
-
-export interface GlobalProps<S = {[key: string]: any}> {
-  class?: string
-  style?: Style
-  id?: string
-  key?: string
-  ref?: (setupState: S | undefined) => void
-}
 
 /**
  * Notes:
