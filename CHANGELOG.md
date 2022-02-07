@@ -1,3 +1,12 @@
+## [0.6.4](https://github.com/dolymood/uni-component/compare/v0.6.3...v0.6.4) (2022-02-07)
+
+
+### Bug Fixes
+
+* **core:** uni2Platform return type ([350783b](https://github.com/dolymood/uni-component/commit/350783bd1d67a884977b761e44de61fe257fe3ec))
+
+
+
 ## [0.6.3](https://github.com/dolymood/uni-component/compare/v0.6.2...v0.6.3) (2022-01-29)
 
 
