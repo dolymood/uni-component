@@ -11,6 +11,8 @@ Unified Component core parts:
 
 **Refactor [vuetify@next](https://github.com/uni-component/vuetify) with uni-component.**
 
+Or see [components](https://github.com/dolymood/uni-component/tree/main/packages/components) for more uni-component usage cases.
+
 ## Installation
 
 ```bash
