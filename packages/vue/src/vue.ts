@@ -8,7 +8,7 @@ import {
 import type {
   DefineComponent
 } from 'vue'
-import { invokeMounted, invokeUpdated, invokeUnmounted, __innerSetRef } from '@uni-component/core'
+import { invokeMounted, invokeUpdated, invokeUnmounted, __innerSetRef, RawPropTypes } from '@uni-component/core'
 import type { FCComponent, Instance, Context } from '@uni-component/core'
 import type { Ref, UnwrapRef } from '@uni-store/core'
 
@@ -29,43 +29,21 @@ const defineComponent: DefineComponentFn = (options: any) => {
   } : options
 }
 
-export function uni2Vue<
-  Props,
-  S,
-  RawProps extends undefined,
-  Defaults,
-  FCProps,
-  State
->(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
-): DefineComponent<RawProps>
-export function uni2Vue<
-  Props,
-  S,
-  RawProps extends string[],
-  Defaults,
-  FCProps,
-  State
->(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
-): DefineComponent<RawProps>
-export function uni2Vue<
-  Props,
-  S,
-  RawProps extends object,
-  Defaults,
-  FCProps,
-  State
->(
-  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
-  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
-): DefineComponent<RawProps>
+type GetVueComponent<RawProps, Props> = RawProps extends undefined ?
+  DefineComponent<{}> : RawProps extends string[] ?
+  DefineComponent<Props> : RawProps extends object ?
+  DefineComponent<RawProps> : DefineComponent<{}>
 
-export function uni2Vue(
-  UniComponent: FCComponent<any, any, any>,
-  render?: FCComponent<any, any, any>['render']
+export function uni2Vue<
+  Props,
+  S,
+  RawProps extends RawPropTypes,
+  Defaults,
+  FCProps,
+  State
+>(
+  UniComponent: FCComponent<Props, S, RawProps, Defaults, FCProps, State>,
+  render?: FCComponent<Props, S, RawProps, Defaults, FCProps, State>['render']
 ) {
   if (render) {
     UniComponent.render = render
@@ -76,7 +54,7 @@ export function uni2Vue(
     component = defineComponent({
       inheritAttrs: false,
       name: UniComponent.name,
-      props: rawProps,
+      props: rawProps as any,
       setup: UniComponent as any
     })
   } else {
@@ -125,5 +103,5 @@ export function uni2Vue(
     const instance = getCurrentInstance()
     return (instance as any).__UNI_INSTANCE__.render()
   }
-  return component
+  return component as GetVueComponent<RawProps, Props>
 }
