@@ -1,3 +1,17 @@
+# [0.7.0](https://github.com/dolymood/uni-component/compare/v0.6.4...v0.7.0) (2022-02-09)
+
+
+### Bug Fixes
+
+* **components:** use camelize attr ([074286b](https://github.com/dolymood/uni-component/commit/074286b67f92d3d46963d1b8ea7c5d0604ff2276))
+
+
+### Features
+
+* **react:** svg attrs to camelized attr ([3671c6d](https://github.com/dolymood/uni-component/commit/3671c6d7af3f5c3bc5f411400296ca1262fb0a69))
+
+
+
 ## [0.6.4](https://github.com/dolymood/uni-component/compare/v0.6.3...v0.6.4) (2022-02-07)
 
 

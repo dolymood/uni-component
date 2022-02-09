@@ -1,6 +1,6 @@
 {
   "name": "@uni-component/vue",
-  "version": "0.6.4",
+  "version": "0.7.0",
   "description": "Unified component for Vue",
   "main": "index.js",
   "module": "dist/uni-component-vue.mjs",
@@ -63,7 +63,7 @@
     "vue": "^3.2.24"
   },
   "peerDependencies": {
-    "@uni-component/core": "0.6.4",
+    "@uni-component/core": "0.7.0",
     "@uni-store/core": ">=0.3.3",
     "vue": "^3"
   },
