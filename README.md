@@ -1,5 +1,7 @@
 # uni-component [![npm](https://badgen.net/npm/v/@uni-component/core)](https://www.npmjs.com/package/@uni-component/core) [![build status](https://github.com/dolymood/uni-component/workflows/test/badge.svg)](https://github.com/dolymood/uni-component/actions/workflows/test.yml) [![coverage](https://badgen.net/codecov/c/github/dolymood/uni-component)](https://codecov.io/github/dolymood/uni-component)
 
+[中文](https://github.com/dolymood/uni-component/tree/main/packages/core/README-CN.md)
+
 Unified Component: Write once component, Run in multiple lib/platform.
 
 Depend on [@uni-store](https://github.com/dolymood/uni-store).
@@ -9,9 +11,11 @@ Unified Component core parts:
 - `setup`, like vue setup, just define the component state. The state can be used to any platforms. This should be contained pure component state logic.
 - `render`, optional. This should be used when platform support render function, like : web platform or miniapp which supported runtime render.
 
-**Refactor [vuetify@next](https://github.com/uni-component/vuetify) with uni-component.**
+Usage cases:
 
-Or see [components](https://github.com/dolymood/uni-component/tree/main/packages/components) for more uni-component usage cases.
+- **Refactor [vuetify@next](https://github.com/uni-component/vuetify) with uni-component.**
+
+- Or see [components](https://github.com/dolymood/uni-component/tree/main/packages/components) for more uni-component usage cases.
 
 ## Installation
 
@@ -167,7 +171,7 @@ Use `uniComponent` API.
 Object props:
 
 ```ts
-import { uniComponent, classNames, UniNode } from '@uni-component/core'
+import { uniComponent, classNames, UniNode, PropType } from '@uni-component/core'
 
 const UniXxYy = uniComponent('uni-xx-yy', {
   type: {
