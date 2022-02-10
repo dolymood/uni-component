@@ -12,7 +12,7 @@ Unified Component 核心两部分：
 实际使用的例子：
 
 - **用 uni-component 重构了 [vuetify@next](https://github.com/uni-component/vuetify) 组件库，可以直接在 Vue 3或者React下使用。**
-- 也可以查看 [components](https://github.com/dolymood/uni-component/tree/main/packages/components) 获得更多的使用case学习。这个包是一个用来抹平小程序基础组件到Web的基础库，未来可用于“开端”。
+- 也可以查看 [components](https://github.com/dolymood/uni-component/tree/main/packages/components) 获得更多的使用case学习。这个包是一个用来抹平小程序基础组件到Web的基础库，未来可用于“跨端”。
 
 ## 安装
 
