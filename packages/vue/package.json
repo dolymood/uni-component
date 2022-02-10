@@ -27,7 +27,7 @@
     "./package.json": "./package.json",
     "./dist/*": "./dist/*"
   },
-  "sideEffects": false,
+  "sideEffects": true,
   "buildOptions": {
     "filename": "uni-component-vue",
     "name": "UniComponentVue"
