@@ -34,7 +34,8 @@ npm install @uni-component/core
 import {
   h,
   PropType,
-  uniComponent
+  uniComponent,
+  uni2Platform
 } from '@uni-component/core'
 import {
   computed,
@@ -74,7 +75,7 @@ export const UniButton = uniComponent('uni-button', {
 })
 
 // 利用 render 函数实现平台级的渲染能力，纯渲染
-export const CubeButton xx= uni2Platform(UniButton, (props, state, { renders }) => {
+export const CubeButton = uni2Platform(UniButton, (props, state, { renders }) => {
   const { type, text } = props
   // rootClass always contain Component name, like 'cube-button'
   const { rootClass, n, clickAction } = state

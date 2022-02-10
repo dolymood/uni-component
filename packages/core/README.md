@@ -35,7 +35,8 @@ More cases, see [@uni-component/components](https://github.com/dolymood/uni-comp
 import {
   h,
   PropType,
-  uniComponent
+  uniComponent,
+  uni2Platform
 } from '@uni-component/core'
 import {
   computed,
@@ -75,7 +76,7 @@ export const UniButton = uniComponent('uni-button', {
 })
 
 // platform component with pure render function
-export const CubeButton xx= uni2Platform(UniButton, (props, state, { renders }) => {
+export const CubeButton = uni2Platform(UniButton, (props, state, { renders }) => {
   const { type, text } = props
   // rootClass always contain Component name, like 'cube-button'
   const { rootClass, n, clickAction } = state
