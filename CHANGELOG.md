@@ -1,3 +1,25 @@
+# [0.8.0](https://github.com/dolymood/uni-component/compare/v0.7.0...v0.8.0) (2022-02-11)
+
+
+### Bug Fixes
+
+* children check should use raw value ([c5e36f8](https://github.com/dolymood/uni-component/commit/c5e36f80d63099def2d602a41a3741025bb2bb76))
+* equal should check raw values ([2d3ee8c](https://github.com/dolymood/uni-component/commit/2d3ee8c1bf610b9dea9ff4bb7d91bc1711428daf))
+* get right instance in some react cases ([1935d75](https://github.com/dolymood/uni-component/commit/1935d7511a1f2f73996a81d8a9794ccd295533ad))
+* react and vue pkg had side effects ([9a936f6](https://github.com/dolymood/uni-component/commit/9a936f6eae651f21e462fe034232d59c0a2e7621))
+
+
+### Features
+
+* react use props.children get right parent ([4ffc44d](https://github.com/dolymood/uni-component/commit/4ffc44deda37f0353973eb9d2a3f270476db2b60))
+
+
+### Performance Improvements
+
+* drop support del props dynamically ([6577ba7](https://github.com/dolymood/uni-component/commit/6577ba78780b8261fd944d00da2140b865d4ce85))
+
+
+
 # [0.7.0](https://github.com/dolymood/uni-component/compare/v0.6.4...v0.7.0) (2022-02-09)
 
 

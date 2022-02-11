@@ -1,6 +1,6 @@
 {
   "name": "@uni-component/core",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Unified Component",
   "main": "index.js",
   "module": "dist/uni-component.mjs",
