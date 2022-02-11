@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { computed, reactive, unref, shallowReactive } from '@uni-store/core'
+import { computed, reactive, unref, shallowReactive, toRaw } from '@uni-store/core'
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
@@ -198,16 +198,16 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       if ('uniParent' in context!) {
         lastIns = context.uniParent || rootInstance
       } else {
+        const rawProps = toRaw(props)
         // normal case
         // find parent
         // <A><B><C></C></B></A>
-
         const hasChild = (ins: Instance<any, any> | RootInstance) => {
           const _children = ins.context.$children
           // <UniA><ReactX><UniB></UniB></ReactX></UniA>
           // can not get correct relations
           const result = _children.find((child: any) => {
-            return child && equal(child.props, props) && child.type === context!.FC
+            return child && child.type === context!.FC && equal(child.props, rawProps)
           })
           return !!result
         }
@@ -216,7 +216,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           return children.length >= ins.context.$children.length
         }
         while (lastIns) {
-          if (!lastIns.vnode || !lastIns.vnode.props || !lastIns.vnode.props.children || !hasChild(lastIns) || isFull(lastIns)) {
+          if (!lastIns.context.$children || !hasChild(lastIns) || isFull(lastIns)) {
             lastIns = lastIns.parent!
           } else {
             break
