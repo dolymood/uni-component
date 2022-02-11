@@ -1,3 +1,4 @@
+import { toRaw } from '@uni-store/core'
 import { capitalize, camelize, hyphenate } from '@vue/shared'
 
 export { camelize, capitalize, hyphenate }
@@ -31,9 +32,11 @@ export const mergeStyle = (...styles: any[]) => {
 }
 
 export const equal = (a: any, b: any) => {
+  a = toRaw(a)
+  b = toRaw(b)
   let r = true
   for (const k in a) {
-    if (a[k] !== b[k]) {
+    if (toRaw(a[k]) !== toRaw(b[k])) {
       r = false
       break
     }
