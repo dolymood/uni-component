@@ -120,16 +120,6 @@ importers:
       '@uni-component/core': link:../core
       '@uni-store/core': 0.3.3
 
-  packages/mpx:
-    specifiers:
-      '@mpxjs/core': ^2.6.110
-      '@uni-component/core': '*'
-      '@uni-store/core': ^0.3.3
-    devDependencies:
-      '@mpxjs/core': 2.6.110
-      '@uni-component/core': link:../core
-      '@uni-store/core': 0.3.3
-
   packages/react:
     specifiers:
       '@testing-library/react': ^12.1.2
@@ -940,16 +930,6 @@ packages:
     resolution: {integrity: sha512-WrHvO8PDL8wd8T2+zBGKrMwVL5IyzR3ryWUsl0PXgEV0QHup4mTLi0QcATefGI6Gx9Anu7vthPyyyLpY0EpiQg==}
     dev: true
 
-  /@mpxjs/core/2.6.110:
-    resolution: {integrity: sha512-eCpnrkokMFyX4OK/DGK0CoMnhY3na3pMI3lptByknZ2Z/fRccaotX8rDqSmdjghq9XKc/mdJHegcT1u899Bgcw==}
-    peerDependencies:
-      vue: ^2.6.10
-      vue-i18n: ^8.15.3
-    dependencies:
-      lodash: 4.17.21
-      miniprogram-api-typings: 3.4.4
-    dev: true
-
   /@rollup/plugin-alias/3.1.8_rollup@2.62.0:
     resolution: {integrity: sha512-tf7HeSs/06wO2LPqKNY3Ckbvy0JRe7Jyn98bXnt/gfrxbe+AJucoNJlsEVi9sdgbQtXemjbakCpO/76JVgnHpA==}
     engines: {node: '>=8.0.0'}
@@ -1311,6 +1291,7 @@ packages:
     dependencies:
       '@vue/reactivity': 3.2.26
       '@vue/runtime-core': 3.2.26
+    dev: false
 
   /@uni-store/core/0.3.4:
     resolution: {integrity: sha512-lLLSqf94jNf5mQJs6hOlRgrkOQT9WLgwaKflbB0ii+4kF9iAzbvthkNcvX4WHzNSo7aKXXUD/IIM+fNYXQhEAg==}
@@ -4266,10 +4247,6 @@ packages:
 
   /minimist/1.2.5:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
-    dev: true
-
-  /miniprogram-api-typings/3.4.4:
-    resolution: {integrity: sha512-vT4avEJxCnscNXjY3rI0dNtU1tf/mNll9RhAS0uS+eN5IdQ7MrnG5thGOxjoWnDJSiPYLG912IMcf6KKsXEDAQ==}
     dev: true
 
   /mkdirp/0.5.5:
