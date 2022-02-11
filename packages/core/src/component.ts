@@ -208,7 +208,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           // <UniA><ReactX><UniB></UniB></ReactX></UniA>
           // can not get correct relations
           const result = _children.find((child: any) => {
-            return child && child.type === context!.FC && equal(child.props, rawProps)
+            const rawChild = toRaw(child)
+            return rawChild && rawChild.type === context!.FC && equal(rawChild.props, rawProps)
           })
           return !!result
         }
