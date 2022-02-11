@@ -198,6 +198,7 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
       if ('uniParent' in context!) {
         lastIns = context.uniParent || rootInstance
       } else {
+        // todo should in pkg/react
         const rawProps = toRaw(props)
         // normal case
         // find parent
