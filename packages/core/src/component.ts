@@ -91,16 +91,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
           renders[key] = val
         }
       }
-      const reset = (data: Record<string, any>) => {
-        Object.keys(data).forEach((k) => {
-          delete data[k]
-        })
-      }
 
       const contextProps = computed(() => {
-        reset(_props)
-        reset(renders)
-        reset($attrs)
         if (processedAttrs) {
           // vue case
           // collect deps
@@ -120,7 +112,6 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
             }
           })
         } else {
-          reset(attrs)
           // handle attrs
           Object.keys(props).forEach((propKey: string) => {
             const val = (props as any)[propKey]
