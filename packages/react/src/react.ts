@@ -1,16 +1,9 @@
-import React, { useEffect, useLayoutEffect, useImperativeHandle } from 'react'
+import { useEffect, useLayoutEffect, useImperativeHandle } from 'react'
 import type { ForwardRefRenderFunction, ReactElement, ReactNode } from 'react'
 import type { UnwrapNestedRefs, UnwrapRef } from '@uni-store/core'
 import { reactiveReact, useSetup } from '@uni-store/react'
 import { invokeMounted, invokeUpdated, invokeUnmounted } from '@uni-component/core'
-import type { FCComponent, RawPropTypes, Context, Instance } from '@uni-component/core'
-
-if (process.env.NODE_ENV !== 'production') {
-  // force set to undefined
-  (Object as any).preventExtensions = undefined
-}
-
-let ReactSharedInternals = (React as any).__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED
+import type { FCComponent, RawPropTypes, Context } from '@uni-component/core'
 
 export function uni2React<
   Props extends {},
@@ -27,33 +20,17 @@ export function uni2React<
     UniComponent.render = render
   }
   const FC: ForwardRefRenderFunction<Partial<UnwrapRef<State>>, FCProps> = (props: FCProps & { children?: ReactNode }, ref) => {
-    const current = ReactSharedInternals.ReactCurrentOwner.current
-    let uniParent: Instance<any, any> | undefined
-    let p = current.return
-    while (p) {
-      if (p.__UNI_INSTANCE__) {
-        uniParent = p.__UNI_INSTANCE__
-        break
-      } else {
-        p = p.return
-      }
-    }
-
     const instance = useSetup((props: UnwrapNestedRefs<FCProps> & { children?: ReactNode }) => {
       const context = {
         renders: {} as Record<string, Function>
       } as Context
 
       context.nodeProps = props
-      context.uniParent = uniParent
+      context.FC = RC
       return UniComponent(props as FCProps & { children?: ReactNode }, context)
     }, props)
 
-    if (ref) {
-      useImperativeHandle(ref, () => instance.state, [instance])
-    }
-
-    current.__UNI_INSTANCE__ = instance
+    useImperativeHandle(ref, () => instance.state, [instance])
 
     // updated
     useLayoutEffect(() => {
@@ -68,7 +45,6 @@ export function uni2React<
     // unmounted
     useEffect(() => () => {
       invokeUnmounted(instance)
-      delete (current as any).__UNI_INSTANCE__
     }, [instance])
     return instance.render() as ReactElement<any, any>
   }
@@ -76,5 +52,6 @@ export function uni2React<
   const RC = reactiveReact(FC, {
     forwardRef: true
   })
+  ;(RC as any).___UNI___ = true
   return RC
 }

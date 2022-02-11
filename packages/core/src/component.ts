@@ -3,12 +3,14 @@ import { computed, reactive, unref, shallowReactive } from '@uni-store/core'
 import { getDefaultProps } from './props'
 import type { RawPropTypes, ExtractPropTypes, ComponentPropsOptions } from './props'
 import type { FCComponent, Context } from './node'
-import { normalized, mergeStyle, camelize } from './util'
+import { normalized, mergeStyle, camelize, equal } from './util'
 import {
   newInstance,
   setCurrentInstance,
   getCurrentInstance,
-  getRootInstance
+  getRootInstance,
+  Instance,
+  RootInstance,
 } from './instance'
 import { onMounted, onUpdated, onUnmounted } from './lifecycle'
 import { getPlatform } from './platform'
@@ -201,14 +203,75 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
 
       // handle instance
       let lastIns = getCurrentInstance()
+      let currentIns = lastIns
       if ('uniParent' in context!) {
         lastIns = context.uniParent || rootInstance
+      } else {
+        // normal case
+        // find parent
+        // <A><B><C></C></B></A>
+
+        const hasChild = (ins: Instance<any, any> | RootInstance) => {
+          const _children = ins.context.$children
+          // <UniA><ReactX><UniB></UniB></ReactX></UniA>
+          // can not get correct relations
+          const result = _children.find((child: any) => {
+            return child && equal(child.props, props) && child.type === context!.FC
+          })
+          return !!result
+        }
+        const isFull = (ins: Instance<any, any> | RootInstance) => {
+          const children = ins.children
+          return children.length >= ins.context.$children.length
+        }
+        while (lastIns) {
+          if (!lastIns.vnode || !lastIns.vnode.props || !lastIns.vnode.props.children || !hasChild(lastIns) || isFull(lastIns)) {
+            lastIns = lastIns.parent!
+          } else {
+            break
+          }
+        }
+
+        if (lastIns === undefined) {
+          // fallback
+          // B = <div></div>
+          // A = <B></B>
+          // <A></A>
+          lastIns = currentIns
+        }
       }
 
       const instance = newInstance(contextProps.value.props, state, context!, () => {
         setCurrentInstance(instance)
-        const nodes = FC.render(finialProps.value, state, context!)
-        return nodes
+        const vnode = FC.render(finialProps.value, state, context!)
+        instance.vnode = vnode
+        if ('uniParent' in context!) {
+          return vnode
+        }
+        const $children: any[] = []
+        const collectUniChildren = (children?: any | any[]) => {
+          if (children) {
+            const _children = Array.isArray(children) ? children : [children]
+            _children.forEach((child) => {
+              if (child) {
+                if (Array.isArray(child)) {
+                  collectUniChildren(child)
+                } else {
+                  if (child.type && child.type.___UNI___) {
+                    $children.push(child)
+                  } else if (child.props) {
+                    // find children
+                    // not uni child
+                    collectUniChildren(child.props.children)
+                  }
+                }
+              }
+            })
+          }
+        }
+        collectUniChildren(vnode)
+        context!.$children = $children
+        return vnode
       }, FC, lastIns)
 
       setCurrentInstance(instance)
@@ -245,7 +308,8 @@ export function uniComponent (name: string, rawProps?: RawPropTypes | Function, 
         ins.render = undefined
         ins.type = undefined
         ins.context = undefined
-        const children = lastIns.children
+        ins.vnode = undefined
+        const children = instance.parent!.children
         const i = children.indexOf(instance)
         children.splice(i, 1)
         instance.parent = undefined

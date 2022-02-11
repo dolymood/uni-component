@@ -14,7 +14,8 @@ export interface Instance<Props extends {}, S extends {}, Node extends UniNode =
   isMounted: boolean,
   isUnmounted: boolean,
   hooks: Record<string, Set<Function>>,
-  provides: Provides
+  provides: Provides,
+  vnode?: UniNode | undefined
 }
 
 export function newInstance <
@@ -49,7 +50,9 @@ export interface RootInstance {
   context: Context,
   provides: Provides,
   children: any[],
-  hooks: any
+  isUnmounted: boolean,
+  hooks: any,
+  vnode?: UniNode | undefined
 }
 
 // todo use instance
@@ -64,6 +67,7 @@ const rootInstance: RootInstance = {
   },
   provides: {},
   children: [],
+  isUnmounted: false,
   hooks: {}
 }
 
@@ -72,6 +76,9 @@ export const getRootInstance = () => rootInstance
 let currentInstance: Instance<any, any> | RootInstance = rootInstance
 
 export const setCurrentInstance = (instance: Instance<any, any> | RootInstance) => {
+  if (instance.isUnmounted) {
+    return currentInstance
+  }
   const pre = currentInstance
   currentInstance = instance
   return pre
