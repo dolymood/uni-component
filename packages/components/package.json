@@ -74,7 +74,7 @@
     "@uni-component/core": "*",
     "@uni-component/react": "*",
     "@uni-component/vue": "*",
-    "@uni-store/core": "^0.3.3",
+    "@uni-store/core": "^0.3.4",
     "@vitejs/plugin-react": "^1.1.3",
     "@vitejs/plugin-vue-jsx": "^1.3.3",
     "react": "^17.0.2",
@@ -85,7 +85,7 @@
   },
   "peerDependencies": {
     "@uni-component/core": "0.7.0",
-    "@uni-store/core": ">=0.3.3"
+    "@uni-store/core": ">=0.3.4"
   },
   "repository": {
     "type": "git",

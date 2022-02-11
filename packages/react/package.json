@@ -58,15 +58,15 @@
     "@types/react-dom": "^17.0.11",
     "@uni-component/core": "*",
     "@uni-component/example": "*",
-    "@uni-store/core": "^0.3.3",
-    "@uni-store/react": "^0.3.3",
+    "@uni-store/core": "^0.3.4",
+    "@uni-store/react": "^0.3.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "peerDependencies": {
     "@uni-component/core": "0.7.0",
-    "@uni-store/core": ">=0.3.3",
-    "@uni-store/react": ">=0.3.3",
+    "@uni-store/core": ">=0.3.4",
+    "@uni-store/react": ">=0.3.4",
     "react": "^17"
   },
   "repository": {
