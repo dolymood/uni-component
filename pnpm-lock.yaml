@@ -122,20 +122,20 @@ importers:
       '@testing-library/react': ^12.1.2
       '@types/react': ^17.0.37
       '@types/react-dom': ^17.0.11
-      '@uni-component/core': 0.8.0
+      '@uni-component/core': '*'
       '@uni-component/example': '*'
       '@uni-store/core': ^0.3.5
       '@uni-store/react': ^0.3.5
       react: ^17.0.2
       react-dom: ^17.0.2
     dependencies:
-      '@uni-component/core': link:../core
       '@uni-store/core': 0.3.5
       '@uni-store/react': 0.3.5_9f2a0794a0b2fd86f6f8799044b6bd91
     devDependencies:
       '@testing-library/react': 12.1.2_react-dom@17.0.2+react@17.0.2
       '@types/react': 17.0.38
       '@types/react-dom': 17.0.11
+      '@uni-component/core': link:../core
       '@uni-component/example': link:../example
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -143,16 +143,13 @@ importers:
   packages/vue:
     specifiers:
       '@testing-library/vue': ^6.5.0
-      '@uni-component/core': 0.8.0
+      '@uni-component/core': '*'
       '@uni-component/example': '*'
-      '@uni-store/core': ^0.3.5
       '@vue/compiler-sfc': '3'
       vue: ^3.2.31
-    dependencies:
-      '@uni-component/core': link:../core
-      '@uni-store/core': 0.3.5
     devDependencies:
       '@testing-library/vue': 6.5.0_f6498687b95dcb221f308f64bbc2c3b0
+      '@uni-component/core': link:../core
       '@uni-component/example': link:../example
       '@vue/compiler-sfc': 3.2.26
       vue: 3.2.31

@@ -56,17 +56,18 @@
     "@testing-library/react": "^12.1.2",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "@uni-component/core": "*",
     "@uni-component/example": "*",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
   "peerDependencies": {
-    "react": "^17"
+    "react": "^17",
+    "@uni-component/core": "^0.8.0"
   },
   "dependencies": {
     "@uni-store/core": "^0.3.5",
-    "@uni-store/react": "^0.3.5",
-    "@uni-component/core": "0.8.0"
+    "@uni-store/react": "^0.3.5"
   },
   "repository": {
     "type": "git",
