@@ -1,5 +1,4 @@
-import { h, uniComponent, uni2Platform } from '@uni-component/core'
-import { ref, watch, markRaw } from '@uni-store/core'
+import { h, uniComponent, uni2Platform, ref, watch, markRaw } from '@uni-component/core'
 import { View } from '@uni-component/components'
 import { Item } from './components/Item'
 import { Page } from './components/Page'

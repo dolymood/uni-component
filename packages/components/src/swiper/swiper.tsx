@@ -7,9 +7,12 @@ import {
   onMounted,
   onUnmounted,
   classNames,
-  provide
+  provide,
+  ref,
+  watch,
+  computed,
+  Ref
 } from '@uni-component/core'
-import { ref, watch, computed, Ref } from '@uni-store/core'
 // import { processSize } from '../_/util'
 import BScroll from '@better-scroll/core'
 import Slide from '@better-scroll/slide'

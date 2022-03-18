@@ -1,11 +1,9 @@
 import {
   h,
   uniComponent,
-  uni2Platform
-} from '@uni-component/core'
-import {
+  uni2Platform,
   computed
-} from '@uni-store/core'
+} from '@uni-component/core'
 
 const UniText = uniComponent('uni-text', {
   selectable: Boolean

@@ -1,5 +1,4 @@
-import { h, uniComponent, provide, uni2Platform, PropType } from '@uni-component/core'
-import { watch, ref, computed, ComputedRef } from '@uni-store/core'
+import { h, uniComponent, provide, uni2Platform, PropType, watch, ref, computed, ComputedRef } from '@uni-component/core'
 
 export const checkboxGroupProvide = 'uni-checkbox-group'
 

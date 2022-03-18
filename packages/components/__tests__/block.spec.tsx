@@ -1,6 +1,6 @@
 import React from 'react'
 import { h, mount } from './test-tools'
-import { nextTick } from '@uni-store/core'
+import { nextTick } from '@uni-component/core'
 import { Block } from '../src'
 
 describe('Block', () => {

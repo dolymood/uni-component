@@ -1,6 +1,5 @@
 import { defineComponent, ref } from 'vue'
-import { h, useRef } from '@uni-component/core'
-import { nextTick } from '@uni-store/core'
+import { h, useRef, nextTick } from '@uni-component/core'
 import {
   fireEvent,
   render

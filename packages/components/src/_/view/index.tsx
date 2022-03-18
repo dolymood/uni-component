@@ -2,9 +2,9 @@ import {
   h,
   ExtractPropTypes,
   GetState,
-  Context
+  Context,
+  computed
 } from '@uni-component/core'
-import { computed } from '@uni-store/core'
 import { useHover, props as hoverProps } from '../hover'
 import { props as containerProps, useContainer } from '../container'
 

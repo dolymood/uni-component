@@ -1,10 +1,8 @@
 import {
+  ref,
+  computed,
   ExtractPropTypes
 } from '@uni-component/core'
-import {
-  ref,
-  computed
-} from '@uni-store/core'
 
 export const props = {
   disabled: Boolean,

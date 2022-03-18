@@ -1,5 +1,4 @@
-import { h, uniComponent, uni2Platform } from '@uni-component/core'
-import { ref } from '@uni-store/core'
+import { h, uniComponent, uni2Platform, ref } from '@uni-component/core'
 import { PickerView, PickerViewColumn, View, Text } from '@uni-component/components'
 import './index.scss'
 

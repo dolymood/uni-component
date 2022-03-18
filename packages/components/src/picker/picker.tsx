@@ -6,9 +6,12 @@ import {
   onMounted,
   onUnmounted,
   useRef,
-  classNames
+  classNames,
+  ref,
+  computed,
+  watch,
+  nextTick
 } from '@uni-component/core'
-import { ref, computed, watch, nextTick } from '@uni-store/core'
 import BScroll from '@better-scroll/core'
 import Wheel from '@better-scroll/wheel'
 import { useTransition } from '../_/transition'

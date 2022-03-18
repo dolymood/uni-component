@@ -1,5 +1,4 @@
-import { uniComponent, PropType, h, uni2Platform, useRef, onMounted } from '@uni-component/core'
-import { ref } from '@uni-store/core'
+import { uniComponent, PropType, h, uni2Platform, useRef, onMounted, ref } from '@uni-component/core'
 
 interface Attributes {
   [propName: string]: string | {

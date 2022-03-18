@@ -3,9 +3,9 @@ import {
   PropType,
   useRef,
   onMounted,
-  onUnmounted
+  onUnmounted,
+  ref
 } from '@uni-component/core'
-import { ref } from '@uni-store/core'
 
 type TouchEventHandler = PropType<(e: TouchEvent) => void>
 

@@ -2,9 +2,9 @@ import {
   h,
   PropType,
   uniComponent,
-  uni2Platform
+  uni2Platform,
+  computed
 } from '@uni-component/core'
-import { computed } from '@uni-store/core'
 import { useHover, props } from '../_/hover'
 
 const UniButton = uniComponent('uni-button', {

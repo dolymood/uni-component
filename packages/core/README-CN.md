@@ -35,12 +35,10 @@ import {
   h,
   PropType,
   uniComponent,
-  uni2Platform
-} from '@uni-component/core'
-import {
+  uni2Platform,
   computed,
   ref
-} from '@uni-store/core'
+} from '@uni-component/core'
 
 // 必须有的纯的组件状态，个人理解为 headless 无头组件
 export const UniButton = uniComponent('uni-button', {

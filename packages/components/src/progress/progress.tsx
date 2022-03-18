@@ -1,9 +1,9 @@
 import {
   h,
   uniComponent,
-  uni2Platform
+  uni2Platform,
+  computed
 } from '@uni-component/core'
-import { computed } from '@uni-store/core'
 
 const UniProgress = uniComponent('uni-progress', {
   percent: {

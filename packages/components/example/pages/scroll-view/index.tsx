@@ -1,5 +1,4 @@
-import { h, uniComponent, uni2Platform, onMounted } from '@uni-component/core'
-import { ref } from '@uni-store/core'
+import { h, uniComponent, uni2Platform, onMounted, ref } from '@uni-component/core'
 import { ScrollView } from '@uni-component/components'
 import './index.scss'
 

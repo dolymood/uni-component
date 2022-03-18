@@ -1,5 +1,4 @@
-import { h, uniComponent, uni2Platform, useRef, PropType } from '@uni-component/core'
-import { ref } from '@uni-store/core'
+import { h, uniComponent, uni2Platform, useRef, PropType, ref } from '@uni-component/core'
 
 const UniCoverImage = uniComponent('uni-cover-image', {
   src: String,

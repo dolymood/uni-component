@@ -1,5 +1,4 @@
-import { ref } from '@uni-store/core'
-import { useRef } from '../src'
+import { useRef, ref } from '../src'
 
 describe('Test ref', () => {
   it('useRef should work correctly', () => {

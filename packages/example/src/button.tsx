@@ -1,12 +1,10 @@
 import {
-  computed,
-  ref
-} from '@uni-store/core'
-import {
   h,
   PropType,
   UniNode,
-  uniComponent
+  uniComponent,
+  computed,
+  ref
 } from '@uni-component/core'
 
 const CubeView = uniComponent('cube-view', (name) => {

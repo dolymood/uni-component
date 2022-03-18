@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { h, mount, actAsync } from './test-tools'
-import { nextTick } from '@uni-store/core'
+import { nextTick } from '@uni-component/core'
 import { Audio } from '../src'
 
 describe('Audio', () => {

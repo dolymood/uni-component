@@ -33,7 +33,8 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.30.0",
     "semver": "^7.3.5",
-    "typescript": "^4.5.4"
+    "typescript": "^4.5.4",
+    "sass": "^1.45.1"
   },
   "engines": {
     "node": ">=16.5.0"

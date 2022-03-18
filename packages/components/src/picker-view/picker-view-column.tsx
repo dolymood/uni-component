@@ -5,9 +5,10 @@ import {
   onMounted,
   onUnmounted,
   useRef,
-  uni2Platform
+  uni2Platform,
+  ref,
+  nextTick
 } from '@uni-component/core'
-import { ref, nextTick } from '@uni-store/core'
 import BScroll from '@better-scroll/core'
 import Wheel from '@better-scroll/wheel'
 import { PickerViewProvide, PickerViewColumnInstance, pickerViewProvide } from './picker-view'

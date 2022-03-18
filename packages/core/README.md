@@ -36,12 +36,10 @@ import {
   h,
   PropType,
   uniComponent,
-  uni2Platform
-} from '@uni-component/core'
-import {
+  uni2Platform,
   computed,
   ref
-} from '@uni-store/core'
+} from '@uni-component/core'
 
 // pure setup state
 export const UniButton = uniComponent('uni-button', {

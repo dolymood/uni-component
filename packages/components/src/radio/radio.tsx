@@ -1,5 +1,4 @@
-import { h, uniComponent, inject, uni2Platform, PropType } from '@uni-component/core'
-import { watch, ref, computed } from '@uni-store/core'
+import { h, uniComponent, inject, uni2Platform, PropType, watch, ref, computed } from '@uni-component/core'
 import { RadioGroupProvide, radioGroupProvide } from './radio-group'
 import { useField, FieldType } from '../_/form/field'
 

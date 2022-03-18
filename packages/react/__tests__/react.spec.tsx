@@ -1,6 +1,5 @@
 import React, { createRef, useState } from 'react'
-import { nextTick } from '@uni-store/core'
-import { getRootInstance } from '@uni-component/core'
+import { getRootInstance, nextTick } from '@uni-component/core'
 import {
   act,
   cleanup,

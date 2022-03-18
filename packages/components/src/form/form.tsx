@@ -1,5 +1,4 @@
-import { h, uniComponent, provide, uni2Platform, PropType } from '@uni-component/core'
-import { ref } from '@uni-store/core'
+import { h, uniComponent, provide, uni2Platform, PropType, ref } from '@uni-component/core'
 import { formProvide } from '../_/form/form'
 
 const UniForm = uniComponent('uni-form', {

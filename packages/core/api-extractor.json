@@ -1,6 +1,9 @@
 {
   "extends": "../../api-extractor.json",
   "mainEntryPointFilePath": "./dist/packages/core/src/index.d.ts",
+  "compiler": {
+    "tsconfigFilePath": "./tsconfig.json"
+  },
   "dtsRollup": {
     "enabled": true,
     "publicTrimmedFilePath": "./dist/uni-component.d.ts"

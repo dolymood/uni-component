@@ -5,9 +5,11 @@ import {
   onUnmounted,
   uni2Platform,
   useRef,
-  PropType
+  PropType,
+  watch,
+  ref,
+  computed
 } from '@uni-component/core'
-import { watch, ref, computed } from '@uni-store/core'
 import { useField, FieldType } from '../_/form/field'
 
 const UniInput = uniComponent('uni-input', {

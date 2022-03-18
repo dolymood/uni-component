@@ -5,9 +5,10 @@ import {
   uniComponent,
   classNames,
   uni2Platform,
-  useRef
+  useRef,
+  ref,
+  computed
 } from '@uni-component/core'
-import { ref, computed } from '@uni-store/core'
 
 export type Mode =
   | 'scaleToFill'

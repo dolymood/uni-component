@@ -1,6 +1,5 @@
-import { computed } from '@uni-store/core'
 import { isArray, isFunction } from '@vue/shared'
-import { h, uniComponent, provide, inject, invokeMounted, invokeUnmounted, UniNode, capture, Context } from '../src'
+import { h, uniComponent, provide, inject, computed, invokeMounted, invokeUnmounted, UniNode, capture, Context } from '../src'
 
 describe('Test Core', () => {
   it('should work correctly - without props', () => {

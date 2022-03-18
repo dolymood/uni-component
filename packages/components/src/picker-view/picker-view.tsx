@@ -7,9 +7,13 @@ import {
   onMounted,
   PropType,
   uni2Platform,
-  inlineStyle2Obj
+  mergeStyle,
+  ref,
+  computed,
+  watch,
+  ComputedRef,
+  Ref
 } from '@uni-component/core'
-import { ref, computed, watch, ComputedRef, Ref } from '@uni-store/core'
 import { useField, FieldType } from '../_/form/field'
 
 export interface PickerViewColumnInstance {
@@ -53,10 +57,10 @@ export const UniPickerView = uniComponent('uni-picker-view', {
   const maskHeight = ref(0)
 
   const maskStyle = computed(() => {
-    return inlineStyle2Obj(props.maskStyle)
+    return mergeStyle(props.maskStyle)
   })
   const indicatorStyle = computed(() => {
-    return inlineStyle2Obj(props.indicatorStyle)
+    return mergeStyle(props.indicatorStyle)
   })
 
   const value = ref(props.value)

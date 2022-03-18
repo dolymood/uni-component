@@ -9,8 +9,7 @@ import type {
   DefineComponent
 } from 'vue'
 import { invokeMounted, invokeUpdated, invokeUnmounted, __innerSetRef, RawPropTypes } from '@uni-component/core'
-import type { FCComponent, Instance, Context } from '@uni-component/core'
-import type { Ref, UnwrapRef } from '@uni-store/core'
+import type { Ref, UnwrapRef, FCComponent, Instance, Context } from '@uni-component/core'
 
 __innerSetRef.setter = <RefObject extends Ref<any>> (ref: RefObject, el?: UnwrapRef<RefObject>) => {
   if (el && el.$ && el.$.setupState) {

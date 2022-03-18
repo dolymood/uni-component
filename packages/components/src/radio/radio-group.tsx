@@ -1,5 +1,4 @@
-import { h, uniComponent, provide, uni2Platform, PropType } from '@uni-component/core'
-import { watch, ref, computed, ComputedRef, Ref } from '@uni-store/core'
+import { h, uniComponent, provide, uni2Platform, PropType, watch, ref, computed, ComputedRef, Ref } from '@uni-component/core'
 
 export const radioGroupProvide = 'uni-radio-group'
 

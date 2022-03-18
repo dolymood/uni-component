@@ -6,9 +6,12 @@ import {
   uniComponent,
   inject,
   uni2Platform,
-  useRef
+  useRef,
+  ref,
+  watch,
+  computed,
+  nextTick
 } from '@uni-component/core'
-import { ref, watch, computed, nextTick } from '@uni-store/core'
 import { movableAreaProvide, MovableAreaProvide } from './movable-area'
 import BScroll from '@better-scroll/core'
 import Movable from '@better-scroll/movable'

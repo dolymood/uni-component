@@ -1,5 +1,4 @@
-import { h, uniComponent, uni2Platform, useRef, PropType } from '@uni-component/core'
-import { watch, ref, computed } from '@uni-store/core'
+import { h, uniComponent, uni2Platform, useRef, PropType, watch, ref, computed } from '@uni-component/core'
 import { useField, FieldType } from '../_/form/field'
 
 const UniSlider = uniComponent('uni-slider', {

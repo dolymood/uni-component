@@ -53,14 +53,6 @@
     "README-CN.md"
   ],
   "license": "MIT",
-  "devDependencies": {
-    "@uni-store/core": "^0.3.4",
-    "@vue/runtime-core": "^3.2.24",
-    "@vue/shared": "^3.2.24"
-  },
-  "peerDependencies": {
-    "@uni-store/core": ">=0.3.4"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dolymood/uni-component.git",
@@ -71,6 +63,9 @@
   },
   "homepage": "https://github.com/dolymood/uni-component#readme",
   "dependencies": {
-    "classnames": "^2.3.1"
+    "classnames": "^2.3.1",
+    "@uni-store/core": "^0.3.5",
+    "@vue/runtime-core": "^3.2.31",
+    "@vue/shared": "^3.2.31"
   }
 }

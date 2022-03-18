@@ -1,4 +1,4 @@
-import { Ref } from '@uni-store/core'
+import { Ref } from '@uni-component/core'
 export const formProvide = 'uni-form-provide'
 
 export interface FormProvide {

@@ -1,5 +1,4 @@
-import { h, PropType, uniComponent, uni2Platform } from '@uni-component/core'
-import { computed } from '@uni-store/core'
+import { h, PropType, uniComponent, uni2Platform, computed } from '@uni-component/core'
 import { props, useContainer } from '../_/container'
 
 export type Type = 'success' | 'success_no_circle' | 'info'| 'warn'| 'waiting'| 'cancel'| 'download'| 'search'| 'clear'

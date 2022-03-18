@@ -3,9 +3,11 @@ import {
   uniComponent,
   provide,
   uni2Platform,
-  useRef
+  useRef,
+  ref,
+  computed,
+  Ref
 } from '@uni-component/core'
-import { ref, computed, Ref } from '@uni-store/core'
 
 export const movableAreaProvide = 'uni-movable-area-provide'
 

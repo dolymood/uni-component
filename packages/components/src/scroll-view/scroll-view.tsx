@@ -6,9 +6,11 @@ import {
   onUnmounted,
   onUpdated,
   PropType,
-  useRef
+  useRef,
+  ref,
+  computed,
+  watch
 } from '@uni-component/core'
-import { ref, computed, watch } from '@uni-store/core'
 import { processSize } from '../_/util'
 import BScroll, { Options } from '@better-scroll/core'
 import PullDown from '@better-scroll/pull-down'

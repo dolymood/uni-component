@@ -1,4 +1,4 @@
-import { ExtractPropTypes } from '@vue/runtime-core'
+import type { ExtractPropTypes } from '@vue/runtime-core'
 import type { JSXBase } from './types'
 
 export type {

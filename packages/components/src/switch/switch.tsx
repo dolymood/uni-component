@@ -1,5 +1,4 @@
-import { h, uniComponent, uni2Platform, PropType } from '@uni-component/core'
-import { watch, ref, computed } from '@uni-store/core'
+import { h, uniComponent, uni2Platform, PropType, watch, ref, computed } from '@uni-component/core'
 import { useField, FieldType } from '../_/form/field'
 
 const UniSwitch = uniComponent('uni-switch', {

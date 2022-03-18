@@ -1,5 +1,4 @@
-import { h, uniComponent, uni2Platform } from '@uni-component/core'
-import { ref } from '@uni-store/core'
+import { h, uniComponent, uni2Platform, ref } from '@uni-component/core'
 import { Picker, View, Text } from '@uni-component/components'
 
 const array = ['美国', '中国', '巴西', '日本']
