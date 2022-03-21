@@ -113,7 +113,7 @@ importers:
 
   packages/example:
     specifiers:
-      '@uni-component/core': 0.8.0
+      '@uni-component/core': 0.9.0
     dependencies:
       '@uni-component/core': link:../core
 

@@ -1,7 +1,7 @@
 {
   "name": "@uni-component/example",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "dependencies": {
-    "@uni-component/core": "0.8.0"
+    "@uni-component/core": "0.9.0"
   }
 }

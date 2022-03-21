@@ -1,6 +1,6 @@
 {
   "name": "@uni-component/components",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "Unified component components",
   "main": "index.js",
   "module": "dist/uni-component-components.mjs",
@@ -83,7 +83,7 @@
     "vue": "^3.2.31"
   },
   "peerDependencies": {
-    "@uni-component/core": "0.8.0"
+    "@uni-component/core": "0.9.0"
   },
   "repository": {
     "type": "git",
