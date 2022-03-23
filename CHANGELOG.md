@@ -6,16 +6,6 @@
 * uni-component should include uni-store ([5f3da1a](https://github.com/dolymood/uni-component/commit/5f3da1a7591381d5756115cd68ce748f788568f0))
 
 
-
-# [0.9.0](https://github.com/dolymood/uni-component/compare/v0.8.0...v0.9.0) (2022-03-21)
-
-
-### Features
-
-* uni-component should include uni-store ([5f3da1a](https://github.com/dolymood/uni-component/commit/5f3da1a7591381d5756115cd68ce748f788568f0))
-
-
-
 # [0.8.0](https://github.com/dolymood/uni-component/compare/v0.7.0...v0.8.0) (2022-02-11)
 
 
